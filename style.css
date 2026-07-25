@@ -1,0 +1,996 @@
+/* ==========================================
+   CSS GLOBAL - SÉ TU ENTRENADOR
+   Estilo Premium - Inspiración Científica
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Paleta de Colores Inspirada en la Portada del Libro */
+  --bg-primary: #0a0b0d;        /* Negro carbón profundo */
+  --bg-secondary: #13151a;      /* Gris azulado oscuro para tarjetas */
+  --bg-tertiary: #1b1e25;       /* Gris más claro para contrastes */
+  
+  --color-brand-red: #a63a3a;   /* Rojo terracota de la portada */
+  --color-brand-red-hover: #bd4444;
+  --color-brand-cream: #eedec9; /* Crema/arena de la portada */
+  --color-brand-cream-muted: rgba(238, 222, 201, 0.7);
+  
+  --color-text-main: #ffffff;
+  --color-text-muted: #9ba1ad;
+  
+  /* Colores de Utilidad */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #20ba5a;
+  --color-glass-bg: rgba(19, 21, 26, 0.65);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  
+  /* Fuentes */
+  --font-sans: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  
+  /* Transiciones y Sombras */
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(166, 58, 58, 0.25);
+  
+  --border-radius-lg: 16px;
+  --border-radius-md: 10px;
+}
+
+/* Reset y Estilos Generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-red);
+}
+
+/* Contenedor Global */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Tipografías Especiales */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-text-main) 30%, var(--color-brand-cream) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-red {
+  background: linear-gradient(135deg, var(--color-brand-red) 30%, #e05a5a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================
+   NAVEGACIÓN (HEADER)
+   ========================================== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(10, 11, 13, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-glass-border);
+  transition: var(--transition-smooth);
+}
+
+header.scrolled {
+  padding: 10px 0;
+  background-color: rgba(10, 11, 13, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.logo-icon {
+  background: var(--color-brand-red);
+  color: var(--color-text-main);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(166, 58, 58, 0.4);
+}
+
+.logo-text {
+  color: var(--color-text-main);
+}
+
+.logo-text span {
+  color: var(--color-brand-red);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+}
+
+nav ul a {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+  position: relative;
+  padding: 8px 0;
+}
+
+nav ul a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-brand-red);
+  transition: var(--transition-smooth);
+}
+
+nav ul a:hover {
+  color: var(--color-text-main);
+}
+
+nav ul a:hover::after {
+  width: 100%;
+}
+
+.nav-btn {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-glass-border);
+  padding: 10px 20px;
+  border-radius: var(--border-radius-md);
+  color: var(--color-brand-cream) !important;
+}
+
+.nav-btn:hover {
+  background-color: var(--color-brand-red);
+  color: var(--color-text-main) !important;
+  border-color: var(--color-brand-red);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-text-main);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* ==========================================
+   BOTONES
+   ========================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-primary {
+  background-color: var(--color-brand-red);
+  color: var(--color-text-main);
+  border: none;
+  box-shadow: 0 4px 15px rgba(166, 58, 58, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(166, 58, 58, 0.5);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-glass-border);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-text-main);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background-color: var(--color-whatsapp);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+  background-color: var(--color-whatsapp-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+/* ==========================================
+   HERO SECTION (INICIO)
+   ========================================== */
+.hero {
+  padding: 180px 0 100px 0;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 10% 20%, rgba(166, 58, 58, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 90% 80%, rgba(238, 222, 201, 0.04) 0%, transparent 50%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(166, 58, 58, 0.1);
+  border: 1px solid rgba(166, 58, 58, 0.2);
+  color: var(--color-brand-cream);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.hero p.lead {
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  margin-bottom: 36px;
+  max-width: 600px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+}
+
+/* Render del Libro en 3D (CSS Avanzado) */
+.hero-book-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px; /* Habilita el espacio 3D */
+}
+
+.book-3d {
+  width: 280px;
+  height: 310px; /* Reducido de 380px para adaptarse a la proporción casi cuadrada de la portada */
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(-20deg) rotateX(10deg);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.book-3d:hover {
+  transform: rotateY(5deg) rotateX(5deg) translateY(-10px);
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.book-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px 12px 12px 4px;
+  background-size: contain; /* Ajusta la imagen completa sin recortarla */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #a43333; /* Fondo del mismo color terracota de la portada para integrarse sin bordes vacíos */
+  z-index: 2;
+  transform: translateZ(15px);
+  box-shadow: inset 4px 0 10px rgba(255, 255, 255, 0.15), 
+              inset -4px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.book-spine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px; /* Grosor del lomo */
+  height: 100%;
+  background-color: #8c2a2a; /* Rojo oscuro para simular el lomo */
+  transform: rotateY(-90deg) translateZ(15px);
+  transform-origin: left;
+  z-index: 1;
+  border-radius: 4px 0 0 4px;
+  box-shadow: inset -5px 0 10px rgba(0,0,0,0.5);
+}
+
+.book-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--color-brand-red);
+  transform: rotateY(180deg) translateZ(15px);
+  z-index: 0;
+  border-radius: 12px 4px 4px 12px;
+}
+
+/* ==========================================
+   SECCIÓN DE EVIDENCIA CIENTÍFICA
+   ========================================== */
+.section {
+  padding: 100px 0;
+}
+
+.bg-dark-accent {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--color-glass-border);
+  border-bottom: 1px solid var(--color-glass-border);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+
+.section-header p {
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.pillar-card {
+  background-color: rgba(27, 30, 37, 0.4);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--border-radius-lg);
+  padding: 40px 30px;
+  transition: var(--transition-smooth);
+}
+
+.pillar-card:hover {
+  transform: translateY(-8px);
+  background-color: var(--bg-secondary);
+  border-color: rgba(166, 58, 58, 0.3);
+  box-shadow: var(--shadow-premium);
+}
+
+.pillar-icon {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(166, 58, 58, 0.1);
+  border: 1px solid rgba(166, 58, 58, 0.2);
+  color: var(--color-brand-cream);
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  transition: var(--transition-smooth);
+}
+
+.pillar-card:hover .pillar-icon {
+  background-color: var(--color-brand-red);
+  color: var(--color-text-main);
+}
+
+.pillar-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.pillar-card p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.pillar-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pillar-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--color-text-main);
+}
+
+.pillar-bullets li i {
+  color: var(--color-brand-red);
+  font-size: 0.8rem;
+}
+
+/* ==========================================
+   SECCIÓN DE NUTRICIÓN Y SUPLEMENTOS
+   ========================================== */
+.nutrition-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.nutrition-content h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.nutrition-content p {
+  color: var(--color-text-muted);
+  margin-bottom: 30px;
+}
+
+.supp-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.supp-item {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--color-glass-border);
+  padding: 20px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.supp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.supp-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.supp-evidence {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.evidence-a {
+  background-color: rgba(37, 211, 102, 0.1);
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.2);
+}
+
+.evidence-b {
+  background-color: rgba(238, 222, 201, 0.1);
+  color: var(--color-brand-cream);
+  border: 1px solid rgba(238, 222, 201, 0.2);
+}
+
+.supp-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================
+   SECCIÓN DETALLE DEL LIBRO (VENTA)
+   ========================================== */
+.book-sale {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(166, 58, 58, 0.05) 50%, var(--bg-primary) 100%);
+}
+
+.book-sale-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.book-sale-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.price-badge {
+  text-align: center;
+}
+
+.price-label {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.price-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-brand-cream);
+  margin: 5px 0;
+}
+
+.price-sub {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.feature-item {
+  display: flex;
+  gap: 16px;
+}
+
+.feature-number {
+  background-color: rgba(166, 58, 58, 0.1);
+  border: 1px solid rgba(166, 58, 58, 0.2);
+  color: var(--color-brand-cream);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.feature-text h4 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.feature-text p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================
+   SECCIÓN DE REFERENCIAS (CIENCIA)
+   ========================================== */
+.references-section {
+  border-top: 1px solid var(--color-glass-border);
+  padding: 60px 0;
+}
+
+.ref-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ref-item {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  padding-left: 24px;
+  position: relative;
+}
+
+.ref-item::before {
+  content: '[';
+  position: absolute;
+  left: 0;
+  color: var(--color-brand-red);
+  font-weight: 700;
+}
+
+.ref-item a {
+  color: var(--color-brand-cream);
+  text-decoration: none;
+  margin-left: 8px;
+  transition: var(--transition-smooth);
+}
+
+.ref-item a:hover {
+  color: var(--color-text-main);
+  text-decoration: underline;
+}
+
+/* ==========================================
+   FOOTER (PIE DE PÁGINA)
+   ========================================== */
+footer {
+  background-color: #050608;
+  border-top: 1px solid var(--color-glass-border);
+  padding: 60px 0 30px 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+
+/* Listado de "Contacto y redes" del footer: mismos estilos que .footer-links,
+   con el agregado de icono + texto alineados horizontalmente */
+.footer-links ul.footer-social-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-links ul.footer-social-list a i {
+  color: var(--color-brand-red);
+  width: 16px;
+  text-align: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.footer-about p {
+  color: var(--color-text-muted);
+  margin-top: 16px;
+  font-size: 0.95rem;
+  max-width: 320px;
+}
+
+.footer-links h5 {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: var(--color-text-main);
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links ul a {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+}
+
+.footer-links ul a:hover {
+  color: var(--color-text-main);
+  padding-left: 4px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-bottom p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-bottom-links a {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--color-text-main);
+}
+
+/* Botón Flotante de WhatsApp */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--color-whatsapp);
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  z-index: 999;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+  animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+  background-color: var(--color-whatsapp-hover);
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+}
+
+/* ==========================================
+   ANIMACIONES
+   ========================================== */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN (ADAPTACIÓN MÓVIL)
+   ========================================== */
+@media (max-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+  
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+  
+  .hero p.lead {
+    margin: 0 auto 30px auto;
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+  
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .nutrition-showcase {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .book-sale-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  
+  .book-sale-showcase {
+    order: -1;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .supp-list {
+    grid-template-columns: 1fr;
+  }
+  
+  nav ul {
+    display: none; /* Simplificación para menú móvil, se activaría por JS */
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .whatsapp-float {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.6rem;
+  }
+}
+
+/* ==========================================
+   ESTILOS DE ARTÍCULOS CIENTÍFICOS (LETRAS ESPACIADAS Y LINDOS SUBTÍTULOS)
+   ========================================== */
+.article-body {
+  text-align: left;
+}
+
+.article-body p {
+  margin-bottom: 24px;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+}
+
+.article-body h4 {
+  color: var(--color-text-main);
+  font-size: 1.45rem;
+  margin-top: 36px;
+  margin-bottom: 16px;
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+
+.article-body h5 {
+  color: var(--color-text-main);
+  font-size: 1.15rem;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+}
+
+.article-body .source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-brand-cream);
+  text-decoration: underline;
+  margin-bottom: 12px;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.article-body .source-link:hover {
+  color: var(--color-text-main);
+}
+
+/* ==========================================
+   BOTÓN "VOLVER AL CONTENIDO DE LA SECCIÓN"
+   ========================================== */
+.back-to-section {
+  display: block;
+  width: fit-content;
+  margin: 50px auto 0 auto;
+  padding: 12px 28px;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  transition: var(--transition-smooth);
+}
+
+.back-to-section:hover {
+  background-color: var(--color-brand-red);
+  border-color: var(--color-brand-red);
+  color: #fff;
+  transform: translateY(-2px);
+}

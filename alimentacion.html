@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alimentacion Basada en Evidencia - Se Tu Entrenador</title>
+  <meta name="description" content="Guia cientifica para calcular calorias y macronutrientes segun tus metas fisicas y salud.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Badge dorado igual que suplementacion */
+    .section-badge {
+      display: block;
+      text-align: center;
+      color: #d4af37;
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+    }
+
+    /* Indice principal con botones modulares */
+    .main-index {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 50px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .main-index h3 {
+      font-size: 1rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .main-index-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .main-index-grid a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 10px 14px;
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      transition: all 0.3s ease;
+    }
+    .main-index-grid a i {
+      color: #d4af37;
+      font-size: 0.8rem;
+    }
+    .main-index-grid a:hover {
+      color: #d4af37;
+      border-color: rgba(212, 175, 55, 0.4);
+      background-color: rgba(212, 175, 55, 0.06);
+    }
+
+    /* Sub-indice de recetas */
+    .recipe-index {
+      background-color: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--border-radius-md);
+      padding: 24px 28px;
+      margin-bottom: 36px;
+    }
+    .recipe-index p {
+      font-size: 0.85rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .recipe-index ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .recipe-index ul li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    .recipe-index ul li a i {
+      color: #d4af37;
+      font-size: 0.75rem;
+    }
+    .recipe-index ul li a:hover {
+      color: #d4af37;
+    }
+
+    /* Tarjeta de receta */
+    .recipe-card {
+      background-color: rgba(255,255,255,0.02);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: var(--border-radius-md);
+      padding: 28px;
+      margin-bottom: 30px;
+      scroll-margin-top: 100px;
+    }
+    .recipe-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--color-brand-cream);
+      margin-bottom: 8px;
+    }
+    .recipe-card .recipe-macros {
+      display: inline-block;
+      background-color: rgba(166, 58, 58, 0.1);
+      border: 1px solid rgba(166, 58, 58, 0.2);
+      color: var(--color-brand-cream);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .recipe-card h5 {
+      color: var(--color-text-main);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 16px 0 8px 0;
+    }
+    .recipe-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .recipe-card ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .recipe-card ul li::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #d4af37;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .recipe-card p {
+      font-size: 0.93rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    /* Seccion anchor */
+    .nutricion-section {
+      scroll-margin-top: 90px;
+    }
+
+    /* Sub-indice interno de cada articulo (En este articulo) */
+    .article-subindex {
+      background-color: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--border-radius-md);
+      padding: 24px 28px;
+      margin-bottom: 30px;
+    }
+    .article-subindex p {
+      font-size: 0.85rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .article-subindex ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .article-subindex ul li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text-main);
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    .article-subindex ul li a i {
+      color: #d4af37;
+      font-size: 0.75rem;
+    }
+    .article-subindex ul li a:hover {
+      color: #d4af37;
+    }
+
+    @media (max-width: 768px) {
+      .main-index-grid { grid-template-columns: 1fr; }
+      .section-badge { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <div class="logo-text">Se Tu<span>Entrenador</span></div>
+      </a>
+      <button class="mobile-menu-toggle" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav>
+        <ul id="nav-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html" style="color: var(--color-brand-cream)">Alimentacion</a></li>
+          <li><a href="suplementacion.html">Suplementacion</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+          <li><a href="#" class="nav-btn wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> Consultar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SECCION PRINCIPAL -->
+  <section class="section" style="padding-top: 150px; background: radial-gradient(circle at 50% 20%, rgba(166, 58, 58, 0.05) 0%, transparent 80%);">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 50px;">
+        <h2 class="font-serif text-gradient" style="font-size: 2.2rem;">Articulos y Contenido de Nutricion</h2>
+        <p>Analisis basados en evidencia sobre alimentacion, mitos populares y preparaciones caseras con respaldo cientifico.</p>
+      </div>
+
+      <!-- INDICE PRINCIPAL MODULAR -->
+      <div class="main-index" id="contenido-seccion">
+        <h3><i class="fa-solid fa-list"></i> &nbsp;Contenido de esta seccion</h3>
+        <div class="main-index-grid">
+          <a href="#seccion-te-verde"><i class="fa-solid fa-chevron-down"></i> Te Verde y Perdida de Grasa</a>
+          <a href="#seccion-proteinas"><i class="fa-solid fa-chevron-down"></i> Batidos de Proteina Caseros</a>
+          <a href="#seccion-gainers"><i class="fa-solid fa-chevron-down"></i> Mass Gainers Caseros</a>
+          <a href="#seccion-isotonicas"><i class="fa-solid fa-chevron-down"></i> Bebidas Isotonicas Caseras</a>
+          <a href="#fruta-engorda"><i class="fa-solid fa-chevron-down"></i> La fruta engorda</a>
+          <a href="#sal-sodio"><i class="fa-solid fa-chevron-down"></i> Que tipo de sal tiene menos sodio</a>
+          <a href="#azucar-mascabo"><i class="fa-solid fa-chevron-down"></i> El azucar mascabo es mas saludable</a>
+          <a href="#grasa-alimentacion"><i class="fa-solid fa-chevron-down"></i> Alimentacion para perder grasa corporal</a>
+        </div>
+      </div>
+
+      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px;">
+
+        <!-- TE VERDE -->
+        <div id="seccion-te-verde" class="nutricion-section pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="section-badge">Te Verde y Perdida de Grasa</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            El Te Verde realmente sirve para quemar grasa? Lo que dice el mayor estudio cientifico disponible
+          </h2>
+          <p>El te verde es promocionado mundialmente como uno de los quemadores de grasa naturales mas potentes del mercado. Se le atribuyen propiedades casi magicas para acelerar el metabolismo gracias a sus componentes activos: las catequinas (especialmente el EGCG) y la cafeina. Pero que pasa cuando se analiza su efectividad bajo la estricta lupa de la ciencia medica?</p>
+
+          <h4>La ficha del estudio cientifico</h4>
+          <p>Para enterrar los mitos y las opiniones personales, analizamos el metaanalisis mas masivo y riguroso disponible en las bibliotecas medicas.</p>
+
+          <h5>Titulo original del estudio</h5>
+          <p>Green tea for weight loss and weight maintenance in overweight or obese adults.</p>
+
+          <h5>Autores e institucion</h5>
+          <p>Jurgens TM, Whelan AM, Killian L, et al. Publicado por la prestigiosa Cochrane Database of Systematic Reviews.</p>
+
+          <h4>Como se hizo la investigacion?</h4>
+          <p>Para evitar fraudes o el famoso efecto placebo, los investigadores aplicaron un filtro metodologico implacable. Solo incluyeron Ensayos Clinicos Controlados y Aleatorizados (ECA) con una duracion minima de 12 semanas. El estudio consolido los datos de 1.945 participantes con un Indice de Masa Corporal (IMC) igual o superior a 25.</p>
+
+          <h4>La conclusion medica: los numeros reales</h4>
+          <p>La conclusion del metaanalisis es contundente: las preparaciones de te verde inducen una perdida de peso que estadisticamente no es significativa, es extremadamente pequena y carece de total relevancia clinica.</p>
+
+          <h5>Resultados en la balanza</h5>
+          <p>La diferencia promedio de perdida de peso entre las personas que consumieron extracto de te verde y las que tomaron el placebo fue de apenas unas pocas decimas de kilo. Fuera de Japon, la diferencia a favor del te verde fue de solo 0,04 kg tras tres meses de uso.</p>
+
+          <h5>El mito de la taza comun</h5>
+          <p>Los autores destacan que estos resultados mediocres se obtuvieron usando extractos estandarizados en capsulas o polvos de altisima concentracion. Los efectos en una taza comun hecha con un saquito de supermercado son todavia mas insignificantes.</p>
+
+          <h5>Efecto rebote y efectos adversos</h5>
+          <p>Tampoco se observo ningun beneficio real a la hora de evitar el efecto rebote o ayudar a mantener el peso a largo plazo. Se reportaron efectos adversos leves a moderados en los consumidores, tales como nauseas, aumento de la presion arterial o estrenimiento.</p>
+
+          <h5>El resumen definitivo</h5>
+          <p>El te verde es una infusion excelente, saludable y llena de antioxidantes, pero utilizarlo como una estrategia o suplemento para perder peso es una perdida de tiempo y dinero.</p>
+
+          <h4>Fuente cientifica original</h4>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8406948/" target="_blank" class="source-link">
+            <i class="fa-solid fa-up-right-from-square"></i> Estudio Cochrane Completo (PubMed Central)
+          </a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </div>
+
+                <!-- ==============================
+             SECCION PROTEINAS
+             ============================== -->
+        <div id="seccion-proteinas" class="nutricion-section pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+
+          <div class="section-badge">Batidos de Proteina Caseros</div>
+
+          <p>La evidencia cientifica indica que el factor mas importante para el desarrollo de la masa muscular, la fuerza y la recuperacion es alcanzar una ingesta adecuada de proteinas a lo largo del dia. Las proteinas en polvo del mercado son una herramienta practica para momentos de apuro, pero no son imprescindibles. Muchas personas pueden cubrir la totalidad de sus necesidades proteicas mediante alimentos comunes y preparaciones caseras, garantizando un control total sobre los ingredientes y evitando aditivos innecesarios.</p>
+
+          <h4>Lo que muestra la evidencia cientifica sobre las proteinas</h4>
+
+          <h5>Equivalencia de resultados</h5>
+          <p>La proteina proveniente de alimentos enteros y la proveniente de suplementos producen resultados identicos en hipertrofia y fuerza cuando la cantidad total de proteina consumida al final del dia es equivalente.</p>
+
+          <h5>Calidad biologica</h5>
+          <p>Las proteinas de origen animal (leche, huevo, yogur) presentan una digestibilidad elevada y un perfil completo de aminoacidos esenciales.</p>
+
+          <h5>Potencial vegetal</h5>
+          <p>Las proteinas de origen vegetal son perfectamente capaces de estimular el desarrollo muscular si se planifican bien para alcanzar un perfil de aminoacidos completo.</p>
+
+          <h4>Cuanta proteina aporta un batido comercial vs. uno casero?</h4>
+          <p>La mayoria de los suplementos proteicos comerciales aportan entre 20 y 30 gramos de proteina por porcion. Disenando de forma inteligente las recetas caseras y utilizando alimentos densos en aminoacidos, es posible igualar o incluso superar ese aporte de forma 100% natural.</p>
+
+          <!-- SUB-INDICE DE RECETAS -->
+          <div class="recipe-index">
+            <p><i class="fa-solid fa-utensils"></i> &nbsp;Indice de Recetas</p>
+            <ul>
+              <li><a href="#prot-1"><i class="fa-solid fa-chevron-right"></i> Batido de Leche, Huevo y Vainilla (Ultra-Absorcion)</a></li>
+              <li><a href="#prot-2"><i class="fa-solid fa-chevron-right"></i> Batido de Yogur Griego y Frutos Rojos (Maxima Definicion)</a></li>
+              <li><a href="#prot-3"><i class="fa-solid fa-chevron-right"></i> Batido de Ricota Magra y Banana (Crema de Caseina)</a></li>
+              <li><a href="#prot-4"><i class="fa-solid fa-chevron-right"></i> Batido de Avena, Leche y Yogur (Post-Entrenamiento Integral)</a></li>
+              <li><a href="#prot-5"><i class="fa-solid fa-chevron-right"></i> Batido de Soja, Tofu y Mani (Maxima Densidad Vegetal)</a></li>
+            </ul>
+          </div>
+
+          <!-- RECETA 1 -->
+          <div id="prot-1" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>1. Batido de Leche, Huevo y Vainilla</h3>
+            <span class="recipe-macros">~32 g Proteina &nbsp;|&nbsp; ~450 kcal</span>
+            <p>Este batido combina las dos mejores fuentes de proteina animal de la naturaleza. El metodo para concentrar la proteina sin tener que consumir un volumen excesivo de liquido consiste en el uso estrategico de la leche en polvo descremada.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>300 ml de leche liquida descremada.</li>
+              <li>2 cucharadas soperas (~20 g) de leche descremada en polvo.</li>
+              <li>2 huevos o 150 ml de claras pasteurizadas (siempre cocidos previamente por seguridad alimentaria y para destruir la avidina, permitiendo la absorcion real del huevo).</li>
+              <li>1 banana.</li>
+              <li>Esencia de vainilla y edulcorante a gusto.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Colocar la leche liquida y el huevo cocido y frio en la licuadora. Sumar la leche en polvo de a poco para evitar grumos, anadir la banana y la vainilla, y licuar a potencia maxima durante 45 segundos.</p>
+          </div>
+
+          <!-- RECETA 2 -->
+          <div id="prot-2" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>2. Batido de Yogur Griego y Frutos Rojos</h3>
+            <span class="recipe-macros">~28 g Proteina &nbsp;|&nbsp; ~300 kcal</span>
+            <p>Ideal para etapas de perdida de grasa o definicion. Aporta una enorme cantidad de proteina con un impacto calorico y de carbohidratos muy bajo. El yogur griego aporta caseina de liberacion sostenida y bacterias beneficas para la microbiota.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>250 g de yogur griego natural descremado.</li>
+              <li>100 g de frutillas o frutos rojos congelados.</li>
+              <li>Agua fria o hielo para regular la consistencia.</li>
+              <li>Edulcorante a gusto.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Licuar el yogur griego con los frutos rojos congelados y un chorro de agua fria o hielo. Procesar hasta que no queden grumos.</p>
+          </div>
+
+          <!-- RECETA 3 -->
+          <div id="prot-3" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>3. Batido de Ricota Magra y Banana</h3>
+            <span class="recipe-macros">~25 g Proteina &nbsp;|&nbsp; ~380 kcal</span>
+            <p>La ricota magra es un alimento con un excelente perfil nutricional. Es rica en caseina (la proteina lactea de digestion lenta, ideal para antes de dormir) y aporta una textura cremosa inigualable sin sumar grasas pesadas.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>200 g de ricota magra.</li>
+              <li>1 banana.</li>
+              <li>150 ml de agua o leche descremada.</li>
+              <li>1 cucharadita de canela en polvo.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Procesar la ricota junto con la banana y la canela. Ir agregando el agua o la leche de a poco hasta lograr la consistencia de batido deseada.</p>
+          </div>
+
+          <!-- RECETA 4 -->
+          <div id="prot-4" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>4. Batido de Avena, Leche y Yogur</h3>
+            <span class="recipe-macros">~25 g Proteina &nbsp;|&nbsp; ~480 kcal</span>
+            <p>Excelente para consumir despues de entrenar o en etapas de ganancia de peso. Combina proteinas de absorcion rapida y lenta con carbohidratos complejos que recargan el glucogeno muscular.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>300 ml de leche descremada.</li>
+              <li>200 g de yogur natural.</li>
+              <li>50 g de avena instantanea en hojuelas.</li>
+              <li>1 pizca de cacao amargo o canela.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Para optimizar la textura, se recomienda licuar primero la avena sola en seco para pulverizar el grano. Luego agregar la leche, el yogur y el saborizante, y licuar todo junto para evitar una textura arenosa.</p>
+          </div>
+
+          <!-- RECETA 5 -->
+          <div id="prot-5" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>5. Batido de Soja, Tofu y Mani</h3>
+            <span class="recipe-macros">~28 g Proteina &nbsp;|&nbsp; ~430 kcal</span>
+            <p>Una alternativa 100% de origen vegetal. La soja posee un patron de aminoacidos equiparable al de las fuentes animales. Al combinar la bebida de soja con el tofu blando y la manteca de mani, se logra un perfil de aminoacidos completo.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>400 ml de bebida de soja sin azucar anadida.</li>
+              <li>100 g de tofu blando o silk tofu.</li>
+              <li>2 cucharadas soperas (~30 g) de manteca de mani natural.</li>
+              <li>1 banana o endulzante a eleccion.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Introducir el tofu blando y la manteca de mani en la licuadora junto con la bebida de soja. Licuar por 60 segundos completos para que las grasas saludables del mani emulsionen el batido de forma homogenea.</p>
+          </div>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </div>
+
+        <!-- ==============================
+             SECCION MASS GAINERS
+             ============================== -->
+        <div id="seccion-gainers" class="nutricion-section pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+
+          <div class="section-badge">Mass Gainers Caseros</div>
+
+          <p>La evidencia cientifica actual no muestra que los gainers comerciales posean propiedades especiales para generar masa muscular mas alla de su aporte de calorias, proteinas y carbohidratos. El problema de los suplementos comerciales es que la mayoria utiliza carbohidratos de absorcion muy rapida (como la maltodextrina) para abaratar costos. Una preparacion casera, utilizando alimentos enteros, cumple exactamente la misma funcion energetica pero aporta ademas fibra, vitaminas, minerales y grasas saludables esenciales para el organismo.</p>
+
+          <h4>Quienes se benefician de un gainer y quienes no los necesitan?</h4>
+
+          <h5>Quienes podrian beneficiarse</h5>
+          <p>Estas preparaciones suelen ser mas utiles para personas con bajo peso corporal relativo, individuos con apetito reducido que experimentan dificultades para alcanzar un superavit calorico mediante comidas tradicionales, o deportistas con elevados requerimientos energeticos diarios.</p>
+
+          <h5>Quienes probablemente no los necesiten</h5>
+          <p>En la mayoria de las personas que ya alcanzan sus requerimientos diarios mediante la alimentacion habitual, los gainers suelen aportar calorias adicionales que no ofrecen ventajas especiales para la ganancia muscular y pueden traducirse en un aumento de grasa corporal.</p>
+
+          <!-- SUB-INDICE DE RECETAS -->
+          <div class="recipe-index">
+            <p><i class="fa-solid fa-utensils"></i> &nbsp;Indice de Recetas</p>
+            <ul>
+              <li><a href="#gainer-1"><i class="fa-solid fa-chevron-right"></i> Gainer de Avena, Leche y Banana (El Clasico Voluminizador)</a></li>
+              <li><a href="#gainer-2"><i class="fa-solid fa-chevron-right"></i> Gainer de Yogur Griego, Miel y Frutos Secos (Maxima Proteina)</a></li>
+              <li><a href="#gainer-3"><i class="fa-solid fa-chevron-right"></i> Gainer de Chocolate, Coco y Mani (Densidad Calorica Extrema)</a></li>
+            </ul>
+          </div>
+
+          <!-- RECETA 1 -->
+          <div id="gainer-1" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>1. Gainer de Avena, Leche y Banana</h3>
+            <span class="recipe-macros">~35-40 g Proteina &nbsp;|&nbsp; ~110-130 g Carbohidratos &nbsp;|&nbsp; ~950-1100 kcal</span>
+            <p>Esta receta combina de forma equilibrada carbohidratos complejos de bajo indice glucemico con los azucares naturales y el potasio de la banana, sostenidos por las grasas saludables del mani.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>500 ml de leche.</li>
+              <li>100 g de avena instantanea en hojuelas.</li>
+              <li>2 bananas medianas.</li>
+              <li>2 cucharadas de manteca de mani (aprox. 30 g).</li>
+              <li>Canela opcional.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Licuar primero la avena en seco para pulverizar el grano. Agregar los 500 ml de leche, las bananas troceadas y la manteca de mani. Procesar durante 1 minuto completo hasta que quede una textura homogenea.</p>
+          </div>
+
+          <!-- RECETA 2 -->
+          <div id="gainer-2" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>2. Gainer de Yogur Griego, Miel y Frutos Secos</h3>
+            <span class="recipe-macros">~40-50 g Proteina &nbsp;|&nbsp; ~80-100 g Carbohidratos &nbsp;|&nbsp; ~850-1100 kcal</span>
+            <p>Esta opcion incrementa significativamente la cantidad de proteina neta y aporta una elevada densidad energetica gracias a la mezcla de carbohidratos complejos y grasas insaturadas de los frutos secos.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>300 g de yogur griego natural.</li>
+              <li>500 ml de leche.</li>
+              <li>80 g de avena instantanea.</li>
+              <li>30 g de nueces o almendras.</li>
+              <li>1 banana.</li>
+              <li>1 cucharada de miel.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Colocar en la licuadora el yogur griego, la leche y la avena previamente procesada en seco. Sumar la banana, los frutos secos y la miel. Licuar a velocidad maxima.</p>
+          </div>
+
+          <!-- RECETA 3 -->
+          <div id="gainer-3" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>3. Gainer de Chocolate, Coco y Mani</h3>
+            <span class="recipe-macros">~38 g Proteina &nbsp;|&nbsp; ~95 g Carbohidratos &nbsp;|&nbsp; ~1050-1200 kcal</span>
+            <p>Variante disenada para maximizar el aporte calorico en un volumen de liquido moderado. El uso de fuentes de grasa saludables como el coco rallado y la manteca de mani eleva las calorias sin generar excesiva pesadez estomacal.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>400 ml de leche entera.</li>
+              <li>80 g de avena instantanea.</li>
+              <li>2 cucharadas soperas colmadas (~40 g) de manteca de mani.</li>
+              <li>2 cucharadas soperas (~20 g) de coco rallado.</li>
+              <li>1 cucharada sopera de cacao amargo en polvo.</li>
+              <li>1 banana.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Introducir la avena y el coco rallado en la licuadora y procesar unos segundos en seco. Anadir la leche, el cacao amargo, la banana y la manteca de mani. Licuar durante un minuto completo.</p>
+          </div>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </div>
+
+        <!-- ==============================
+             SECCION BEBIDAS ISOTONICAS
+             ============================== -->
+        <div id="seccion-isotonicas" class="nutricion-section pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+
+          <div class="section-badge">Bebidas Isotonicas Caseras</div>
+
+          <h4>Diferencia clave: Isotonicas vs. Energizantes</h4>
+
+          <h5>Bebidas Isotonicas o Deportivas</h5>
+          <p>Se utilizan durante entrenamientos largos, deportes de resistencia o sesiones con mucha sudoracion y altas temperaturas. Su objetivo principal es aportar agua, sodio y una cantidad moderada de carbohidratos para favorecer una rehidratacion rapida. No contienen sustancias estimulantes.</p>
+
+          <h5>Bebidas Energizantes</h5>
+          <p>Suelen contener cafeina, taurina, guarana u otros estimulantes. Su objetivo es aumentar el estado de alerta mental y reducir la sensacion de fatiga. No estan disenadas para la hidratacion ni para la reposicion de electrolitos.</p>
+
+          <h4>Que dice la evidencia cientifica sobre la hidratacion y las pesas?</h4>
+          <p>Para la mayoria de las personas que realizan musculacion, hipertrofia o entrenamiento de fuerza de menos de 90 minutos, normalmente alcanza con agua sola y una alimentacion adecuada. Las bebidas deportivas rara vez muestran ventajas importantes en este contexto. Las bebidas isotonicas muestran una utilidad real y demostrada en deportes de larga duracion o resistencia continua como el ciclismo, running, triatlon, futbol o tenis, donde el esfuerzo se prolonga en el tiempo y la perdida de electrolitos por sudor es masiva.</p>
+
+          <!-- SUB-INDICE DE RECETAS -->
+          <div class="recipe-index">
+            <p><i class="fa-solid fa-utensils"></i> &nbsp;Indice de Recetas</p>
+            <ul>
+              <li><a href="#iso-1"><i class="fa-solid fa-chevron-right"></i> Bebida Isotonica Casera Basica (Eficiencia Rapida)</a></li>
+              <li><a href="#iso-2"><i class="fa-solid fa-chevron-right"></i> Bebida Isotonica Avanzada (Entrenamientos Prolongados)</a></li>
+              <li><a href="#iso-3"><i class="fa-solid fa-chevron-right"></i> Leche Chocolatada Post-Entrenamiento</a></li>
+            </ul>
+          </div>
+
+          <!-- RECETA 1 -->
+          <div id="iso-1" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>1. Bebida Isotonica Casera Basica</h3>
+            <span class="recipe-macros">~120 kcal &nbsp;|&nbsp; ~30 g Carbohidratos &nbsp;|&nbsp; Sodio equilibrado</span>
+            <p>Esta preparacion casera reproduce los tres componentes basicos que utilizan la mayoria de las bebidas deportivas comerciales (liquido, electrolitos y carbohidratos) optimizando la velocidad de absorcion en el intestino.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>1 litro de agua.</li>
+              <li>30 g de azucar (aproximadamente 2 cucharadas).</li>
+              <li>Jugo de medio limon o una naranja.</li>
+              <li>1/4 cucharadita de sal de mesa.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Disolver completamente el azucar y la sal en el litro de agua. Anadir el jugo citrico exprimido, mezclar correctamente y enfriar antes de consumir durante el entrenamiento.</p>
+          </div>
+
+          <!-- RECETA 2 -->
+          <div id="iso-2" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>2. Bebida Isotonica Avanzada</h3>
+            <span class="recipe-macros">~200 kcal &nbsp;|&nbsp; ~50 g Carbohidratos</span>
+            <p>Esta formula incrementa la concentracion de carbohidratos para acercarse al perfil de las bebidas deportivas comerciales disenadas para esfuerzos prolongados en el tiempo.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>1 litro de agua.</li>
+              <li>50 g de azucar.</li>
+              <li>Jugo de una naranja entera.</li>
+              <li>1/4 cucharadita de sal.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Exprimir la naranja y colar el jugo para retirar los restos de pulpa. Mezclar energicamente con el agua, el azucar y la sal hasta lograr una solucion homogenea.</p>
+          </div>
+
+          <!-- RECETA 3 -->
+          <div id="iso-3" class="recipe-card" style="scroll-margin-top: 100px;">
+            <h3>3. Leche Chocolatada Post-Entrenamiento</h3>
+            <span class="recipe-macros">Recuperacion muscular completa</span>
+            <p>Multiples investigaciones clinicas han comparado la leche chocolatada con bebidas de recuperacion deportivas especificas, encontrando resultados similares e incluso superiores en la velocidad de resintesis de glucogeno y reparacion muscular. Esto se debe a que la combinacion de la leche con el cacao aporta liquidos, proteinas de alta calidad (suero y caseina), carbohidratos y minerales esenciales en una proporcion ideal.</p>
+            <h5>Ingredientes</h5>
+            <ul>
+              <li>500 ml de leche (entera o descremada).</li>
+              <li>1 cucharada de cacao amargo en polvo.</li>
+              <li>Opcionalmente una banana o una cucharada de azucar para completar la carga de carbohidratos.</li>
+            </ul>
+            <h5>Preparacion</h5>
+            <p>Mezclar o licuar los ingredientes en frio hasta disolver por completo el cacao y consumir dentro de la primera hora post-entrenamiento.</p>
+          </div>
+
+          <!-- CONCLUSIONES -->
+          <h4 style="margin-top: 36px;">Conclusiones sobre la suplementacion casera</h4>
+
+          <h5>Poblacion general</h5>
+          <p>Para la mayoria de las personas que realizan entrenamiento de fuerza o hipertrofia recreativa, la evidencia indica que el agua es suficiente para mantener una correcta hidratacion y la comida real cubre las necesidades proteicas.</p>
+
+          <h5>Utilidad especifica</h5>
+          <p>Las preparaciones isotonicas y los ganadores de peso caseros encuentran su maxima utilidad en contextos especificos: deportes de resistencia, sesiones prolongadas de alta sudoracion, climas calurosos o fases donde se dificulta alcanzar las calorias diarias por via solida.</p>
+
+          <h5>Ventaja del formato casero</h5>
+          <p>Elaborar estas alternativas en el hogar permite prescindir de colorantes o aditivos artificiales, reduce costos economicos y asegura una excelente absorcion de nutrientes a partir de fuentes naturales.</p>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </div>
+
+        <!-- LA FRUTA ENGORDA -->
+        <article id="fruta-engorda" class="pillar-card article-body nutricion-section" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); margin-bottom: 40px;">
+          <div class="section-badge">La fruta engorda</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            ¿La fruta engorda? Lo que dice la evidencia científica
+          </h2>
+
+          <div class="article-subindex">
+            <p><i class="fa-solid fa-list-ul"></i> &nbsp;En este articulo</p>
+            <ul>
+              <li><a href="#fruta-corta"><i class="fa-solid fa-chevron-right"></i> La respuesta corta</a></li>
+              <li><a href="#fruta-azucar"><i class="fa-solid fa-chevron-right"></i> La fruta tiene azucar?</a></li>
+              <li><a href="#fruta-porque"><i class="fa-solid fa-chevron-right"></i> Por que la fruta no suele favorecer el aumento de peso</a></li>
+              <li><a href="#fruta-estudios"><i class="fa-solid fa-chevron-right"></i> Que dicen los estudios</a></li>
+              <li><a href="#fruta-cuanta"><i class="fa-solid fa-chevron-right"></i> Entonces, puedo comer toda la fruta que quiera</a></li>
+              <li><a href="#fruta-importa"><i class="fa-solid fa-chevron-right"></i> Importa la fruta que elija</a></li>
+              <li><a href="#fruta-banana"><i class="fa-solid fa-chevron-right"></i> Y la banana</a></li>
+              <li><a href="#fruta-jugos"><i class="fa-solid fa-chevron-right"></i> Y los jugos</a></li>
+              <li><a href="#fruta-conclusion"><i class="fa-solid fa-chevron-right"></i> Conclusion</a></li>
+              <li><a href="#fruta-bibliografia"><i class="fa-solid fa-chevron-right"></i> Bibliografia</a></li>
+            </ul>
+          </div>
+
+          <h4 id="fruta-corta">La respuesta corta</h4>
+          <p>No.</p>
+          <p>Consumir fruta fresca no engorda por sí misma.</p>
+          <p>De hecho, las revisiones sistemáticas y los metaanálisis muestran que las personas que consumen más fruta suelen presentar un mejor control del peso corporal y un menor riesgo de desarrollar sobrepeso u obesidad.</p>
+          <p>Entonces, ¿por qué muchas personas creen lo contrario?</p>
+          <p>Principalmente porque la fruta contiene azúcares naturales, especialmente fructosa. Durante años se asumió que, al contener azúcar, debía favorecer el aumento de grasa corporal. Sin embargo, esa hipótesis no se confirmó cuando se estudió el consumo de fruta entera en humanos.</p>
+
+          <h4 id="fruta-azucar">¿La fruta tiene azúcar?</h4>
+          <p>Sí.</p>
+          <p>La fruta contiene principalmente:</p>
+          <ul class="bullet-list">
+            <li>Fructosa.</li>
+            <li>Glucosa.</li>
+            <li>Sacarosa (en algunas frutas).</li>
+          </ul>
+          <p>Pero reducir una fruta únicamente a su contenido de azúcar es un error.</p>
+          <p>También aporta:</p>
+          <ul class="bullet-list">
+            <li>Fibra.</li>
+            <li>Agua.</li>
+            <li>Vitaminas.</li>
+            <li>Minerales.</li>
+            <li>Polifenoles.</li>
+            <li>Antioxidantes.</li>
+          </ul>
+          <p>Todos estos componentes modifican la forma en que el organismo procesa esos azúcares.</p>
+
+          <h4 id="fruta-porque">¿Por qué la fruta no suele favorecer el aumento de peso?</h4>
+          <p>La evidencia propone varios mecanismos.</p>
+
+          <h5>1. Produce mayor saciedad</h5>
+          <p>La fruta contiene mucha agua y fibra.</p>
+          <p>Esto hace que ocupe volumen en el estómago y disminuya el apetito.</p>
+          <p>Como consecuencia, muchas personas terminan consumiendo menos calorías durante el resto del día.</p>
+
+          <h5>2. Tiene baja densidad energética</h5>
+          <p>La mayoría de las frutas aportan entre 30 y 70 kcal cada 100 gramos.</p>
+          <p>Para consumir muchas calorías provenientes de fruta habría que ingerir grandes cantidades.</p>
+          <p>Por ejemplo:</p>
+          <ul class="bullet-list">
+            <li>100 g de manzana ≈ 52 kcal.</li>
+            <li>100 g de naranja ≈ 47 kcal.</li>
+            <li>100 g de frutillas ≈ 32 kcal.</li>
+          </ul>
+          <p>En comparación, 100 g de galletitas o chocolates pueden aportar entre 450 y 550 kcal.</p>
+
+          <h5>3. La fibra disminuye la velocidad de absorción</h5>
+          <p>La fibra retrasa el vaciamiento gástrico y hace que la absorción de los azúcares sea más lenta.</p>
+          <p>Esto produce una respuesta metabólica muy distinta a la de bebidas azucaradas o dulces.</p>
+
+          <h4 id="fruta-estudios">¿Qué dicen los estudios?</h4>
+
+          <h5>Revisiones sistemáticas de ensayos clínicos</h5>
+          <p>Los ensayos clínicos son los estudios con mayor capacidad para establecer relaciones de causa y efecto.</p>
+          <p>La revisión sistemática más completa encontró que aumentar el consumo de fruta fresca:</p>
+          <ul class="bullet-list">
+            <li>No aumenta el peso corporal.</li>
+            <li>Puede favorecer una ligera pérdida de peso.</li>
+            <li>Reduce la ingesta energética cuando reemplaza alimentos más calóricos.</li>
+          </ul>
+          <p>Los autores concluyen: "La fruta fresca probablemente no contribuye a la obesidad y puede formar parte de su prevención y tratamiento."</p>
+
+          <h5>Metaanálisis de estudios prospectivos</h5>
+          <p>Cuando se sigue a cientos de miles de personas durante años, ocurre lo mismo.</p>
+          <p>Las personas que consumen más fruta presentan:</p>
+          <ul class="bullet-list">
+            <li>menor riesgo de aumentar de peso;</li>
+            <li>menor riesgo de desarrollar obesidad;</li>
+            <li>menor aumento del perímetro de cintura.</li>
+          </ul>
+
+          <h4 id="fruta-cuanta">Entonces, ¿puedo comer toda la fruta que quiera?</h4>
+          <p>No exactamente.</p>
+          <p>La fruta sigue aportando calorías.</p>
+          <p>Si una persona consume más calorías de las que gasta, puede aumentar de peso aunque esas calorías provengan de alimentos saludables.</p>
+          <p>Sin embargo, en la práctica resulta difícil aumentar mucho la ingesta calórica únicamente con fruta fresca debido a su elevado poder saciante.</p>
+
+          <h4 id="fruta-importa">¿Importa la fruta que elija?</h4>
+          <p>No hay evidencia sólida que indique que una fruta sea "engordante" y otra no.</p>
+          <p>La diferencia calórica entre la mayoría de las frutas es pequeña.</p>
+          <p>Lo importante es el patrón de alimentación completo.</p>
+
+          <h4 id="fruta-banana">¿Y la banana?</h4>
+          <p>Probablemente sea la fruta más injustamente criticada.</p>
+          <p>Una banana mediana aporta aproximadamente:</p>
+          <ul class="bullet-list">
+            <li>100-120 kcal.</li>
+            <li>3 g de fibra.</li>
+            <li>Potasio.</li>
+            <li>Vitamina B6.</li>
+            <li>Vitamina C.</li>
+          </ul>
+          <p>No existe evidencia de que consumir banana favorezca el aumento de grasa corporal dentro de una alimentación equilibrada.</p>
+
+          <h4 id="fruta-jugos">¿Y los jugos?</h4>
+          <p>Aquí sí cambia la historia.</p>
+          <p>Cuando la fruta se consume como jugo:</p>
+          <ul class="bullet-list">
+            <li>se pierde gran parte de la fibra;</li>
+            <li>disminuye la saciedad;</li>
+            <li>resulta mucho más fácil ingerir muchas calorías en pocos minutos.</li>
+          </ul>
+          <p>Por este motivo, las recomendaciones internacionales priorizan el consumo de fruta entera frente a los jugos. Además, una revisión sistemática y metaanálisis reciente encontró que el consumo de jugo 100 % de fruta se asocia con un pequeño aumento de peso en niños y que, en adultos, el efecto depende en gran medida del exceso de calorías consumidas.</p>
+
+          <h4 id="fruta-conclusion">Conclusión</h4>
+          <p>La idea de que "la fruta engorda" no está respaldada por la evidencia científica actual.</p>
+          <p>Los estudios de mayor calidad muestran que el consumo de fruta fresca entera:</p>
+          <ul class="bullet-list">
+            <li>no favorece el aumento de peso;</li>
+            <li>puede ayudar a controlar el apetito;</li>
+            <li>se asocia con un menor riesgo de obesidad;</li>
+            <li>puede formar parte tanto de una dieta para perder grasa como para mantener un peso saludable.</li>
+          </ul>
+
+          <h4 id="fruta-bibliografia">Bibliografía</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.8;">
+            Guyenet SJ. Impact of Whole, Fresh Fruit Consumption on Energy Intake and Adiposity: A Systematic Review. Frontiers in Nutrition. 2019.<br>
+            Schwingshackl L, et al. Food Groups and Risk of Overweight, Obesity, and Weight Gain: A Systematic Review and Dose-Response Meta-analysis of Prospective Studies. Advances in Nutrition. 2019.<br>
+            Kaiser KA, et al. Increased fruit and vegetable intake has no discernible effect on weight loss: a systematic review and meta-analysis. American Journal of Clinical Nutrition. 2014.<br>
+            Mytton OT, et al. Systematic review and meta-analysis of the effect of increased vegetable and fruit consumption on body weight and energy intake. BMC Public Health. 2014.<br>
+            Bes-Rastrollo M, et al. Fruit and Vegetable Consumption and Changes in Anthropometric Variables in Adult Populations: A Systematic Review and Meta-analysis of Prospective Cohort Studies. PLOS ONE. 2015.
+          </p>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <!-- QUE TIPO DE SAL TIENE MENOS SODIO -->
+        <article id="sal-sodio" class="pillar-card article-body nutricion-section" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="section-badge">Sal y Sodio</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            ¿Qué tipo de sal tiene menos sodio?
+          </h2>
+
+          <div class="article-subindex">
+            <p><i class="fa-solid fa-list-ul"></i> &nbsp;En este articulo</p>
+            <ul>
+              <li><a href="#sal-que-es"><i class="fa-solid fa-chevron-right"></i> Que es el sodio y por que es importante</a></li>
+              <li><a href="#sal-comparacion"><i class="fa-solid fa-chevron-right"></i> Comparacion entre los distintos tipos de sal</a></li>
+              <li><a href="#sal-himalaya"><i class="fa-solid fa-chevron-right"></i> La sal del Himalaya es mas saludable</a></li>
+              <li><a href="#sal-marina"><i class="fa-solid fa-chevron-right"></i> Que ocurre con la sal marina</a></li>
+              <li><a href="#sal-light"><i class="fa-solid fa-chevron-right"></i> Que es la sal reducida en sodio o sal light</a></li>
+              <li><a href="#sal-evidencia"><i class="fa-solid fa-chevron-right"></i> Que dice la evidencia cientifica</a></li>
+              <li><a href="#sal-quienes"><i class="fa-solid fa-chevron-right"></i> Todas las personas pueden consumir sal reducida en sodio</a></li>
+              <li><a href="#sal-mitos"><i class="fa-solid fa-chevron-right"></i> Mitos frecuentes</a></li>
+              <li><a href="#sal-conclusion"><i class="fa-solid fa-chevron-right"></i> Conclusion</a></li>
+              <li><a href="#sal-bibliografia"><i class="fa-solid fa-chevron-right"></i> Referencias cientificas</a></li>
+            </ul>
+          </div>
+
+          <p>La sal marina, la sal rosa del Himalaya, la flor de sal y otras variedades suelen promocionarse como alternativas mas saludables que la sal comun. Sin embargo, la evidencia cientifica demuestra que todas ellas contienen cantidades muy similares de sodio y que las diferencias nutricionales son escasas. La unica excepcion son las sales reducidas en sodio (tambien conocidas como sales light), que reemplazan parte del cloruro de sodio por cloruro de potasio y pueden contribuir a disminuir la presion arterial y el riesgo cardiovascular en personas seleccionadas.</p>
+
+          <h4 id="sal-que-es">¿Qué es el sodio y por qué es importante?</h4>
+          <p>El sodio es un mineral esencial para el organismo. Participa en la transmisión de los impulsos nerviosos, la contracción muscular y el mantenimiento del equilibrio de líquidos.</p>
+          <p>Sin embargo, un consumo excesivo de sodio se asocia con un aumento de la presión arterial y un mayor riesgo de enfermedades cardiovasculares, especialmente en personas con hipertensión arterial o predisposición a desarrollarla.</p>
+          <p>Por este motivo, las principales organizaciones internacionales recomiendan limitar el consumo diario de sodio como parte de una alimentación saludable.</p>
+
+          <h4 id="sal-comparacion">Comparación entre los distintos tipos de sal</h4>
+          <ul class="bullet-list">
+            <li>Sal común (refinada): 39.000-40.000 mg de sodio cada 100 g. ¿Tiene menos sodio? No.</li>
+            <li>Sal marina: 38.000-39.000 mg de sodio cada 100 g. ¿Tiene menos sodio? No.</li>
+            <li>Sal rosa del Himalaya: 36.000-38.000 mg de sodio cada 100 g. ¿Tiene menos sodio? Muy poco menos.</li>
+            <li>Flor de sal: 37.000-39.000 mg de sodio cada 100 g. ¿Tiene menos sodio? No.</li>
+            <li>Sal kosher: similar a la sal común por peso (aunque por cucharada puede parecer menor debido al tamaño de sus cristales). ¿Tiene menos sodio? No.</li>
+            <li>Sal reducida en sodio (light): 18.000-25.000 mg de sodio cada 100 g. ¿Tiene menos sodio? Sí.</li>
+          </ul>
+
+          <h4 id="sal-himalaya">¿La sal del Himalaya es más saludable?</h4>
+          <p>La sal rosa del Himalaya contiene pequeñas cantidades de minerales como hierro, calcio, magnesio y potasio debido a su menor procesamiento.</p>
+          <p>Sin embargo, estas cantidades son muy bajas y no representan un beneficio nutricional relevante.</p>
+          <p>Desde el punto de vista del contenido de sodio y del impacto sobre la salud cardiovascular, la diferencia con la sal común es mínima.</p>
+          <p>Elegir sal del Himalaya puede responder a una preferencia por su sabor, color o textura, pero no constituye una estrategia eficaz para reducir el consumo de sodio.</p>
+
+          <h4 id="sal-marina">¿Qué ocurre con la sal marina?</h4>
+          <p>La sal marina también conserva pequeñas cantidades de otros minerales, aunque la mayor parte de su composición continúa siendo cloruro de sodio.</p>
+          <p>Su contenido de sodio es prácticamente igual al de la sal refinada.</p>
+          <p>Actualmente no existe evidencia científica que demuestre beneficios relevantes sobre la salud por reemplazar la sal común por sal marina.</p>
+
+          <h4 id="sal-light">¿Qué es la sal reducida en sodio o "sal light"?</h4>
+          <p>Las sales reducidas en sodio reemplazan una parte del cloruro de sodio (NaCl) por cloruro de potasio (KCl).</p>
+          <p>Como consecuencia, contienen entre un 25% y un 50% menos sodio que la sal común, dependiendo de la formulación del producto.</p>
+          <p>Esta reducción sí tiene importancia clínica y constituye la principal diferencia entre las distintas variedades de sal disponibles en el mercado.</p>
+
+          <h4 id="sal-evidencia">¿Qué dice la evidencia científica?</h4>
+          <p>La evidencia científica actual muestra que sustituir la sal común por una sal reducida en sodio puede producir beneficios importantes para la salud cardiovascular.</p>
+          <p>Uno de los ensayos clínicos más importantes realizados hasta la fecha, el Salt Substitute and Stroke Study (SSaSS), incluyó a más de 20.000 personas con antecedente de accidente cerebrovascular o hipertensión arterial. Los participantes que reemplazaron la sal común por una sal reducida en sodio presentaron:</p>
+          <ul class="bullet-list">
+            <li>Disminución de la presión arterial.</li>
+            <li>Menor riesgo de accidente cerebrovascular (ACV).</li>
+            <li>Menor riesgo de eventos cardiovasculares mayores.</li>
+            <li>Reducción de la mortalidad prematura.</li>
+          </ul>
+          <p>Estos resultados han sido respaldados posteriormente por revisiones sistemáticas y metaanálisis, que concluyen que las sales reducidas en sodio representan una estrategia efectiva para disminuir el consumo de sodio y mejorar la salud cardiovascular cuando no existen contraindicaciones.</p>
+
+          <h4 id="sal-quienes">¿Todas las personas pueden consumir sal reducida en sodio?</h4>
+          <p>No.</p>
+          <p>Las sales reducidas en sodio contienen una mayor cantidad de potasio, por lo que no son adecuadas para todas las personas.</p>
+          <p>Se recomienda consultar con un profesional de la salud antes de utilizarlas en casos de:</p>
+          <ul class="bullet-list">
+            <li>Enfermedad renal crónica.</li>
+            <li>Insuficiencia renal.</li>
+            <li>Hiperpotasemia.</li>
+            <li>Tratamiento con medicamentos que aumentan el potasio en sangre (como algunos inhibidores de la ECA, antagonistas de los receptores de angiotensina II o diuréticos ahorradores de potasio).</li>
+          </ul>
+          <p>En personas sanas, su consumo suele ser seguro, aunque siempre debe formar parte de una alimentación equilibrada.</p>
+
+          <h4 id="sal-mitos">Mitos frecuentes</h4>
+          <p>"La sal del Himalaya tiene mucho menos sodio." Falso. La diferencia es pequeña y carece de relevancia clínica.</p>
+          <p>"La sal marina es mejor para la presión arterial." Falso. Su contenido de sodio es muy similar al de la sal común.</p>
+          <p>"Todas las sales naturales son más saludables." La evidencia científica no respalda esa afirmación. Las diferencias nutricionales entre las sales tradicionales son mínimas.</p>
+          <p>"La única sal que realmente reduce el sodio es la sal light." Verdadero. Es la única variedad que disminuye de forma significativa el contenido de sodio al reemplazar parte del cloruro de sodio por cloruro de potasio.</p>
+
+          <h4 id="sal-conclusion">Conclusión</h4>
+          <p>La mayor parte de las variedades de sal disponibles en el mercado, como la sal común, la sal marina, la sal rosa del Himalaya, la flor de sal o la sal kosher, contienen cantidades muy similares de sodio. Aunque algunas conservan pequeñas cantidades de otros minerales, estas diferencias no producen beneficios relevantes para la salud.</p>
+          <p>La única excepción son las sales reducidas en sodio o sales light, que sustituyen parte del sodio por potasio y han demostrado, en estudios clínicos de alta calidad, reducir la presión arterial y disminuir el riesgo de accidente cerebrovascular, eventos cardiovasculares mayores y mortalidad prematura en personas adecuadamente seleccionadas.</p>
+          <p>En cualquier caso, la estrategia más importante continúa siendo moderar el consumo total de sodio, independientemente del tipo de sal elegido.</p>
+
+          <h4 id="sal-bibliografia">Referencias científicas</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.8;">
+            Neal B, et al. Effect of Salt Substitution on Cardiovascular Events and Death. The New England Journal of Medicine. 2021;385:1067-1077. (Salt Substitute and Stroke Study - SSaSS).<br>
+            World Health Organization (WHO). Guideline: Sodium intake for adults and children.<br>
+            World Health Organization (WHO). Use of lower-sodium salt substitutes: WHO guideline. 2024.<br>
+            European Society of Cardiology (ESC). Guidelines for the management of arterial hypertension.<br>
+            American Heart Association (AHA). Dietary Sodium and Cardiovascular Health.<br>
+            Cochrane Database of Systematic Reviews. Revisiones sobre reducción del consumo de sodio y riesgo cardiovascular.
+          </p>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <!-- EL AZUCAR MASCABO ES MAS SALUDABLE -->
+        <article id="azucar-mascabo" class="pillar-card article-body nutricion-section" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="section-badge">Azucar Mascabo</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            ¿El azúcar mascabado es realmente más saludable?
+          </h2>
+
+          <div class="article-subindex">
+            <p><i class="fa-solid fa-list-ul"></i> &nbsp;En este articulo</p>
+            <ul>
+              <li><a href="#masc-resumen"><i class="fa-solid fa-chevron-right"></i> Resumen</a></li>
+              <li><a href="#masc-que-es"><i class="fa-solid fa-chevron-right"></i> Que es el azucar mascabo</a></li>
+              <li><a href="#masc-nutrientes"><i class="fa-solid fa-chevron-right"></i> Que nutrientes aporta</a></li>
+              <li><a href="#masc-calorias"><i class="fa-solid fa-chevron-right"></i> Tiene menos calorias</a></li>
+              <li><a href="#masc-glucosa"><i class="fa-solid fa-chevron-right"></i> Produce un menor aumento de la glucosa en sangre</a></li>
+              <li><a href="#masc-alternativa"><i class="fa-solid fa-chevron-right"></i> Es una alternativa mas saludable</a></li>
+              <li><a href="#masc-organizaciones"><i class="fa-solid fa-chevron-right"></i> Que recomiendan las organizaciones de salud</a></li>
+              <li><a href="#masc-mitos"><i class="fa-solid fa-chevron-right"></i> Mitos frecuentes</a></li>
+              <li><a href="#masc-conclusion"><i class="fa-solid fa-chevron-right"></i> Conclusion</a></li>
+              <li><a href="#masc-bibliografia"><i class="fa-solid fa-chevron-right"></i> Referencias cientificas</a></li>
+            </ul>
+          </div>
+
+          <h4 id="masc-resumen">Resumen</h4>
+          <p>El azúcar mascabo suele promocionarse como una alternativa "más natural" y "más saludable" que el azúcar blanco refinado. Aunque conserva pequeñas cantidades de minerales debido a un menor grado de procesamiento, la evidencia científica indica que esas diferencias son nutricionalmente poco relevantes. Su aporte calórico y su efecto sobre la glucemia son muy similares a los del azúcar refinado, por lo que debe consumirse con la misma moderación.</p>
+
+          <h4 id="masc-que-es">¿Qué es el azúcar mascabo?</h4>
+          <p>El azúcar mascabo es un azúcar obtenido a partir del jugo de la caña de azúcar que conserva parte de la melaza natural durante su elaboración. A diferencia del azúcar blanco refinado, recibe un procesamiento menos intenso, lo que le otorga un color marrón característico, un sabor más intenso y una textura ligeramente húmeda.</p>
+          <p>La presencia de melaza hace que contenga pequeñas cantidades de minerales y compuestos naturales que prácticamente desaparecen durante el refinado del azúcar blanco.</p>
+
+          <h4 id="masc-nutrientes">¿Qué nutrientes aporta?</h4>
+          <p>El azúcar mascabo contiene pequeñas cantidades de calcio, potasio, magnesio e hierro. Sin embargo, las cantidades presentes son muy reducidas.</p>
+          <p>Por ejemplo, una cucharadita aporta una cantidad insignificante de estos minerales en comparación con alimentos como verduras, frutas, legumbres, lácteos o frutos secos.</p>
+          <p>En consecuencia, no puede considerarse una fuente importante de micronutrientes.</p>
+
+          <h4 id="masc-calorias">¿Tiene menos calorías?</h4>
+          <p>No.</p>
+          <p>La diferencia calórica entre ambos tipos de azúcar es prácticamente inexistente.</p>
+          <ul class="bullet-list">
+            <li>Azúcar blanco: aproximadamente 4 kcal/g.</li>
+            <li>Azúcar mascabo: aproximadamente 3,8-4 kcal/g.</li>
+          </ul>
+          <p>Desde un punto de vista práctico, esta diferencia carece de relevancia.</p>
+
+          <h4 id="masc-glucosa">¿Produce un menor aumento de la glucosa en sangre?</h4>
+          <p>La evidencia disponible muestra que las diferencias son pequeñas.</p>
+          <p>El azúcar mascabo continúa estando compuesto principalmente por sacarosa y produce una respuesta glucémica similar a la del azúcar refinado cuando se consume en cantidades equivalentes.</p>
+          <p>Por lo tanto, no puede considerarse un alimento con bajo índice glucémico.</p>
+
+          <h4 id="masc-alternativa">¿Es una alternativa más saludable?</h4>
+          <p>Actualmente no existe evidencia científica sólida que demuestre beneficios clínicamente relevantes del azúcar mascabo sobre la salud en comparación con el azúcar blanco.</p>
+          <p>La principal diferencia entre ambos productos es tecnológica y gastronómica, no nutricional.</p>
+          <p>Su sabor, aroma y textura pueden hacerlo preferible para determinadas preparaciones culinarias, pero ello no implica que pueda consumirse en mayores cantidades.</p>
+
+          <h4 id="masc-organizaciones">¿Qué recomiendan las principales organizaciones de salud?</h4>
+          <p>Las recomendaciones actuales ponen el foco en limitar el consumo de azúcares libres o añadidos, independientemente de su origen.</p>
+          <p>Esto incluye:</p>
+          <ul class="bullet-list">
+            <li>Azúcar blanco.</li>
+            <li>Azúcar mascabo.</li>
+            <li>Azúcar rubia.</li>
+            <li>Miel.</li>
+            <li>Jarabe de agave.</li>
+            <li>Jarabe de arce.</li>
+            <li>Azúcar de coco.</li>
+          </ul>
+          <p>El objetivo es reducir la cantidad total de azúcares añadidos dentro de una alimentación saludable.</p>
+
+          <h4 id="masc-mitos">Mitos frecuentes</h4>
+          <p>"Como es natural, puedo consumir más." Falso. Ser un alimento menos procesado no modifica significativamente su impacto energético.</p>
+          <p>"Tiene muchas vitaminas y minerales." Falso. Aunque contiene algunos minerales, las cantidades son demasiado pequeñas como para aportar beneficios relevantes.</p>
+          <p>"No hace subir tanto la glucosa." La evidencia actual no respalda esa afirmación. Las diferencias con el azúcar blanco son mínimas.</p>
+
+          <h4 id="masc-conclusion">Conclusión</h4>
+          <p>El azúcar mascabo conserva parte de la melaza natural y contiene pequeñas cantidades de minerales que prácticamente no están presentes en el azúcar blanco refinado. Sin embargo, esas diferencias no modifican de forma significativa su valor nutricional ni su impacto metabólico.</p>
+          <p>Desde el punto de vista científico, ambos productos deben considerarse azúcares añadidos y su consumo debería mantenerse dentro de las recomendaciones de una alimentación saludable. Elegir azúcar mascabo puede responder a una preferencia culinaria por su sabor o textura, pero no constituye una alternativa significativamente más saludable.</p>
+
+          <h4 id="masc-bibliografia">Referencias científicas</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.8;">
+            World Health Organization (WHO). Guideline: Sugars intake for adults and children. 2015.<br>
+            Dietary Guidelines for Americans 2025-2030 (capítulo sobre azúcares añadidos).<br>
+            European Food Safety Authority (EFSA). Scientific Opinion on Dietary Reference Values for carbohydrates and dietary fibre.<br>
+            American Heart Association. Added Sugars and Cardiovascular Health.<br>
+            U.S. Department of Agriculture (USDA). FoodData Central (composición nutricional de distintos tipos de azúcar).
+          </p>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <!-- ALIMENTACION PARA PERDER GRASA CORPORAL -->
+        <article id="grasa-alimentacion" class="pillar-card article-body nutricion-section" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); margin-bottom: 40px;">
+          <div class="section-badge">Alimentacion y Grasa Corporal</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Alimentación para perder grasa corporal: ¿qué dice la evidencia científica?
+          </h2>
+
+          <div class="article-subindex">
+            <p><i class="fa-solid fa-list-ul"></i> &nbsp;En este articulo</p>
+            <ul>
+              <li><a href="#gac-significa"><i class="fa-solid fa-chevron-right"></i> Que significa perder grasa corporal</a></li>
+              <li><a href="#gac-deficit"><i class="fa-solid fa-chevron-right"></i> El principio fundamental: el deficit calorico</a></li>
+              <li><a href="#gac-proteina"><i class="fa-solid fa-chevron-right"></i> Cuanta proteina conviene consumir</a></li>
+              <li><a href="#gac-carbohidratos"><i class="fa-solid fa-chevron-right"></i> Importan los carbohidratos</a></li>
+              <li><a href="#gac-grasas"><i class="fa-solid fa-chevron-right"></i> Y las grasas</a></li>
+              <li><a href="#gac-horario"><i class="fa-solid fa-chevron-right"></i> Importa el horario de las comidas</a></li>
+              <li><a href="#gac-ayudan"><i class="fa-solid fa-chevron-right"></i> Alimentos que ayudan durante una definicion</a></li>
+              <li><a href="#gac-noqueman"><i class="fa-solid fa-chevron-right"></i> Alimentos que no queman grasa</a></li>
+              <li><a href="#gac-entrenamiento"><i class="fa-solid fa-chevron-right"></i> El papel del entrenamiento</a></li>
+              <li><a href="#gac-dieta"><i class="fa-solid fa-chevron-right"></i> Que dieta funciona mejor</a></li>
+              <li><a href="#gac-errores"><i class="fa-solid fa-chevron-right"></i> Errores frecuentes</a></li>
+              <li><a href="#gac-menu1500"><i class="fa-solid fa-chevron-right"></i> Dia de alimentacion para perder grasa (1.500 kcal)</a></li>
+              <li><a href="#gac-menu1800"><i class="fa-solid fa-chevron-right"></i> Dia de alimentacion para perder grasa (1.800 kcal)</a></li>
+              <li><a href="#gac-menu2200"><i class="fa-solid fa-chevron-right"></i> Dia de alimentacion para perder grasa (2.200 kcal)</a></li>
+              <li><a href="#gac-menu2800"><i class="fa-solid fa-chevron-right"></i> Dia de alimentacion para ganar masa muscular (2.800 kcal)</a></li>
+              <li><a href="#gac-menu3200"><i class="fa-solid fa-chevron-right"></i> Dia de alimentacion para ganar masa muscular (3.200 kcal)</a></li>
+              <li><a href="#gac-vegetariano"><i class="fa-solid fa-chevron-right"></i> Dia de alimentacion vegetariano</a></li>
+              <li><a href="#gac-vegano"><i class="fa-solid fa-chevron-right"></i> Dia de alimentacion vegano</a></li>
+              <li><a href="#gac-reemplazos"><i class="fa-solid fa-chevron-right"></i> Posibles reemplazos</a></li>
+              <li><a href="#gac-conclusion"><i class="fa-solid fa-chevron-right"></i> Conclusion</a></li>
+              <li><a href="#gac-bibliografia"><i class="fa-solid fa-chevron-right"></i> Referencias bibliografica</a></li>
+            </ul>
+          </div>
+
+          <h4 id="gac-significa">¿Qué significa perder grasa corporal?</h4>
+          <p>Primero es importante diferenciar entre perder peso y perder grasa.</p>
+          <p>Una persona puede bajar varios kilos por pérdida de agua o masa muscular sin reducir significativamente su porcentaje de grasa corporal.</p>
+          <p>El objetivo debería ser reducir tejido adiposo preservando la mayor cantidad posible de masa muscular.</p>
+
+          <h4 id="gac-deficit">El principio fundamental: el déficit calórico</h4>
+          <p>Esta es probablemente la conclusión más consistente de toda la literatura científica.</p>
+          <p>Para perder grasa es necesario consumir menos energía de la que el organismo utiliza.</p>
+          <p>No importa si la dieta es mediterránea, baja en carbohidratos, baja en grasas, alta en proteínas, vegetariana, etc.</p>
+          <p>Todas pueden producir pérdida de grasa siempre que exista un déficit energético.</p>
+
+          <h4 id="gac-proteina">¿Cuánta proteína conviene consumir?</h4>
+          <p>Durante un déficit calórico aumenta el riesgo de perder masa muscular.</p>
+          <p>La evidencia actual muestra que una ingesta aproximada de 1,6-2,4 g/kg de peso corporal por día es una estrategia eficaz para minimizar esa pérdida.</p>
+          <p>En personas muy magras o atletas puede ser beneficioso llegar incluso a 2,7-3,1 g/kg de masa libre de grasa.</p>
+
+          <h4 id="gac-carbohidratos">¿Importan los carbohidratos?</h4>
+          <p>Sí. Los carbohidratos ayudan principalmente a mantener el rendimiento durante el entrenamiento.</p>
+          <p>Reducirlos puede ser útil para algunas personas, pero no acelera la pérdida de grasa cuando las calorías y la proteína son iguales. Lo importante es la adherencia.</p>
+
+          <h4 id="gac-grasas">¿Y las grasas?</h4>
+          <p>No deberían eliminarse.</p>
+          <p>Las grasas son necesarias para la producción hormonal, la absorción de vitaminas, la salud cardiovascular y el funcionamiento del sistema nervioso.</p>
+          <p>La mayoría de las guías recomienda que representen aproximadamente un 20-35% de las calorías diarias.</p>
+
+          <h4 id="gac-horario">¿Importa el horario de las comidas?</h4>
+          <p>La evidencia actual indica que el horario tiene una influencia mucho menor que las calorías totales, la proteína diaria, el entrenamiento y el descanso.</p>
+          <p>Comer después de las 20 hs no produce aumento de grasa por sí mismo. Este es uno de los mitos más estudiados.</p>
+
+          <h4 id="gac-ayudan">Alimentos que ayudan durante una definición</h4>
+          <p>No porque "quemen grasa", sino porque facilitan mantener el déficit.</p>
+          <p>Ejemplos:</p>
+          <ul class="bullet-list">
+            <li>Verduras.</li>
+            <li>Frutas.</li>
+            <li>Carnes magras.</li>
+            <li>Huevos.</li>
+            <li>Yogur griego.</li>
+            <li>Legumbres.</li>
+            <li>Avena.</li>
+            <li>Papa.</li>
+            <li>Arroz.</li>
+            <li>Pescado.</li>
+            <li>Frutos secos (en cantidades moderadas).</li>
+          </ul>
+
+          <h4 id="gac-noqueman">Alimentos que NO queman grasa</h4>
+          <p>Actualmente no existe evidencia sólida que demuestre que estos alimentos produzcan una pérdida significativa de grasa:</p>
+          <ul class="bullet-list">
+            <li>Té verde.</li>
+            <li>Limón.</li>
+            <li>Agua con vinagre de manzana.</li>
+            <li>Canela.</li>
+            <li>Jengibre.</li>
+            <li>Pomelo.</li>
+            <li>Café (más allá del leve aumento temporal del gasto energético).</li>
+          </ul>
+          <p>Su efecto es pequeño comparado con un déficit calórico.</p>
+
+          <h4 id="gac-entrenamiento">El papel del entrenamiento</h4>
+          <p>La evidencia muestra que el entrenamiento de fuerza es una de las herramientas más importantes para conservar masa muscular durante una dieta.</p>
+          <p>El ejercicio aeróbico ayuda a aumentar el gasto energético, pero no reemplaza el entrenamiento de fuerza.</p>
+
+          <h4 id="gac-dieta">¿Qué dieta funciona mejor?</h4>
+          <p>Los metaanálisis muestran que las diferencias entre dietas suelen ser pequeñas cuando las calorías son similares y la proteína es suficiente.</p>
+          <p>La mejor dieta suele ser aquella que una persona puede mantener durante meses.</p>
+
+          <h4 id="gac-errores">Errores frecuentes</h4>
+          <ul class="bullet-list">
+            <li>Eliminar completamente los carbohidratos.</li>
+            <li>Comer demasiado poco.</li>
+            <li>Buscar alimentos "milagrosos".</li>
+            <li>Hacer solo cardio.</li>
+            <li>No consumir suficiente proteína.</li>
+            <li>Dormir pocas horas.</li>
+          </ul>
+
+          <h4 id="gac-menu1500">Día de alimentación para perder grasa (1.500 kcal)</h4>
+          <p>Objetivo: este ejemplo está diseñado para una persona con requerimientos energéticos relativamente bajos o que necesita consumir alrededor de 1.500 kcal para generar un déficit calórico. La distribución prioriza alimentos de alta densidad nutricional, ricos en proteínas y fibra, con el fin de favorecer la saciedad y preservar la masa muscular durante la pérdida de grasa.</p>
+          <p>Importante: este menú tiene fines educativos. La cantidad de calorías necesaria para perder grasa depende del gasto energético de cada persona.</p>
+          <h5>Desayuno</h5>
+          <ul class="bullet-list">
+            <li>50 g de avena cocida con agua o leche descremada.</li>
+            <li>2 huevos enteros.</li>
+            <li>1 naranja mediana.</li>
+            <li>Café o té sin azúcar.</li>
+          </ul>
+          <p>Aporte aproximado: 350 kcal.</p>
+          <h5>Media mañana</h5>
+          <ul class="bullet-list">
+            <li>170 g de yogur natural descremado.</li>
+            <li>15 g de nueces.</li>
+          </ul>
+          <p>Aporte aproximado: 180 kcal.</p>
+          <h5>Almuerzo</h5>
+          <ul class="bullet-list">
+            <li>150 g de pechuga de pollo a la plancha.</li>
+            <li>120 g de arroz integral cocido.</li>
+            <li>Ensalada de lechuga, tomate y zanahoria.</li>
+            <li>1 cucharadita (5 g) de aceite de oliva para condimentar.</li>
+          </ul>
+          <p>Aporte aproximado: 450 kcal.</p>
+          <h5>Merienda</h5>
+          <ul class="bullet-list">
+            <li>1 manzana mediana.</li>
+            <li>40 g de queso fresco magro.</li>
+          </ul>
+          <p>Aporte aproximado: 150 kcal.</p>
+          <h5>Cena</h5>
+          <ul class="bullet-list">
+            <li>150 g de merluza al horno.</li>
+            <li>200 g de calabaza asada.</li>
+            <li>Brócoli al vapor a gusto.</li>
+            <li>Jugo de limón y especias para condimentar.</li>
+          </ul>
+          <p>Aporte aproximado: 370 kcal.</p>
+
+          <h4 id="gac-menu1800">Día de alimentación para perder grasa (1.800 kcal)</h4>
+          <p>Objetivo: este ejemplo está diseñado para una persona físicamente activa que requiere aproximadamente 1.800 kcal diarias para mantener un déficit calórico. La distribución de los alimentos busca favorecer la pérdida de grasa preservando la masa muscular, mediante un adecuado aporte de proteínas, carbohidratos complejos, grasas saludables y alimentos ricos en fibra.</p>
+          <p>Importante: este menú tiene fines exclusivamente educativos. La cantidad de calorías necesaria para perder grasa depende del gasto energético, la composición corporal, el nivel de actividad física y otros factores individuales.</p>
+          <h5>Desayuno</h5>
+          <ul class="bullet-list">
+            <li>60 g de avena.</li>
+            <li>250 ml de leche descremada.</li>
+            <li>2 huevos enteros.</li>
+            <li>1 banana mediana.</li>
+            <li>Café o té sin azúcar.</li>
+          </ul>
+          <p>Aporte aproximado: 430 kcal.</p>
+          <h5>Media mañana</h5>
+          <ul class="bullet-list">
+            <li>200 g de yogur natural descremado.</li>
+            <li>20 g de almendras.</li>
+          </ul>
+          <p>Aporte aproximado: 220 kcal.</p>
+          <h5>Almuerzo</h5>
+          <ul class="bullet-list">
+            <li>170 g de pechuga de pollo a la plancha.</li>
+            <li>150 g de arroz integral cocido.</li>
+            <li>Ensalada de lechuga, tomate, zanahoria y pepino.</li>
+            <li>10 g (1 cucharada) de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 540 kcal.</p>
+          <h5>Merienda</h5>
+          <ul class="bullet-list">
+            <li>2 rebanadas de pan integral.</li>
+            <li>50 g de queso untable descremado.</li>
+            <li>1 manzana mediana.</li>
+          </ul>
+          <p>Aporte aproximado: 250 kcal.</p>
+          <h5>Cena</h5>
+          <ul class="bullet-list">
+            <li>180 g de merluza al horno.</li>
+            <li>200 g de batata asada.</li>
+            <li>Brócoli y coliflor al vapor.</li>
+            <li>Jugo de limón y especias para condimentar.</li>
+          </ul>
+          <p>Aporte aproximado: 360 kcal.</p>
+
+          <h4 id="gac-menu2200">Día de alimentación para perder grasa (2.200 kcal)</h4>
+          <p>Objetivo: este ejemplo está diseñado para una persona con un gasto energético moderado o elevado que requiere aproximadamente 2.200 kcal diarias para mantener un déficit calórico. La planificación prioriza alimentos frescos y mínimamente procesados, con un elevado aporte de proteínas, una adecuada cantidad de carbohidratos para sostener el entrenamiento y grasas saludables en cantidades moderadas.</p>
+          <p>Importante: este menú tiene fines exclusivamente educativos. La cantidad de calorías necesaria para perder grasa dependerá del gasto energético individual, el nivel de actividad física, la composición corporal y los objetivos de cada persona.</p>
+          <h5>Desayuno</h5>
+          <ul class="bullet-list">
+            <li>80 g de avena.</li>
+            <li>250 ml de leche descremada.</li>
+            <li>2 huevos enteros.</li>
+            <li>2 claras de huevo.</li>
+            <li>1 banana mediana.</li>
+            <li>Café o té sin azúcar.</li>
+          </ul>
+          <p>Aporte aproximado: 560 kcal.</p>
+          <h5>Media mañana</h5>
+          <ul class="bullet-list">
+            <li>200 g de yogur natural descremado.</li>
+            <li>30 g de nueces.</li>
+            <li>1 mandarina.</li>
+          </ul>
+          <p>Aporte aproximado: 300 kcal.</p>
+          <h5>Almuerzo</h5>
+          <ul class="bullet-list">
+            <li>200 g de pechuga de pollo a la plancha.</li>
+            <li>180 g de arroz integral cocido.</li>
+            <li>Ensalada de hojas verdes, tomate, zanahoria y pepino.</li>
+            <li>10 g (1 cucharada) de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 620 kcal.</p>
+          <h5>Merienda</h5>
+          <ul class="bullet-list">
+            <li>2 rebanadas de pan integral.</li>
+            <li>80 g de queso fresco magro.</li>
+            <li>1 manzana mediana.</li>
+          </ul>
+          <p>Aporte aproximado: 280 kcal.</p>
+          <h5>Cena</h5>
+          <ul class="bullet-list">
+            <li>200 g de merluza al horno.</li>
+            <li>250 g de papas al horno.</li>
+            <li>Brócoli y coliflor al vapor.</li>
+            <li>Jugo de limón, ajo, perejil y especias para condimentar.</li>
+          </ul>
+          <p>Aporte aproximado: 440 kcal.</p>
+
+          <h4 id="gac-menu2800">Día de alimentación para ganar masa muscular (2.800 kcal)</h4>
+          <p>Objetivo: este ejemplo está diseñado para una persona físicamente activa que requiere aproximadamente 2.800 kcal diarias para favorecer la ganancia de masa muscular. La planificación alimentaria prioriza un ligero superávit energético, un elevado aporte de proteínas de alta calidad y una cantidad adecuada de carbohidratos para optimizar el rendimiento deportivo y la recuperación muscular.</p>
+          <p>Importante: este menú tiene fines exclusivamente educativos. La cantidad de calorías necesaria para ganar masa muscular dependerá del gasto energético, la composición corporal, el nivel de entrenamiento y las características individuales de cada persona.</p>
+          <h5>Desayuno</h5>
+          <ul class="bullet-list">
+            <li>100 g de avena.</li>
+            <li>300 ml de leche descremada.</li>
+            <li>3 huevos enteros.</li>
+            <li>1 banana grande.</li>
+            <li>Café o té sin azúcar.</li>
+          </ul>
+          <p>Aporte aproximado: 700 kcal.</p>
+          <h5>Media mañana</h5>
+          <ul class="bullet-list">
+            <li>250 g de yogur natural descremado.</li>
+            <li>30 g de nueces.</li>
+            <li>1 manzana mediana.</li>
+          </ul>
+          <p>Aporte aproximado: 350 kcal.</p>
+          <h5>Almuerzo</h5>
+          <ul class="bullet-list">
+            <li>220 g de pechuga de pollo a la plancha.</li>
+            <li>250 g de arroz integral cocido.</li>
+            <li>Ensalada de hojas verdes, tomate y zanahoria.</li>
+            <li>15 g (1 cucharada y media) de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 760 kcal.</p>
+          <h5>Merienda</h5>
+          <ul class="bullet-list">
+            <li>3 rebanadas de pan integral.</li>
+            <li>100 g de queso fresco magro.</li>
+            <li>1 pera mediana.</li>
+          </ul>
+          <p>Aporte aproximado: 380 kcal.</p>
+          <h5>Cena</h5>
+          <ul class="bullet-list">
+            <li>220 g de carne vacuna magra (nalga, cuadril o lomo).</li>
+            <li>300 g de papas al horno.</li>
+            <li>Brócoli y zapallitos al vapor.</li>
+            <li>10 g de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 610 kcal.</p>
+
+          <h4 id="gac-menu3200">Día de alimentación para ganar masa muscular (3.200 kcal)</h4>
+          <p>Objetivo: este ejemplo está diseñado para personas con un elevado gasto energético, como quienes realizan entrenamiento de fuerza de alta frecuencia o volumen, o tienen una actividad física diaria intensa. La planificación proporciona un superávit calórico moderado, un elevado aporte de proteínas y una cantidad suficiente de carbohidratos para favorecer el rendimiento, la recuperación y la ganancia de masa muscular.</p>
+          <p>Importante: este menú tiene fines exclusivamente educativos. Las necesidades energéticas varían entre individuos y deben ajustarse según el peso corporal, la composición corporal, el nivel de actividad física y los objetivos personales.</p>
+          <h5>Desayuno</h5>
+          <ul class="bullet-list">
+            <li>100 g de avena.</li>
+            <li>300 ml de leche descremada.</li>
+            <li>3 huevos enteros.</li>
+            <li>2 rebanadas de pan integral.</li>
+            <li>1 banana grande.</li>
+            <li>Café o té sin azúcar.</li>
+          </ul>
+          <p>Aporte aproximado: 820 kcal.</p>
+          <h5>Media mañana</h5>
+          <ul class="bullet-list">
+            <li>250 g de yogur natural descremado.</li>
+            <li>40 g de nueces.</li>
+            <li>1 manzana mediana.</li>
+          </ul>
+          <p>Aporte aproximado: 420 kcal.</p>
+          <h5>Almuerzo</h5>
+          <ul class="bullet-list">
+            <li>250 g de pechuga de pollo a la plancha.</li>
+            <li>300 g de arroz integral cocido.</li>
+            <li>Ensalada variada (lechuga, tomate, zanahoria y pepino).</li>
+            <li>15 g de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 850 kcal.</p>
+          <h5>Merienda</h5>
+          <ul class="bullet-list">
+            <li>3 rebanadas de pan integral.</li>
+            <li>100 g de queso fresco magro.</li>
+            <li>1 pera mediana.</li>
+            <li>20 g de mantequilla de maní 100%.</li>
+          </ul>
+          <p>Aporte aproximado: 450 kcal.</p>
+          <h5>Cena</h5>
+          <ul class="bullet-list">
+            <li>250 g de carne vacuna magra (nalga, cuadril o lomo).</li>
+            <li>350 g de papas al horno.</li>
+            <li>Brócoli y zanahoria al vapor.</li>
+            <li>10 g de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 660 kcal.</p>
+
+          <h4 id="gac-vegetariano">Día de alimentación vegetariano</h4>
+          <p>Objetivo: este ejemplo está diseñado para una persona físicamente activa que sigue una alimentación vegetariana (ovolactovegetariana). El menú busca cubrir adecuadamente las necesidades de proteínas, carbohidratos, grasas saludables, vitaminas y minerales utilizando exclusivamente alimentos de origen vegetal, huevos y lácteos, favoreciendo tanto la salud como el rendimiento físico.</p>
+          <p>Importante: una alimentación vegetariana bien planificada puede cubrir los requerimientos nutricionales de personas físicamente activas, siempre que exista una adecuada variedad de alimentos y una correcta distribución de proteínas a lo largo del día.</p>
+          <h5>Desayuno</h5>
+          <ul class="bullet-list">
+            <li>70 g de avena.</li>
+            <li>250 ml de leche descremada.</li>
+            <li>1 banana mediana.</li>
+            <li>30 g de nueces.</li>
+            <li>Café o té sin azúcar.</li>
+          </ul>
+          <p>Aporte aproximado: 580 kcal.</p>
+          <h5>Media mañana</h5>
+          <ul class="bullet-list">
+            <li>200 g de yogur natural descremado.</li>
+            <li>1 manzana.</li>
+            <li>20 g de semillas de chía.</li>
+          </ul>
+          <p>Aporte aproximado: 280 kcal.</p>
+          <h5>Almuerzo</h5>
+          <ul class="bullet-list">
+            <li>200 g de lentejas cocidas.</li>
+            <li>120 g de arroz integral cocido.</li>
+            <li>Ensalada de espinaca, tomate, zanahoria y morrón.</li>
+            <li>10 g de aceite de oliva.</li>
+            <li>30 g de queso rallado.</li>
+          </ul>
+          <p>Aporte aproximado: 680 kcal.</p>
+          <h5>Merienda</h5>
+          <ul class="bullet-list">
+            <li>2 rebanadas de pan integral.</li>
+            <li>2 huevos revueltos.</li>
+            <li>1 naranja.</li>
+          </ul>
+          <p>Aporte aproximado: 360 kcal.</p>
+          <h5>Cena</h5>
+          <p>Tortilla preparada con 3 huevos, espinaca, cebolla y champiñones.</p>
+          <ul class="bullet-list">
+            <li>250 g de batata al horno.</li>
+            <li>Ensalada de hojas verdes.</li>
+          </ul>
+          <p>Aporte aproximado: 620 kcal.</p>
+
+          <h4 id="gac-vegano">Día de alimentación vegano</h4>
+          <p>Objetivo: este ejemplo está diseñado para una persona físicamente activa que sigue una alimentación exclusivamente de origen vegetal. El menú busca cubrir adecuadamente las necesidades de proteínas, carbohidratos, grasas saludables, fibra y micronutrientes mediante una adecuada combinación de cereales, legumbres, frutas, verduras, frutos secos y semillas.</p>
+          <p>Importante: una alimentación vegana bien planificada puede cubrir los requerimientos nutricionales de la mayoría de las personas, incluidas aquellas que realizan actividad física. Sin embargo, la evidencia científica recomienda suplementar vitamina B12 y, según el caso, evaluar otros nutrientes como vitamina D, hierro, calcio, yodo y omega-3.</p>
+          <h5>Desayuno</h5>
+          <ul class="bullet-list">
+            <li>80 g de avena.</li>
+            <li>300 ml de bebida de soja fortificada con calcio y vitamina B12, sin azúcares añadidos.</li>
+            <li>1 banana mediana.</li>
+            <li>20 g de nueces.</li>
+            <li>Café o té sin azúcar.</li>
+          </ul>
+          <p>Aporte aproximado: 600 kcal.</p>
+          <h5>Media mañana</h5>
+          <ul class="bullet-list">
+            <li>2 tostadas integrales.</li>
+            <li>50 g de hummus.</li>
+            <li>1 manzana mediana.</li>
+          </ul>
+          <p>Aporte aproximado: 300 kcal.</p>
+          <h5>Almuerzo</h5>
+          <ul class="bullet-list">
+            <li>180 g de tofu firme a la plancha.</li>
+            <li>180 g de arroz integral cocido.</li>
+            <li>Ensalada de espinaca, tomate, zanahoria y pepino.</li>
+            <li>10 g (1 cucharada) de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 700 kcal.</p>
+          <h5>Merienda</h5>
+          <ul class="bullet-list">
+            <li>200 g de yogur vegetal de soja sin azúcares añadidos.</li>
+            <li>20 g de almendras.</li>
+            <li>1 naranja.</li>
+          </ul>
+          <p>Aporte aproximado: 300 kcal.</p>
+          <h5>Cena</h5>
+          <ul class="bullet-list">
+            <li>200 g de lentejas cocidas.</li>
+            <li>150 g de quinoa cocida.</li>
+            <li>Brócoli y coliflor al vapor.</li>
+            <li>10 g de aceite de oliva.</li>
+          </ul>
+          <p>Aporte aproximado: 650 kcal.</p>
+
+          <h4 id="gac-reemplazos">Posibles reemplazos</h4>
+          <p>Las siguientes alternativas permiten variar el menú manteniendo un perfil nutricional similar.</p>
+          <h5>Fuentes de proteínas</h5>
+          <ul class="bullet-list">
+            <li>Pechuga de pollo → pavo, carne vacuna magra, pescado o lomo de cerdo.</li>
+            <li>Carne vacuna → pollo, pescado, atún al natural o huevos.</li>
+            <li>Yogur natural → ricota descremada o queso fresco magro.</li>
+          </ul>
+          <h5>Fuentes de carbohidratos</h5>
+          <ul class="bullet-list">
+            <li>Avena → pan integral, quinoa o cereales integrales.</li>
+            <li>Arroz integral → pasta integral, papas, batatas o legumbres.</li>
+            <li>Papas → arroz, quinoa o batata.</li>
+          </ul>
+          <h5>Fuentes de grasas saludables</h5>
+          <ul class="bullet-list">
+            <li>Nueces → almendras, pistachos, avellanas o semillas.</li>
+            <li>Aceite de oliva → aceite de canola o girasol alto oleico.</li>
+          </ul>
+
+          <h4 id="gac-conclusion">Conclusión</h4>
+          <p>La evidencia científica actual muestra que la pérdida de grasa depende principalmente del déficit energético, acompañado por una adecuada ingesta de proteínas y entrenamiento de fuerza.</p>
+          <p>Las dietas extremas o los alimentos "quemadores de grasa" ofrecen beneficios mínimos frente a estos factores.</p>
+
+          <h4 id="gac-bibliografia">Referencias bibliográfica</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.8;">
+            Hall KD, Guo J. Obesity Energetics: Body Weight Regulation and the Effects of Diet Composition. Gastroenterology. 2017.<br>
+            Morton RW, et al. A Systematic Review, Meta-analysis and Meta-regression of Protein Supplementation on Resistance Training-Induced Gains. Br J Sports Med. 2018.<br>
+            Jäger R, et al. International Society of Sports Nutrition Position Stand: Protein and Exercise. Journal of the ISSN. 2017.<br>
+            Helms ER, et al. Evidence-based recommendations for natural bodybuilding contest preparation. JISSN.<br>
+            ISSN Position Stand (2022).<br>
+            American College of Sports Medicine Guidelines.
+          </p>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="logo" style="margin-bottom: 20px;">
+          <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+          <div class="logo-text">Se Tu<span>Entrenador</span></div>
+        </a>
+        <p>Especialistas en transformar la teoria cientifica en resultados practicos de gimnasio, pista y salud diaria.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Contenidos</h5>
+        <ul>
+          <li><a href="entrenamiento.html">Entrenamiento de Fuerza</a></li>
+          <li><a href="entrenamiento.html">Cardio & Resistencia</a></li>
+          <li><a href="entrenamiento.html">Rutinas Funcionales</a></li>
+          <li><a href="alimentacion.html">Nutricion Deportiva</a></li>
+          <li><a href="suplementacion.html">Suplementos Aprobados</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Contacto y redes</h5>
+        <ul class="footer-social-list">
+          <li><a href="#" class="wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-instagram"></i> @setupropiopreparadorfisico</a></li>
+          <li><a href="https://www.facebook.com/Setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-facebook"></i> Setupropiopreparadorfisico</a></li>
+          <li><a href="mailto:setupropiopreparadorfisico@gmail.com"><i class="fa-solid fa-envelope"></i> setupropiopreparadorfisico@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Enlaces rápidos</h5>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html">Alimentación</a></li>
+          <li><a href="suplementacion.html">Suplementación</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Sé Tu Entrenador. Todos los derechos reservados.</p>
+      <p style="font-size: 0.75rem; color: var(--color-text-muted); width: 100%; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+        <strong>Descargo de responsabilidad:</strong> La informacion provista en este sitio web y en el libro tiene fines puramente educativos e informativos y no sustituye el consejo, diagnostico o tratamiento medico o nutricional profesional.
+      </p>
+    </div>
+  </footer>
+
+  <a href="#" class="whatsapp-float wa-book-link" target="_blank" aria-label="Comprar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <script src="script.js"></script>
+</body>
+</html>

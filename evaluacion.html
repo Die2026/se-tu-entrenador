@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Evaluación - Calculadora de IMC - Se Tu Entrenador</title>
+  <meta name="description" content="Calculá tu Indice de Masa Corporal (IMC) y descubrí tu rango de peso saludable de forma instantanea.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .section-badge {
+      display: block;
+      text-align: center;
+      color: #d4af37;
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+    }
+
+    /* Indice principal (preparado para futuras herramientas) */
+    .main-index {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 50px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .main-index h3 {
+      font-size: 1rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .main-index-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 12px;
+    }
+    .main-index-grid a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 10px 14px;
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      transition: all 0.3s ease;
+    }
+    .main-index-grid a:hover {
+      color: #d4af37;
+      border-color: rgba(212, 175, 55, 0.4);
+      background-color: rgba(212, 175, 55, 0.06);
+    }
+    .main-index-grid a i {
+      color: #d4af37;
+      font-size: 0.8rem;
+    }
+
+    /* ===== CALCULADORA DE IMC ===== */
+    .imc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      margin-top: 10px;
+    }
+
+    .imc-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .imc-input-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .imc-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .imc-input-wrapper input {
+      width: 100%;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 16px 60px 16px 18px;
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      transition: var(--transition-smooth);
+    }
+
+    .imc-input-wrapper input::placeholder {
+      color: var(--color-text-muted);
+      font-weight: 400;
+    }
+
+    .imc-input-wrapper input:focus {
+      outline: none;
+      border-color: var(--color-brand-red);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+
+    .imc-input-wrapper .imc-unit {
+      position: absolute;
+      right: 18px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .imc-error {
+      font-size: 0.85rem;
+      color: #e05a5a;
+      min-height: 18px;
+      margin-top: -4px;
+    }
+
+    /* Panel de resultado */
+    .imc-result-card {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 32px;
+      text-align: center;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .imc-result-empty {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .imc-value {
+      font-family: var(--font-serif);
+      font-size: 3.4rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1;
+    }
+
+    .imc-value span {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .imc-category-badge {
+      display: inline-block;
+      align-self: center;
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Barra de escala */
+    .imc-scale-wrapper {
+      margin-top: 6px;
+    }
+
+    .imc-scale {
+      position: relative;
+      width: 100%;
+      height: 12px;
+      border-radius: 20px;
+      background: linear-gradient(
+        90deg,
+        #4a90d9 0%,
+        #4a90d9 11%,
+        #25d366 11%,
+        #25d366 33%,
+        #d4af37 33%,
+        #d4af37 50%,
+        #a63a3a 50%,
+        #a63a3a 100%
+      );
+      margin-top: 14px;
+    }
+
+    .imc-scale-marker {
+      position: absolute;
+      top: -7px;
+      width: 4px;
+      height: 26px;
+      background-color: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(0,0,0,0.4);
+      transform: translateX(-50%);
+      transition: left 0.3s ease;
+    }
+
+    .imc-scale-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .imc-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 8px;
+      text-align: left;
+    }
+
+    .imc-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px solid var(--color-glass-border);
+      padding-top: 14px;
+      gap: 12px;
+    }
+
+    .imc-info-row .imc-info-label {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .imc-info-row .imc-info-value {
+      color: var(--color-text-main);
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+
+    .imc-message {
+      background-color: rgba(212, 175, 55, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--border-radius-md);
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--color-brand-cream);
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    .imc-message.ok {
+      background-color: rgba(37, 211, 102, 0.08);
+      border-color: rgba(37, 211, 102, 0.25);
+      color: #25d366;
+    }
+
+    .imc-disclaimer {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      margin-top: 22px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .section-badge { font-size: 1.8rem; }
+      .imc-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    /* ===== SECCIÓN HIDRATACIÓN ===== */
+    /* Reutiliza las mismas clases y variables visuales que la calculadora de IMC
+       (imc-result-card, imc-value, imc-message, etc.) para mantener coherencia estética. */
+
+    .hidratacion-wrapper {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--color-glass-border);
+    }
+
+    .hidratacion-empty {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .hidratacion-result-card {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 32px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hidratacion-icon {
+      font-size: 1.8rem;
+      color: var(--color-brand-cream);
+    }
+
+    .hidratacion-rango {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1.15;
+    }
+
+    .hidratacion-rango span {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .hidratacion-vasos {
+      font-size: 0.95rem;
+      color: var(--color-brand-cream);
+      font-weight: 600;
+    }
+
+    .hidratacion-disclaimer {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      text-align: left;
+      max-width: 700px;
+      margin: 10px auto 0 auto;
+    }
+
+    /* ===== SECCIÓN EVALUACIÓN METABÓLICA (TMB / GET / Objetivos) ===== */
+    /* Reutiliza .imc-input-group, .imc-input-wrapper, .imc-result-card y .imc-message
+       para mantener la misma estética que el resto de "Mi Evaluación". */
+
+    .metab-wrapper {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--color-glass-border);
+    }
+
+    /* Selector de sexo (pill buttons, mismo lenguaje visual que .imc-input-wrapper) */
+    .metab-radio-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .metab-radio-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .metab-radio-option input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .metab-radio-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 14px 10px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .metab-radio-option input:checked + label {
+      border-color: var(--color-brand-red);
+      background-color: rgba(166, 58, 58, 0.12);
+      color: var(--color-text-main);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+
+    /* Select de nivel de actividad, mismo estilo visual que los inputs numéricos */
+    .metab-select-wrapper select {
+      width: 100%;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 16px 18px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      transition: var(--transition-smooth);
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ba1ad' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      background-size: 18px;
+      cursor: pointer;
+    }
+
+    .metab-select-wrapper select:focus {
+      outline: none;
+      border-color: var(--color-brand-red);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+
+    .metab-select-hint {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* Tarjetas de resultado principal (TMB y GET), apiladas a la derecha */
+    .metab-result-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: 100%;
+    }
+
+    .metab-result-card {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 26px;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .metab-result-card .metab-icon {
+      font-size: 1.4rem;
+      color: var(--color-brand-cream);
+      margin-bottom: 4px;
+    }
+
+    .metab-result-card .metab-kcal {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1;
+    }
+
+    .metab-result-card .metab-kcal-label {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .metab-result-card .metab-desc {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+
+    /* Grilla de objetivos (mantener / perder / ganar) */
+    .metab-objetivos-title {
+      text-align: center;
+      color: var(--color-brand-cream);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 40px 0 24px 0;
+      font-weight: 700;
+    }
+
+    .metab-objetivos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .metab-objetivo-card {
+      background-color: rgba(27, 30, 37, 0.4);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 26px 20px;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+
+    .metab-objetivo-card:hover {
+      transform: translateY(-6px);
+      background-color: var(--bg-secondary);
+      border-color: rgba(166, 58, 58, 0.3);
+    }
+
+    .metab-objetivo-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: var(--color-brand-cream);
+    }
+
+    .metab-objetivo-titulo {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .metab-objetivo-valor {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-brand-cream);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .metab-objetivo-unidad {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Colores diferenciados por objetivo, coherentes con la escala de IMC */
+    .metab-objetivo-card.mantener .metab-objetivo-valor { color: var(--color-brand-cream); }
+    .metab-objetivo-card.perder .metab-objetivo-valor { color: #25d366; }
+    .metab-objetivo-card.ganar .metab-objetivo-valor { color: #a63a3a; }
+
+    @media (max-width: 768px) {
+      .metab-objetivos-grid { grid-template-columns: 1fr; }
+      .metab-radio-group { flex-direction: row; }
+    }
+
+    /* ===== BOTÓN DE DESCARGA DE INFORME EN PDF ===== */
+    /* Reutiliza las clases .btn y .btn-primary ya definidas en style.css
+       para que el botón se vea idéntico al resto de los botones del sitio. */
+
+    .pdf-informe-wrapper {
+      max-width: 900px;
+      margin: 40px auto 0 auto;
+      text-align: center;
+    }
+
+    /* Estado deshabilitado: el botón permanece visible pero atenuado y
+       sin interacción hasta que existan resultados válidos para exportar. */
+    #btn-descargar-pdf:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .pdf-informe-hint {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <div class="logo-text">Se Tu<span>Entrenador</span></div>
+      </a>
+      <button class="mobile-menu-toggle" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav>
+        <ul id="nav-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html">Alimentacion</a></li>
+          <li><a href="suplementacion.html">Suplementacion</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html" style="color: var(--color-brand-cream)">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+          <li><a href="#" class="nav-btn wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> Consultar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <section class="section" style="padding-top: 150px; background: radial-gradient(circle at 50% 20%, rgba(166, 58, 58, 0.05) 0%, transparent 80%);">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 50px;">
+        <h1 class="font-serif text-gradient" style="font-size: 3rem; margin-bottom: 20px;">Mi Evaluación</h1>
+        <p>Herramientas prácticas para conocer tu punto de partida. Ingresá tus datos y obtené resultados al instante, sin registrarte y sin recargar la página.</p>
+      </div>
+
+      <!-- INDICE (preparado para futuras herramientas) -->
+      <div class="main-index">
+        <h3><i class="fa-solid fa-list"></i> &nbsp;Herramientas disponibles</h3>
+        <div class="main-index-grid">
+          <a href="#calculadora-imc"><i class="fa-solid fa-chevron-down"></i> Calculadora de Índice de Masa Corporal (IMC)</a>
+          <a href="#calculadora-hidratacion"><i class="fa-solid fa-chevron-down"></i> Hidratación</a>
+          <a href="#evaluacion-metabolica"><i class="fa-solid fa-chevron-down"></i> Evaluación Metabólica</a>
+        </div>
+      </div>
+
+      <div style="max-width: 900px; margin: 0 auto;">
+
+        <!-- CALCULADORA DE IMC -->
+        <div id="calculadora-imc" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); scroll-margin-top: 100px;">
+          <div class="section-badge">Calculadora de IMC</div>
+          <p style="text-align:center; max-width: 620px; margin-left: auto; margin-right: auto;">
+            El Índice de Masa Corporal (IMC) es un indicador rápido que relaciona tu peso con tu altura. Completá los dos campos y el resultado se actualiza automáticamente.
+          </p>
+
+          <div class="imc-grid">
+            <!-- COLUMNA IZQUIERDA: INPUTS -->
+            <div>
+              <div class="imc-input-group">
+                <label for="imc-peso">Peso</label>
+                <div class="imc-input-wrapper">
+                  <input type="number" id="imc-peso" inputmode="decimal" min="0" step="0.1" placeholder="Ej: 75">
+                  <span class="imc-unit">kg</span>
+                </div>
+                <div class="imc-error" id="imc-error-peso"></div>
+              </div>
+
+              <div class="imc-input-group">
+                <label for="imc-altura">Altura</label>
+                <div class="imc-input-wrapper">
+                  <input type="number" id="imc-altura" inputmode="decimal" min="0" step="1" placeholder="Ej: 175">
+                  <span class="imc-unit">cm</span>
+                </div>
+                <div class="imc-error" id="imc-error-altura"></div>
+              </div>
+
+              <div class="imc-info-list">
+                <div class="imc-info-row">
+                  <span class="imc-info-label">Peso mínimo saludable</span>
+                  <span class="imc-info-value" id="imc-peso-min">—</span>
+                </div>
+                <div class="imc-info-row">
+                  <span class="imc-info-label">Peso máximo saludable</span>
+                  <span class="imc-info-value" id="imc-peso-max">—</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: RESULTADO -->
+            <div class="imc-result-card">
+              <div id="imc-result-empty" class="imc-result-empty">
+                <i class="fa-solid fa-calculator" style="font-size: 1.8rem; color: var(--color-brand-cream); margin-bottom: 12px; display: block;"></i>
+                Ingresá tu peso y tu altura para ver tu resultado.
+              </div>
+
+              <div id="imc-result-content" style="display: none;">
+                <div class="imc-value" id="imc-value-num">0.0
+                  <span>Tu IMC actual</span>
+                </div>
+
+                <span class="imc-category-badge" id="imc-category-badge">—</span>
+
+                <div class="imc-scale-wrapper">
+                  <div class="imc-scale">
+                    <div class="imc-scale-marker" id="imc-marker" style="left: 0%;"></div>
+                  </div>
+                  <div class="imc-scale-labels">
+                    <span>Delgadez</span>
+                    <span>Normal</span>
+                    <span>Sobrepeso</span>
+                    <span>Obesidad</span>
+                  </div>
+                </div>
+
+                <div class="imc-message" id="imc-message"></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="imc-disclaimer">
+            El IMC es un indicador general y no reemplaza una evaluación médica o nutricional profesional. Factores como la masa muscular, la edad, el sexo y la composición corporal pueden influir en su interpretación.
+          </p>
+
+          <!-- ============================================================
+               SECCIÓN: HIDRATACIÓN
+               Utiliza el mismo peso ingresado en la calculadora de IMC
+               (#imc-peso) para estimar la ingesta diaria de agua recomendada.
+               No agrega nuevos campos de entrada: se recalcula automáticamente
+               cada vez que el usuario modifica el campo de peso del IMC.
+               ============================================================ -->
+          <div id="calculadora-hidratacion" class="hidratacion-wrapper" style="scroll-margin-top: 100px;">
+            <div class="section-badge">Hidratación</div>
+            <p style="text-align:center; max-width: 620px; margin-left: auto; margin-right: auto;">
+              Estimación de tu ingesta diaria de agua recomendada, calculada automáticamente a partir del peso que ingresaste arriba.
+            </p>
+
+            <!-- Estado vacío: se muestra mientras no haya un peso válido cargado en #imc-peso -->
+            <div id="hidratacion-empty" class="hidratacion-empty">
+              <i class="fa-solid fa-glass-water" style="font-size: 1.8rem; color: var(--color-brand-cream); margin-bottom: 12px; display: block;"></i>
+              Ingresá tu peso en la calculadora de IMC para ver tu recomendación de hidratación.
+            </div>
+
+            <!-- Estado con resultado: se muestra cuando hay un peso válido -->
+            <div id="hidratacion-result-content" style="display: none;">
+              <div class="hidratacion-result-card">
+                <i class="fa-solid fa-droplet hidratacion-icon"></i>
+                <div class="hidratacion-rango" id="hidratacion-rango-num">0,0 a 0,0
+                  <span>Litros de agua por día</span>
+                </div>
+                <div class="hidratacion-vasos" id="hidratacion-vasos">
+                  <i class="fa-solid fa-glass-water"></i> Equivale aproximadamente a — vasos de 250 ml.
+                </div>
+              </div>
+
+              <div class="imc-message" style="margin-top: 20px;">
+                <p class="hidratacion-disclaimer" style="margin:0; color: inherit;">
+                  <strong>Importante:</strong> Esta recomendación constituye una estimación general para adultos sanos. Las necesidades de agua pueden aumentar cuando existe actividad física intensa, temperaturas elevadas, sudoración abundante, fiebre, vómitos o diarrea. También pueden variar según determinadas enfermedades o indicación médica. Escuchá la sed y ajustá la ingesta de líquidos según tus necesidades individuales.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ============================================================
+             SECCIÓN: EVALUACIÓN METABÓLICA
+             Calcula TMB (Mifflin-St Jeor), GET y calorías objetivo.
+             Reutiliza el peso (#imc-peso) y la altura (#imc-altura) ya
+             cargados en la calculadora de IMC: no se vuelven a pedir.
+             Solo se agregan los campos que faltan: sexo, edad y actividad.
+             ============================================================ -->
+        <div id="evaluacion-metabolica" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); scroll-margin-top: 100px; margin-top: 40px;">
+          <div class="section-badge">Evaluación Metabólica</div>
+          <p style="text-align:center; max-width: 660px; margin-left: auto; margin-right: auto;">
+            Calculá tu metabolismo basal, tu gasto energético diario y tus calorías objetivo a partir del peso y la altura que ya ingresaste, más tu sexo, edad y nivel de actividad física.
+          </p>
+
+          <div class="imc-grid">
+            <!-- COLUMNA IZQUIERDA: INPUTS PROPIOS (sexo, edad, actividad) -->
+            <div>
+              <!-- Sexo: usado por la ecuación de Mifflin-St Jeor (+5 hombres / -161 mujeres) -->
+              <div class="imc-input-group">
+                <label>Sexo</label>
+                <div class="metab-radio-group">
+                  <div class="metab-radio-option">
+                    <input type="radio" name="metab-sexo" id="metab-sexo-hombre" value="hombre" checked>
+                    <label for="metab-sexo-hombre"><i class="fa-solid fa-mars"></i> Hombre</label>
+                  </div>
+                  <div class="metab-radio-option">
+                    <input type="radio" name="metab-sexo" id="metab-sexo-mujer" value="mujer">
+                    <label for="metab-sexo-mujer"><i class="fa-solid fa-venus"></i> Mujer</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edad -->
+              <div class="imc-input-group">
+                <label for="metab-edad">Edad</label>
+                <div class="imc-input-wrapper">
+                  <input type="number" id="metab-edad" inputmode="numeric" min="0" step="1" placeholder="Ej: 30">
+                  <span class="imc-unit">años</span>
+                </div>
+                <div class="imc-error" id="metab-error-edad"></div>
+              </div>
+
+              <!-- Nivel de actividad física: cada option guarda su factor en data-factor -->
+              <div class="imc-input-group" style="margin-bottom: 8px;">
+                <label for="metab-actividad">Nivel de actividad física</label>
+                <div class="metab-select-wrapper">
+                  <select id="metab-actividad">
+                    <option value="1.20">Sedentario (Factor 1.20)</option>
+                    <option value="1.375">Actividad ligera (Factor 1.375)</option>
+                    <option value="1.55" selected>Actividad moderada (Factor 1.55)</option>
+                    <option value="1.725">Actividad intensa (Factor 1.725)</option>
+                    <option value="1.90">Actividad muy intensa (Factor 1.90)</option>
+                  </select>
+                </div>
+                <p class="metab-select-hint" id="metab-actividad-hint">Entrenar entre 3 y 5 días por semana.</p>
+              </div>
+
+              <p class="metab-select-hint" style="margin-top: 18px;">
+                <i class="fa-solid fa-circle-info"></i> El peso y la altura utilizados son los que ya cargaste en la Calculadora de IMC, más arriba en esta misma página.
+              </p>
+            </div>
+
+            <!-- COLUMNA DERECHA: METABOLISMO BASAL Y GASTO ENERGÉTICO DIARIO -->
+            <div class="metab-result-stack">
+              <div id="metab-result-empty" class="imc-result-card">
+                <div class="imc-result-empty">
+                  <i class="fa-solid fa-fire" style="font-size: 1.8rem; color: var(--color-brand-cream); margin-bottom: 12px; display: block;"></i>
+                  Completá el peso y la altura en la Calculadora de IMC, además de tu edad, para ver tu evaluación metabólica.
+                </div>
+              </div>
+
+              <div id="metab-result-content" style="display: none; flex-direction: column; gap: 20px; height: 100%;">
+                <!-- Bloque 1: Metabolismo Basal -->
+                <div class="metab-result-card">
+                  <i class="fa-solid fa-fire metab-icon"></i>
+                  <div class="metab-kcal" id="metab-tmb-valor">0</div>
+                  <div class="metab-kcal-label">kcal/día — Metabolismo Basal</div>
+                  <p class="metab-desc">Es la cantidad aproximada de energía que tu organismo necesita cada día para mantener sus funciones vitales en reposo.</p>
+                </div>
+
+                <!-- Bloque 2: Gasto Energético Diario -->
+                <div class="metab-result-card">
+                  <i class="fa-solid fa-bolt metab-icon"></i>
+                  <div class="metab-kcal" id="metab-get-valor">0</div>
+                  <div class="metab-kcal-label">kcal/día — Gasto Energético Diario</div>
+                  <p class="metab-desc">Es la cantidad aproximada de calorías necesarias para mantener tu peso corporal considerando tu nivel de actividad física.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloques 3 y 4: objetivos calóricos (mantener / perder / ganar) -->
+          <div id="metab-objetivos-wrapper" style="display: none;">
+            <h3 class="metab-objetivos-title"><i class="fa-solid fa-bullseye"></i> &nbsp;Calorías según tu objetivo</h3>
+            <div class="metab-objetivos-grid">
+              <div class="metab-objetivo-card mantener">
+                <div class="metab-objetivo-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div class="metab-objetivo-titulo">Mantener peso</div>
+                <div class="metab-objetivo-valor" id="metab-mantener-valor">0</div>
+                <div class="metab-objetivo-unidad">kcal/día</div>
+              </div>
+              <div class="metab-objetivo-card perder">
+                <div class="metab-objetivo-icon"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                <div class="metab-objetivo-titulo">Perder grasa</div>
+                <div class="metab-objetivo-valor" id="metab-perder-valor">0–0</div>
+                <div class="metab-objetivo-unidad">kcal/día</div>
+              </div>
+              <div class="metab-objetivo-card ganar">
+                <div class="metab-objetivo-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                <div class="metab-objetivo-titulo">Ganar masa muscular</div>
+                <div class="metab-objetivo-valor" id="metab-ganar-valor">0–0</div>
+                <div class="metab-objetivo-unidad">kcal/día</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Caja informativa (mismo estilo que .imc-message) -->
+          <div id="metab-disclaimer-wrapper" style="display: none; margin-top: 30px;">
+            <div class="imc-message">
+              <strong>Importante:</strong> Estos valores constituyen una estimación basada en la ecuación de Mifflin-St Jeor. El gasto energético real puede variar según la composición corporal, el porcentaje de masa muscular, factores hormonales, el estrés, determinadas enfermedades y otros aspectos individuales. Estos cálculos deben utilizarse como una guía inicial y no reemplazan la evaluación realizada por un profesional.
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             SECCIÓN: DESCARGA DE INFORME EN PDF
+             Genera un PDF maquetado (no una captura de pantalla) con todos
+             los datos ingresados y los resultados ya calculados en la página
+             (IMC, Hidratación y Evaluación Metabólica), usando jsPDF +
+             jsPDF-AutoTable. Todo se ejecuta del lado del cliente.
+             El botón permanece deshabilitado hasta que exista, como mínimo,
+             un resultado de IMC calculado.
+             ============================================================ -->
+        <div class="pdf-informe-wrapper">
+          <button type="button" id="btn-descargar-pdf" class="btn btn-primary" disabled>
+            <i class="fa-solid fa-file-pdf"></i> Descargar informe en PDF
+          </button>
+          <p class="pdf-informe-hint" id="pdf-informe-hint">
+            Completá al menos tu peso y tu altura para poder generar el informe.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="logo" style="margin-bottom: 20px;">
+          <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+          <div class="logo-text">Se Tu<span>Entrenador</span></div>
+        </a>
+        <p>Especialistas en transformar la teoria cientifica en resultados practicos de gimnasio, pista y salud diaria.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Contenidos</h5>
+        <ul>
+          <li><a href="entrenamiento.html">Entrenamiento de Fuerza</a></li>
+          <li><a href="entrenamiento.html">Cardio & Resistencia</a></li>
+          <li><a href="entrenamiento.html">Rutinas Funcionales</a></li>
+          <li><a href="alimentacion.html">Nutricion Deportiva</a></li>
+          <li><a href="suplementacion.html">Suplementos Aprobados</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Contacto y redes</h5>
+        <ul class="footer-social-list">
+          <li><a href="#" class="wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-instagram"></i> @setupropiopreparadorfisico</a></li>
+          <li><a href="https://www.facebook.com/Setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-facebook"></i> Setupropiopreparadorfisico</a></li>
+          <li><a href="mailto:setupropiopreparadorfisico@gmail.com"><i class="fa-solid fa-envelope"></i> setupropiopreparadorfisico@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Enlaces rápidos</h5>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html">Alimentación</a></li>
+          <li><a href="suplementacion.html">Suplementación</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Sé Tu Entrenador. Todos los derechos reservados.</p>
+      <p style="font-size: 0.75rem; color: var(--color-text-muted); width: 100%; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+        <strong>Descargo de responsabilidad:</strong> La informacion provista en este sitio web y en el libro tiene fines puramente educativos e informativos y no sustituye el consejo, diagnostico o tratamiento medico o nutricional profesional.
+      </p>
+    </div>
+  </footer>
+
+  <a href="#" class="whatsapp-float wa-book-link" target="_blank" aria-label="Comprar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <script src="script.js"></script>
+  <!-- Librerías para generar el informe en PDF del lado del cliente (sin servidores externos ni backend) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script>
+    /* ==========================================
+       CALCULADORA DE IMC - MI EVALUACION
+       ========================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      const pesoInput = document.getElementById('imc-peso');
+      const alturaInput = document.getElementById('imc-altura');
+      const errorPeso = document.getElementById('imc-error-peso');
+      const errorAltura = document.getElementById('imc-error-altura');
+
+      const resultEmpty = document.getElementById('imc-result-empty');
+      const resultContent = document.getElementById('imc-result-content');
+      const valueNum = document.getElementById('imc-value-num');
+      const categoryBadge = document.getElementById('imc-category-badge');
+      const marker = document.getElementById('imc-marker');
+      const message = document.getElementById('imc-message');
+      const pesoMinEl = document.getElementById('imc-peso-min');
+      const pesoMaxEl = document.getElementById('imc-peso-max');
+
+      // Categorias de IMC: [limite superior (exclusivo), nombre, color]
+      const categorias = [
+        { max: 16,    nombre: 'Delgadez severa',   color: '#4a90d9' },
+        { max: 16.9,  nombre: 'Delgadez moderada', color: '#4a90d9' },
+        { max: 18.4,  nombre: 'Delgadez leve',     color: '#4a90d9' },
+        { max: 24.9,  nombre: 'Peso normal',       color: '#25d366' },
+        { max: 29.9,  nombre: 'Sobrepeso',         color: '#d4af37' },
+        { max: 34.9,  nombre: 'Obesidad Clase I',  color: '#a63a3a' },
+        { max: 39.9,  nombre: 'Obesidad Clase II', color: '#a63a3a' },
+        { max: Infinity, nombre: 'Obesidad Clase III', color: '#a63a3a' }
+      ];
+
+      function getCategoria(imc) {
+        for (const cat of categorias) {
+          if (imc <= cat.max) return cat;
+        }
+        return categorias[categorias.length - 1];
+      }
+
+      function calcular() {
+        const pesoStr = pesoInput.value;
+        const alturaStr = alturaInput.value;
+
+        errorPeso.textContent = '';
+        errorAltura.textContent = '';
+
+        const peso = parseFloat(pesoStr);
+        const alturaCm = parseFloat(alturaStr);
+
+        let hayError = false;
+
+        if (pesoStr !== '' && (isNaN(peso) || peso <= 0)) {
+          errorPeso.textContent = 'Ingresá un peso válido mayor a 0.';
+          hayError = true;
+        }
+
+        if (alturaStr !== '' && (isNaN(alturaCm) || alturaCm <= 0)) {
+          errorAltura.textContent = 'Ingresá una altura válida mayor a 0.';
+          hayError = true;
+        }
+
+        // Si faltan datos o hay error, mostrar estado vacio
+        if (pesoStr === '' || alturaStr === '' || hayError || isNaN(peso) || isNaN(alturaCm) || peso <= 0 || alturaCm <= 0) {
+          resultEmpty.style.display = 'block';
+          resultContent.style.display = 'none';
+          pesoMinEl.textContent = '—';
+          pesoMaxEl.textContent = '—';
+          actualizarEstadoBotonPDF(); // el informe requiere, como mínimo, un IMC calculado
+          return;
+        }
+
+        const alturaM = alturaCm / 100;
+        const imc = peso / (alturaM * alturaM);
+        const categoria = getCategoria(imc);
+
+        // Rango de peso saludable (IMC 18.5 - 24.9)
+        const pesoMin = 18.5 * alturaM * alturaM;
+        const pesoMax = 24.9 * alturaM * alturaM;
+
+        resultEmpty.style.display = 'none';
+        resultContent.style.display = 'block';
+
+        valueNum.childNodes[0].textContent = imc.toFixed(1) + ' ';
+        categoryBadge.textContent = categoria.nombre;
+        categoryBadge.style.backgroundColor = categoria.color + '22';
+        categoryBadge.style.border = '1px solid ' + categoria.color + '55';
+        categoryBadge.style.color = categoria.color;
+
+        // Posicion del marcador en la escala (rango visual 12 a 42 de IMC)
+        const escalaMin = 12;
+        const escalaMax = 42;
+        let porcentaje = ((imc - escalaMin) / (escalaMax - escalaMin)) * 100;
+        porcentaje = Math.max(1, Math.min(99, porcentaje));
+        marker.style.left = porcentaje + '%';
+
+        pesoMinEl.textContent = pesoMin.toFixed(1) + ' kg';
+        pesoMaxEl.textContent = pesoMax.toFixed(1) + ' kg';
+
+        // Mensaje de diferencia de peso
+        message.classList.remove('ok');
+        if (peso < pesoMin) {
+          const diferencia = (pesoMin - peso).toFixed(1);
+          message.innerHTML = '<i class="fa-solid fa-circle-arrow-up"></i> Para ingresar al rango de peso saludable deberías aumentar aproximadamente <strong>' + diferencia + ' kg</strong>.';
+        } else if (peso > pesoMax) {
+          const diferencia = (peso - pesoMax).toFixed(1);
+          message.innerHTML = '<i class="fa-solid fa-circle-arrow-down"></i> Para ingresar al rango de peso saludable deberías perder aproximadamente <strong>' + diferencia + ' kg</strong>.';
+        } else {
+          message.classList.add('ok');
+          message.innerHTML = '<i class="fa-solid fa-circle-check"></i> Tu peso se encuentra dentro del rango considerado saludable.';
+        }
+
+        actualizarEstadoBotonPDF(); // ya hay un IMC calculado: el informe puede generarse
+      }
+
+      pesoInput.addEventListener('input', calcular);
+      alturaInput.addEventListener('input', calcular);
+
+      /* ==========================================
+         HIDRATACIÓN - MI EVALUACIÓN
+         Reutiliza el peso ya ingresado en #imc-peso (calculadora de IMC).
+         No crea ningún campo de entrada nuevo.
+         Fórmula: rango de 30 a 35 ml por kg de peso corporal, convertido a litros.
+         Se recalcula automáticamente en cada evento 'input' del campo de peso,
+         sin recargar la página.
+         ========================================== */
+
+      // Referencias a los elementos de la sección de hidratación
+      const hidratacionEmpty = document.getElementById('hidratacion-empty');
+      const hidratacionResultContent = document.getElementById('hidratacion-result-content');
+      const hidratacionRangoNum = document.getElementById('hidratacion-rango-num');
+      const hidratacionVasos = document.getElementById('hidratacion-vasos');
+
+      // Constantes de la fórmula (ml por kg). Rango recomendado: 30 a 35 ml/kg.
+      const HIDRATACION_ML_MIN_POR_KG = 30;
+      const HIDRATACION_ML_MAX_POR_KG = 35;
+      const ML_POR_VASO = 250;
+
+      function calcularHidratacion() {
+        const pesoStr = pesoInput.value;
+        const peso = parseFloat(pesoStr);
+
+        // Si no hay un peso válido cargado, mostrar el estado vacío
+        if (pesoStr === '' || isNaN(peso) || peso <= 0) {
+          hidratacionEmpty.style.display = 'block';
+          hidratacionResultContent.style.display = 'none';
+          return;
+        }
+
+        // Cálculo del rango en mililitros y conversión a litros
+        const mlMin = peso * HIDRATACION_ML_MIN_POR_KG;
+        const mlMax = peso * HIDRATACION_ML_MAX_POR_KG;
+        const litrosMin = mlMin / 1000;
+        const litrosMax = mlMax / 1000;
+
+        // Cantidad de vasos de 250 ml (redondeado al entero más cercano),
+        // calculada sobre el punto medio del rango para dar una referencia práctica.
+        const mlPromedio = (mlMin + mlMax) / 2;
+        const vasos = Math.round(mlPromedio / ML_POR_VASO);
+
+        hidratacionEmpty.style.display = 'none';
+        hidratacionResultContent.style.display = 'block';
+
+        // Formateo con coma decimal (formato local es-AR), un decimal
+        const litrosMinTxt = litrosMin.toFixed(1).replace('.', ',');
+        const litrosMaxTxt = litrosMax.toFixed(1).replace('.', ',');
+
+        hidratacionRangoNum.childNodes[0].textContent = litrosMinTxt + ' a ' + litrosMaxTxt + ' ';
+        hidratacionVasos.innerHTML = '<i class="fa-solid fa-glass-water"></i> Equivale aproximadamente a ' + vasos + ' vasos de 250 ml.';
+      }
+
+      // Se recalcula automáticamente cada vez que cambia el peso (mismo input que el IMC)
+      pesoInput.addEventListener('input', calcularHidratacion);
+
+      // Cálculo inicial por si el campo ya tiene un valor precargado
+      calcularHidratacion();
+
+      /* ==========================================
+         EVALUACIÓN METABÓLICA - MI EVALUACIÓN
+         Calcula TMB y GET con la ecuación de Mifflin-St Jeor (1990) y
+         deriva calorías objetivo (mantener / perder grasa / ganar masa).
+         Reutiliza el peso (#imc-peso) y la altura (#imc-altura) ya
+         cargados para el IMC; solo pide sexo, edad y nivel de actividad.
+         Se recalcula automáticamente ante cualquier cambio, sin recargar
+         la página.
+         ========================================== */
+
+      // Inputs propios de esta sección
+      const metabSexoInputs = document.querySelectorAll('input[name="metab-sexo"]');
+      const metabEdadInput = document.getElementById('metab-edad');
+      const metabErrorEdad = document.getElementById('metab-error-edad');
+      const metabActividadSelect = document.getElementById('metab-actividad');
+      const metabActividadHint = document.getElementById('metab-actividad-hint');
+
+      // Elementos de salida
+      const metabResultEmpty = document.getElementById('metab-result-empty');
+      const metabResultContent = document.getElementById('metab-result-content');
+      const metabObjetivosWrapper = document.getElementById('metab-objetivos-wrapper');
+      const metabDisclaimerWrapper = document.getElementById('metab-disclaimer-wrapper');
+      const metabTmbValor = document.getElementById('metab-tmb-valor');
+      const metabGetValor = document.getElementById('metab-get-valor');
+      const metabMantenerValor = document.getElementById('metab-mantener-valor');
+      const metabPerderValor = document.getElementById('metab-perder-valor');
+      const metabGanarValor = document.getElementById('metab-ganar-valor');
+
+      // Textos de ayuda por nivel de actividad, sincronizados con el <select>
+      const METAB_ACTIVIDAD_HINTS = {
+        '1.20': 'Trabajo de oficina y sin ejercicio.',
+        '1.375': 'Caminar o entrenar entre 1 y 3 días por semana.',
+        '1.55': 'Entrenar entre 3 y 5 días por semana.',
+        '1.725': 'Entrenar entre 6 y 7 días por semana.',
+        '1.90': 'Entrenar dos veces por día o realizar trabajo físico pesado.'
+      };
+
+      // Márgenes calóricos para los objetivos (en kcal respecto del GET)
+      const METAB_DEFICIT_MIN = 300;
+      const METAB_DEFICIT_MAX = 500;
+      const METAB_SUPERAVIT_MIN = 250;
+      const METAB_SUPERAVIT_MAX = 500;
+
+      // Actualiza el texto de ayuda cuando cambia el nivel de actividad seleccionado
+      function actualizarHintActividad() {
+        const factor = metabActividadSelect.value;
+        metabActividadHint.textContent = METAB_ACTIVIDAD_HINTS[factor] || '';
+      }
+
+      function calcularMetabolismo() {
+        const pesoStr = pesoInput.value;
+        const alturaStr = alturaInput.value;
+        const edadStr = metabEdadInput.value;
+
+        metabErrorEdad.textContent = '';
+
+        const peso = parseFloat(pesoStr);
+        const alturaCm = parseFloat(alturaStr);
+        const edad = parseFloat(edadStr);
+
+        let hayErrorEdad = false;
+        if (edadStr !== '' && (isNaN(edad) || edad <= 0)) {
+          metabErrorEdad.textContent = 'Ingresá una edad válida mayor a 0.';
+          hayErrorEdad = true;
+        }
+
+        // Se requieren peso y altura (ya cargados para el IMC) más la edad de esta sección
+        const datosCompletos = pesoStr !== '' && alturaStr !== '' && edadStr !== '' &&
+          !isNaN(peso) && !isNaN(alturaCm) && !isNaN(edad) &&
+          peso > 0 && alturaCm > 0 && edad > 0 && !hayErrorEdad;
+
+        if (!datosCompletos) {
+          metabResultEmpty.style.display = 'flex';
+          metabResultContent.style.display = 'none';
+          metabObjetivosWrapper.style.display = 'none';
+          metabDisclaimerWrapper.style.display = 'none';
+          return;
+        }
+
+        // Sexo seleccionado
+        let sexo = 'hombre';
+        metabSexoInputs.forEach((input) => {
+          if (input.checked) sexo = input.value;
+        });
+
+        // Ecuación de Mifflin-St Jeor (1990)
+        let tmb;
+        if (sexo === 'hombre') {
+          tmb = (10 * peso) + (6.25 * alturaCm) - (5 * edad) + 5;
+        } else {
+          tmb = (10 * peso) + (6.25 * alturaCm) - (5 * edad) - 161;
+        }
+
+        // Gasto Energético Total = TMB × Factor de actividad
+        const factorActividad = parseFloat(metabActividadSelect.value);
+        const get = tmb * factorActividad;
+
+        // Objetivos calóricos derivados del GET
+        const mantener = get;
+        const perderMin = get - METAB_DEFICIT_MAX; // mayor déficit -> kcal más bajas
+        const perderMax = get - METAB_DEFICIT_MIN; // menor déficit -> kcal más altas
+        const ganarMin = get + METAB_SUPERAVIT_MIN;
+        const ganarMax = get + METAB_SUPERAVIT_MAX;
+
+        metabResultEmpty.style.display = 'none';
+        metabResultContent.style.display = 'flex';
+        metabObjetivosWrapper.style.display = 'block';
+        metabDisclaimerWrapper.style.display = 'block';
+
+        metabTmbValor.textContent = Math.round(tmb);
+        metabGetValor.textContent = Math.round(get);
+        metabMantenerValor.textContent = Math.round(mantener);
+        metabPerderValor.textContent = Math.round(perderMin) + '–' + Math.round(perderMax);
+        metabGanarValor.textContent = Math.round(ganarMin) + '–' + Math.round(ganarMax);
+      }
+
+      // Recalcular ante cualquier cambio: peso y altura (compartidos con el IMC),
+      // más sexo, edad y nivel de actividad propios de esta sección
+      pesoInput.addEventListener('input', calcularMetabolismo);
+      alturaInput.addEventListener('input', calcularMetabolismo);
+      metabEdadInput.addEventListener('input', calcularMetabolismo);
+      metabSexoInputs.forEach((input) => input.addEventListener('change', calcularMetabolismo));
+      metabActividadSelect.addEventListener('change', () => {
+        actualizarHintActividad();
+        calcularMetabolismo();
+      });
+
+      // Estado inicial
+      actualizarHintActividad();
+      calcularMetabolismo();
+
+      /* ==========================================
+         INFORME EN PDF - MI EVALUACIÓN
+         Genera un PDF maquetado (no una captura de pantalla) con jsPDF +
+         jsPDF-AutoTable, usando los datos ya ingresados y calculados en la
+         página (IMC, Hidratación y Evaluación Metabólica). Se ejecuta
+         íntegramente del lado del cliente, sin backend ni conexión a
+         internet en el momento de generar el archivo.
+         ========================================== */
+
+      const btnDescargarPdf = document.getElementById('btn-descargar-pdf');
+      const pdfInformeHint = document.getElementById('pdf-informe-hint');
+
+      // Colores de marca (mismos valores que las variables CSS del sitio),
+      // convertidos a RGB porque jsPDF no puede leer variables CSS.
+      const PDF_COLOR_ROJO = [166, 58, 58];   // --color-brand-red
+      const PDF_COLOR_CREMA = [212, 175, 55]; // dorado usado en .section-badge
+      const PDF_COLOR_TEXTO = [40, 40, 40];
+      const PDF_COLOR_MUTED = [110, 110, 110];
+      const PDF_COLOR_BORDE = [225, 225, 225];
+
+      /**
+       * Habilita o deshabilita el botón de descarga del informe.
+       * Requisito mínimo: que exista un resultado de IMC calculado
+       * (es decir, que el usuario haya cargado peso y altura válidos).
+       */
+      function actualizarEstadoBotonPDF() {
+        const hayImc = resultContent.style.display === 'block';
+        btnDescargarPdf.disabled = !hayImc;
+        pdfInformeHint.style.display = hayImc ? 'none' : 'block';
+      }
+
+      /**
+       * Dibuja el encabezado de una sección del informe: una línea divisoria
+       * seguida de un título destacado en color de marca. Devuelve la
+       * posición Y desde la cual debe continuar el contenido.
+       */
+      function dibujarTituloSeccion(doc, titulo, y, marginX, pageWidth) {
+        doc.setDrawColor(PDF_COLOR_BORDE[0], PDF_COLOR_BORDE[1], PDF_COLOR_BORDE[2]);
+        doc.setLineWidth(0.3);
+        doc.line(marginX, y, pageWidth - marginX, y);
+        y += 8;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(PDF_COLOR_ROJO[0], PDF_COLOR_ROJO[1], PDF_COLOR_ROJO[2]);
+        doc.text(titulo, marginX, y);
+        doc.setTextColor(PDF_COLOR_TEXTO[0], PDF_COLOR_TEXTO[1], PDF_COLOR_TEXTO[2]);
+        return y + 6;
+      }
+
+      /**
+       * Si no queda espacio suficiente antes del pie de página, agrega una
+       * página nueva y devuelve la posición Y de inicio. Evita que una
+       * sección quede cortada entre dos páginas.
+       */
+      function asegurarEspacio(doc, y, alturaNecesaria, pageHeight, marginBottom) {
+        if (y + alturaNecesaria > pageHeight - marginBottom) {
+          doc.addPage();
+          return 20;
+        }
+        return y;
+      }
+
+      /**
+       * Recolecta todos los datos y resultados actualmente visibles en la
+       * página y construye el PDF del informe personalizado.
+       */
+      function generarInformePDF() {
+        if (btnDescargarPdf.disabled) return; // seguridad extra: no generar sin datos
+
+        // jsPDF se expone como window.jspdf.jsPDF al cargarse desde el UMD de cdnjs
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const marginX = 18;
+        const marginBottom = 22;
+        let y = 20;
+
+        // ---------- DATOS DE ORIGEN (tomados directamente del DOM) ----------
+        const peso = parseFloat(pesoInput.value);
+        const alturaCm = parseFloat(alturaInput.value);
+        const hayPesoAltura = !isNaN(peso) && !isNaN(alturaCm) && peso > 0 && alturaCm > 0;
+
+        let sexoTexto = 'No especificado';
+        metabSexoInputs.forEach((input) => {
+          if (input.checked) sexoTexto = input.value === 'hombre' ? 'Hombre' : 'Mujer';
+        });
+        const edadStr = metabEdadInput.value;
+        const edadTexto = edadStr !== '' && !isNaN(parseFloat(edadStr)) ? parseFloat(edadStr) + ' años' : 'No especificado';
+        const actividadTexto = metabActividadSelect.options[metabActividadSelect.selectedIndex].text;
+
+        const hayMetabolismo = metabResultContent.style.display !== 'none';
+        const hayHidratacion = hidratacionResultContent.style.display !== 'none';
+
+        // ---------- ENCABEZADO ----------
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(20);
+        doc.setTextColor(PDF_COLOR_ROJO[0], PDF_COLOR_ROJO[1], PDF_COLOR_ROJO[2]);
+        doc.text('Sé Tu Entrenador', marginX, y);
+
+        y += 8;
+        doc.setFontSize(13);
+        doc.setTextColor(PDF_COLOR_TEXTO[0], PDF_COLOR_TEXTO[1], PDF_COLOR_TEXTO[2]);
+        doc.text('Informe de Evaluación Personal', marginX, y);
+
+        y += 7;
+        const fechaGeneracion = new Date();
+        const fechaTexto = fechaGeneracion.toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9.5);
+        doc.setTextColor(PDF_COLOR_MUTED[0], PDF_COLOR_MUTED[1], PDF_COLOR_MUTED[2]);
+        doc.text('Generado el ' + fechaTexto, marginX, y);
+        doc.setTextColor(PDF_COLOR_TEXTO[0], PDF_COLOR_TEXTO[1], PDF_COLOR_TEXTO[2]);
+
+        y += 10;
+
+        // ---------- DATOS INGRESADOS ----------
+        y = dibujarTituloSeccion(doc, 'Datos ingresados', y, marginX, pageWidth);
+        doc.autoTable({
+          startY: y,
+          margin: { left: marginX, right: marginX },
+          theme: 'plain',
+          styles: { fontSize: 10, cellPadding: 2.2 },
+          columnStyles: { 0: { fontStyle: 'bold', textColor: PDF_COLOR_TEXTO, cellWidth: 55 }, 1: { textColor: PDF_COLOR_TEXTO } },
+          body: [
+            ['Sexo', sexoTexto],
+            ['Edad', edadTexto],
+            ['Peso', hayPesoAltura ? peso + ' kg' : 'No especificado'],
+            ['Altura', hayPesoAltura ? alturaCm + ' cm' : 'No especificado'],
+            ['Nivel de actividad física', actividadTexto]
+          ]
+        });
+        y = doc.lastAutoTable.finalY + 10;
+
+        // ---------- ÍNDICE DE MASA CORPORAL ----------
+        y = asegurarEspacio(doc, y, 45, pageHeight, marginBottom);
+        y = dibujarTituloSeccion(doc, 'Índice de Masa Corporal (IMC)', y, marginX, pageWidth);
+
+        const imcFilas = [
+          ['Valor de IMC', valueNum.childNodes[0].textContent.trim()],
+          ['Clasificación', categoryBadge.textContent.trim()],
+          ['Peso saludable', pesoMinEl.textContent.trim() + ' a ' + pesoMaxEl.textContent.trim()]
+        ];
+        // Texto plano del mensaje de diferencia de peso (sin el ícono HTML)
+        const mensajeImcTexto = message.textContent.trim();
+        if (mensajeImcTexto) {
+          imcFilas.push(['Observación', mensajeImcTexto]);
+        }
+
+        doc.autoTable({
+          startY: y,
+          margin: { left: marginX, right: marginX },
+          theme: 'plain',
+          styles: { fontSize: 10, cellPadding: 2.2 },
+          columnStyles: { 0: { fontStyle: 'bold', textColor: PDF_COLOR_TEXTO, cellWidth: 55 }, 1: { textColor: PDF_COLOR_TEXTO } },
+          body: imcFilas
+        });
+        y = doc.lastAutoTable.finalY + 10;
+
+        // ---------- HIDRATACIÓN ----------
+        if (hayHidratacion) {
+          y = asegurarEspacio(doc, y, 35, pageHeight, marginBottom);
+          y = dibujarTituloSeccion(doc, 'Hidratación', y, marginX, pageWidth);
+          const litrosTexto = hidratacionRangoNum.childNodes[0].textContent.trim() + ' litros por día';
+          const vasosTexto = hidratacionVasos.textContent.trim();
+          doc.autoTable({
+            startY: y,
+            margin: { left: marginX, right: marginX },
+            theme: 'plain',
+            styles: { fontSize: 10, cellPadding: 2.2 },
+            columnStyles: { 0: { fontStyle: 'bold', textColor: PDF_COLOR_TEXTO, cellWidth: 55 }, 1: { textColor: PDF_COLOR_TEXTO } },
+            body: [
+              ['Litros diarios recomendados', litrosTexto],
+              ['Equivalencia', vasosTexto]
+            ]
+          });
+          y = doc.lastAutoTable.finalY + 10;
+        }
+
+        // ---------- METABOLISMO BASAL Y GASTO ENERGÉTICO ----------
+        if (hayMetabolismo) {
+          y = asegurarEspacio(doc, y, 35, pageHeight, marginBottom);
+          y = dibujarTituloSeccion(doc, 'Metabolismo Basal y Gasto Energético', y, marginX, pageWidth);
+          doc.autoTable({
+            startY: y,
+            margin: { left: marginX, right: marginX },
+            theme: 'plain',
+            styles: { fontSize: 10, cellPadding: 2.2 },
+            columnStyles: { 0: { fontStyle: 'bold', textColor: PDF_COLOR_TEXTO, cellWidth: 55 }, 1: { textColor: PDF_COLOR_TEXTO } },
+            body: [
+              ['Tasa Metabólica Basal (TMB)', metabTmbValor.textContent.trim() + ' kcal/día'],
+              ['Gasto Energético Diario (GET)', metabGetValor.textContent.trim() + ' kcal/día']
+            ]
+          });
+          y = doc.lastAutoTable.finalY + 10;
+
+          // ---------- OBJETIVO CALÓRICO ----------
+          y = asegurarEspacio(doc, y, 45, pageHeight, marginBottom);
+          y = dibujarTituloSeccion(doc, 'Objetivo calórico', y, marginX, pageWidth);
+          doc.autoTable({
+            startY: y,
+            margin: { left: marginX, right: marginX },
+            theme: 'grid',
+            headStyles: { fillColor: PDF_COLOR_ROJO, textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 10 },
+            styles: { fontSize: 10, cellPadding: 3, textColor: PDF_COLOR_TEXTO },
+            head: [['Objetivo', 'Calorías recomendadas']],
+            body: [
+              ['Mantener peso', metabMantenerValor.textContent.trim() + ' kcal/día'],
+              ['Perder peso (grasa)', metabPerderValor.textContent.trim() + ' kcal/día'],
+              ['Ganar masa muscular', metabGanarValor.textContent.trim() + ' kcal/día']
+            ]
+          });
+          y = doc.lastAutoTable.finalY + 10;
+        }
+
+        // ---------- OBSERVACIONES ----------
+        y = asegurarEspacio(doc, y, 30, pageHeight, marginBottom);
+        y = dibujarTituloSeccion(doc, 'Observaciones', y, marginX, pageWidth);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9.5);
+        doc.setTextColor(PDF_COLOR_MUTED[0], PDF_COLOR_MUTED[1], PDF_COLOR_MUTED[2]);
+        const textoObservaciones = 'Los resultados presentados en este informe constituyen una estimación basada en ecuaciones científicas ampliamente utilizadas. No reemplazan la evaluación realizada por un profesional de la salud y deben interpretarse como una guía orientativa.';
+        const lineasObservaciones = doc.splitTextToSize(textoObservaciones, pageWidth - marginX * 2);
+        doc.text(lineasObservaciones, marginX, y);
+        doc.setTextColor(PDF_COLOR_TEXTO[0], PDF_COLOR_TEXTO[1], PDF_COLOR_TEXTO[2]);
+
+        // ---------- PIE DE PÁGINA (en todas las páginas generadas) ----------
+        const totalPaginas = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPaginas; i++) {
+          doc.setPage(i);
+          doc.setDrawColor(PDF_COLOR_BORDE[0], PDF_COLOR_BORDE[1], PDF_COLOR_BORDE[2]);
+          doc.setLineWidth(0.2);
+          doc.line(marginX, pageHeight - 14, pageWidth - marginX, pageHeight - 14);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(8);
+          doc.setTextColor(PDF_COLOR_MUTED[0], PDF_COLOR_MUTED[1], PDF_COLOR_MUTED[2]);
+          doc.text('© Sé Tu Entrenador — Todos los derechos reservados.', marginX, pageHeight - 9);
+          doc.text('Página ' + i + ' de ' + totalPaginas, pageWidth - marginX, pageHeight - 9, { align: 'right' });
+        }
+
+        // ---------- NOMBRE DE ARCHIVO: Evaluacion_YYYY-MM-DD.pdf ----------
+        const yyyy = fechaGeneracion.getFullYear();
+        const mm = String(fechaGeneracion.getMonth() + 1).padStart(2, '0');
+        const dd = String(fechaGeneracion.getDate()).padStart(2, '0');
+        const nombreArchivo = 'Evaluacion_' + yyyy + '-' + mm + '-' + dd + '.pdf';
+
+        doc.save(nombreArchivo);
+      }
+
+      // Estado inicial del botón (deshabilitado hasta que haya un IMC calculado)
+      actualizarEstadoBotonPDF();
+
+      btnDescargarPdf.addEventListener('click', generarInformePDF);
+    });
+  </script>
+</body>
+</html>

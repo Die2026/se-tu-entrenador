@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suplementación Científica - Sé Tu Entrenador</title>
+  <meta name="description" content="Guía científica sobre suplementos deportivos clasificados por niveles de evidencia clínica real.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .supp-badge {
+      display: block;
+      text-align: center;
+      color: #d4af37;
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+    }
+    .supp-index {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 50px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .supp-index h3 {
+      font-size: 1rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .supp-index-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .supp-index-grid a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 10px 14px;
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      transition: all 0.3s ease;
+    }
+    .supp-index-grid a:hover {
+      color: #d4af37;
+      border-color: rgba(212, 175, 55, 0.4);
+      background-color: rgba(212, 175, 55, 0.06);
+    }
+    .supp-index-grid a i {
+      color: #d4af37;
+      font-size: 0.8rem;
+    }
+    @media (max-width: 768px) {
+      .supp-index-grid { grid-template-columns: repeat(2, 1fr); }
+      .supp-badge { font-size: 1.8rem; }
+    }
+    @media (max-width: 480px) {
+      .supp-index-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <div class="logo-text">Sé Tu<span>Entrenador</span></div>
+      </a>
+      <button class="mobile-menu-toggle" aria-label="Abrir menú">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav>
+        <ul id="nav-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html">Alimentación</a></li>
+          <li><a href="suplementacion.html" style="color: var(--color-brand-cream)">Suplementación</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+          <li><a href="#" class="nav-btn wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> Consultar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 150px; background: radial-gradient(circle at 50% 20%, rgba(166, 58, 58, 0.05) 0%, transparent 80%);">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 50px;">
+        <div class="hero-tag" style="display: inline-flex; margin-bottom: 16px;">
+          <i class="fa-solid fa-graduation-cap"></i> Respaldado por Evidencia Científica
+        </div>
+        <h1 class="font-serif text-gradient" style="font-size: 3rem; margin-bottom: 20px;">Suplementación con Evidencia</h1>
+        <p>Análisis exhaustivos de la literatura médica y los metaanálisis deportivos más grandes del mundo.</p>
+      </div>
+
+      <!-- INDICE DE SUPLEMENTOS -->
+      <div class="supp-index" id="contenido-seccion">
+        <h3><i class="fa-solid fa-list"></i> &nbsp;Contenido de esta sección</h3>
+        <div class="supp-index-grid">
+          <a href="#creatina"><i class="fa-solid fa-chevron-down"></i> Creatina</a>
+          <a href="#proteina"><i class="fa-solid fa-chevron-down"></i> Proteina</a>
+          <a href="#cafeina"><i class="fa-solid fa-chevron-down"></i> Cafeina</a>
+          <a href="#beta-alanina"><i class="fa-solid fa-chevron-down"></i> Beta-Alanina</a>
+          <a href="#citrulina"><i class="fa-solid fa-chevron-down"></i> Citrulina</a>
+          <a href="#gainers"><i class="fa-solid fa-chevron-down"></i> Mass Gainers</a>
+          <a href="#carnitina"><i class="fa-solid fa-chevron-down"></i> L-Carnitina</a>
+          <a href="#bcaa"><i class="fa-solid fa-chevron-down"></i> BCAA</a>
+          <a href="#termogenicos"><i class="fa-solid fa-chevron-down"></i> Termogenicos</a>
+          <a href="#preentrenos"><i class="fa-solid fa-chevron-down"></i> Pre-entrenos</a>
+          <a href="#multivitaminicos"><i class="fa-solid fa-chevron-down"></i> Multivitaminicos</a>
+          <a href="#ranking-suplementos"><i class="fa-solid fa-chevron-down"></i> Ranking de Suplementos</a>
+        </div>
+      </div>
+
+      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 50px;">
+
+        <article id="creatina" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Creatina</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Mitos y verdades sobre la Creatina: Lo que la ciencia médica dice sobre su seguridad al entrenar
+          </h2>
+          <p>La creatina es el suplemento más estudiado del mundo en el ámbito del deporte y el fitness. A pesar de su enorme popularidad, todavía existen mitos y temores infundados sobre posibles efectos secundarios graves. Para separar los mitos de la realidad con el mayor rigor posible, analizamos las revisiones científicas, metaanálisis y consensos médicos más importantes a nivel global.</p>
+
+          <h4>1. El mito del daño en los riñones y el falso positivo en los análisis</h4>
+          <p>Una de las mayores alarmas alrededor de la creatina proviene de una simple confusión de nombres en los laboratorios clínicos, detallada ampliamente en revisiones médicas sobre deportistas.</p>
+
+          <h5>Creatina frente a Creatinina</h5>
+          <p>La creatina es el nutriente que tomás y que se almacena en tus músculos. Al usar esa energía, el cuerpo la degrada de forma natural y constante transformándola en un desecho llamado creatinina.</p>
+
+          <h5>El error de diagnóstico</h5>
+          <p>Los laboratorios miden la cantidad de creatinina en sangre para calcular automáticamente la velocidad con la que el riñón filtra las toxinas. Como al tomar el suplemento es normal tener más materia prima y más desecho circulando, el cálculo matemático da un resultado falsamente bajo.</p>
+
+          <h5>La conclusión médica</h5>
+          <p>Esto simula una enfermedad renal (un falso positivo) y suele asustar a los médicos clínicos que no están actualizados en nutrición deportiva, provocando diagnósticos erróneos de insuficiencia renal en atletas completamente sanos. Múltiples investigaciones en futbolistas, atletas de resistencia y mujeres postmenopáusicas demuestran que el consumo prolongado no deteriora en absoluto la función de filtración real de los riñones. Para evaluaciones reales en deportistas, la ciencia recomienda usar análisis basados en la Cistatina C, que no se altera por el suplemento.</p>
+
+          <h4>2. Tipos de creatina y su seguridad</h4>
+          <p>El impacto en el organismo y en los análisis de laboratorio varía drásticamente según la composición química del suplemento.</p>
+
+          <h5>Creatina Monohidrato (CR-MH)</h5>
+          <p>Es la más común, la más económica y la que cuenta con toda la evidencia científica de respaldo. Es absorbida de manera eficiente por los músculos y produce elevaciones apenas moderadas y temporales en los análisis.</p>
+
+          <h5>Creatina Etil-Éster (CR-EE)</h5>
+          <p>Este tipo específico se degrada de forma masiva en el estómago antes de llegar al músculo. No solo arruina su efecto deportivo, sino que dispara la creatinina en sangre a rangos alarmantes, llegando a subir de un valor normal de 0,94 mg/dl hasta 6,71 mg/dl a las pocas horas, lo que multiplica los falsos diagnósticos de falla renal aguda en las guardias médicas.</p>
+
+          <h4>3. Respaldo científico internacional y seguridad a largo plazo</h4>
+          <p>A nivel mundial, contamos con tres grandes pilares de evidencia que confirman la seguridad de este suplemento.</p>
+
+          <h5>Estudio 1 - Metaanálisis sobre la Función Renal (2025)</h5>
+          <p>Publicado en la revista científica BMC Nephrology. Recopiló múltiples ensayos clínicos controlados y confirmó que la suplementación con creatina, utilizada en las dosis recomendadas, es completamente segura para los riñones de adultos sanos.</p>
+
+          <h5>Estudio 2 - Consenso de la Sociedad Internacional de Nutrición Deportiva</h5>
+          <p>Considerado la biblia de la creatina, este documento oficial de la ISSN revisó cientos de investigaciones con seguimientos de hasta 5 años y concluyó que no existe evidencia de efectos nocivos a corto o largo plazo. Al contrario, demostró que los atletas que la toman sufren menos lesiones musculares y toleran mejor el entrenamiento en climas calurosos.</p>
+
+          <h5>Estudio 3 - Evidencia en escenarios de alta exigencia</h5>
+          <p>Investigaciones enfocadas en atletas que entrenan pesado y consumen una dieta muy alta en proteínas demostraron que, incluso bajo esas condiciones de alta exigencia metabólica, los órganos siguen impecables y no sufren ningún tipo de estrés.</p>
+
+          <h4>Contraindicaciones y efectos secundarios leves</h4>
+          <p>Aunque es una sustancia sumamente segura, dado que el cuerpo ya produce de 1 a 2 gramos diarios de forma natural y la consumimos al comer carne, existen ciertas pautas a tener en cuenta.</p>
+
+          <h5>Hidratación</h5>
+          <p>La creatina genera una retención de líquidos de tipo intramuscular. Atrae agua hacia el interior de las células del músculo, haciéndolos ver más llenos, sin hacerte ver gordo ni generar retención subcutánea. Por esto, requiere aumentar la ingesta de agua diaria para evitar leves efectos de deshidratación inicial.</p>
+
+          <h5>Dosis estándar</h5>
+          <p>Las molestias estomacales solo ocurren si se toman dosis exageradas de golpe de más de 10 gramos. Manteniéndose en la dosis diaria estándar de 3 a 5 gramos, es rarísimo que caiga mal.</p>
+
+          <h5>Enfermedades previas</h5>
+          <p>Está estrictamente contraindicada en personas que ya padezcan una enfermedad renal crónica preexistente o que estén bajo tratamientos con medicamentos nefrotóxicos.</p>
+
+          <h4>Fuentes científicas para consulta y descarga gratuita</h4>
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8406948/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis Renal (2025)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/28615996/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Posicionamiento Oficial ISSN (Kreider, et al.)</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="proteina" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Proteína</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Guía definitiva sobre la proteína en el entrenamiento: Lo que la ciencia demuestra sobre el músculo, los límites y la salud
+          </h2>
+          <p>La suplementación con proteínas es, junto con la creatina, el pilar más popular en el mundo del entrenamiento de fuerza. Sin embargo, su uso genera debates interminables: ¿Cuánta cantidad es realmente necesaria? ¿La proteína de suero es superior a la del huevo? ¿Existe un peligro real para los riñones? Para resolver estas dudas, analizamos los metaanálisis y las revisiones sistemáticas más grandes y citadas de la ciencia del deporte.</p>
+
+          <h4>1. ¿Sirve realmente para ganar músculo y fuerza?</h4>
+          <p>El metaanálisis más masivo y citado en la historia de la nutrición deportiva fue liderado por el investigador Robert Morton y su equipo.</p>
+
+          <h5>El análisis de estudios clínicos</h5>
+          <p>Evaluaron 49 estudios clínicos con un total de 1.863 participantes que realizaron entrenamientos de fuerza durante un mínimo de 6 semanas.</p>
+
+          <h5>El resultado sobre el músculo</h5>
+          <p>Concluyeron de forma contundente que la suplementación proteica aumenta significativamente las ganancias de masa muscular y fuerza inducidas por el ejercicio. Sin embargo, el efecto es real pero moderado. Se traduce en un promedio de 0,3 kg extra de masa libre de grasa y un incremento adicional de fuerza en comparación con quienes entrenaron sin el suplemento. La proteína por sí sola, sin un entrenamiento que la estimule, produce beneficios extremadamente bajos.</p>
+
+          <h4>El punto de saturación y el límite donde consumir más no ayuda</h4>
+          <p>Sí, y este es uno de los hallazgos más reveladores de la ciencia moderna. El estudio de Morton demostró que existe una meseta o punto de saturación.</p>
+
+          <h5>El límite de los 1,6 gramos</h5>
+          <p>Para la inmensa mayoría de las personas, los beneficios para la hipertrofia (ganancia muscular) alcanzan su techo alrededor de los 1,6 gramos de proteína por kilogramo de peso corporal al día. A partir de esa cifra, consumir más cantidad de proteína no mostró un aumento significativo en la creación de músculo.</p>
+
+          <h5>Persona con un peso de 70 kg</h5>
+          <p>Necesita aproximadamente 112 gramos diarios.</p>
+
+          <h5>Persona con un peso de 80 kg</h5>
+          <p>Necesita aproximadamente 128 gramos diarios.</p>
+
+          <h5>Persona con un peso de 90 kg</h5>
+          <p>Necesita aproximadamente 144 gramos diarios.</p>
+
+          <h4>Proteína de Suero (Whey) frente a Proteína de Huevo</h4>
+          <p>Ambas son opciones excepcionales debido a su altísima calidad biológica y contenido de aminoácidos esenciales, pero presentan matices importantes.</p>
+
+          <h5>La ventaja del Whey o suero de leche</h5>
+          <p>Posee una velocidad de digestibilidad muy alta y una enorme concentración de leucina, el aminoácido clave para activar la vía metabólica mTOR, responsable de iniciar la síntesis de proteína en los músculos.</p>
+
+          <h5>La alternativa del huevo</h5>
+          <p>La proteína de clara de huevo es un estándar de oro en nutrición, es altamente aprovechable por el organismo y estimula la síntesis muscular de forma excelente. Su única desventaja comercial es que cuenta con menos estudios acumulados en el fitness en comparación con el suero.</p>
+
+          <h5>El matiz de la comida real</h5>
+          <p>La ciencia aclara que si una persona ya cubre sus 1,6 gramos por kilo al día mediante alimentos como carnes, huevos, pescados y lácteos, la ventaja adicional de tomar un batido de Whey o de huevo pasa a ser prácticamente nula. El suplemento es una herramienta de comodidad, no un requisito obligatorio.</p>
+
+          <h4>4. Ventana anabólica y recuperación muscular</h4>
+
+          <h5>El mito de los 30 minutos</h5>
+          <p>La evidencia moderna desmitificó la vieja idea de que debías tomar el batido inmediatamente al terminar de entrenar. Hoy sabemos que lo crítico es alcanzar el total de proteína a lo largo de las 24 horas del día. Repartir la proteína en 3 o 4 comidas separadas por unas pocas horas optimiza el proceso, pero tomarla corriendo en el vestuario no marca una diferencia real.</p>
+
+          <h5>Recuperación del rendimiento</h5>
+          <p>Los metaanálisis enfocados en el Whey demuestran un efecto pequeño pero consistente en la reducción de la pérdida temporal de rendimiento y una restauración más rápida de la fuerza en los días posteriores a entrenamientos intensos, reduciendo el impacto de las agujetas o dolores musculares.</p>
+
+          <h4>5. Salud a largo plazo</h4>
+
+          <h5>Salud en personas sanas</h5>
+          <p>Tras décadas de estudio, no existe evidencia científica convincente de que las ingestas elevadas de proteína utilizadas por deportistas produzcan enfermedad renal o daño hepático en individuos completamente sanos.</p>
+
+          <h5>Salud en personas con enfermedades previas</h5>
+          <p>Aquí la situación cambia drásticamente. Si existe insuficiencia renal crónica o predisposición previa, una dieta alta en proteínas acelera el deterioro renal y requiere un estricto control médico.</p>
+
+          <h5>El aparato digestivo</h5>
+          <p>Los efectos secundarios reales como gases, hinchazón o diarrea no son peligrosos y se limitan casi siempre a personas con intolerancia a la lactosa (que usan whey concentrado en lugar de aislado) o a quienes desplazan el consumo de fibra de su dieta por comer solo proteína.</p>
+
+          <h5>Salud cardiovascular</h5>
+          <p>Los batidos de suero o huevo no aumentan el riesgo cardíaco. El riesgo real que muestran algunos estudios aparece únicamente en personas cuyas dietas hiperproteicas dependen exclusivamente de carnes rojas ultraprocesadas y embutidos, debido a las grasas saturadas y compuestos químicos de dichos alimentos.</p>
+
+          <h5>Un aliado clave en adultos mayores</h5>
+          <p>Los metaanálisis más modernos destacan que la suplementación con proteína de suero es una de las mejores herramientas médicas en la tercera edad. Al combinarse con un entrenamiento adaptado, ayuda de forma directa a combatir la sarcopenia, que es la pérdida de masa muscular y fuerza asociada al envejecimiento, mejorando notablemente el desempeño físico y la autonomía de los adultos mayores.</p>
+
+          <h4>Fuentes científicas para consulta y descarga directa</h4>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/28698222/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis de Morton (49 estudios sobre ganancia muscular)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/29462923/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis sobre Whey y Recuperación Muscular (Nutrients)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/36986143/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis sobre Whey y Sarcopenia en Adultos Mayores (Nutrients)</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="cafeina" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Cafeína</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Guía científica de la Cafeína en el deporte: Rendimiento real, dosis óptimas y su impacto en el sueño
+          </h2>
+          <p>La cafeína es probablemente el estimulante deportivo con mayor respaldo científico del mundo, compartiendo el podio de la evidencia junto con la creatina y la proteína. Lejos de ser un simple café para despertarse, la ciencia la considera una ayuda ergogénica ultrapotente. Analizamos qué dicen los metaanálisis de los comités olímpicos y de medicina del deporte sobre su uso, sus límites y sus riesgos reales.</p>
+
+          <h4>¿Qué es exactamente y cómo funciona en el cuerpo?</h4>
+          <p>La cafeína funciona como un estimulante directo del sistema nervioso central. Su mecanismo principal consiste en bloquear los receptores de adenosina en el cerebro. La adenosina es una sustancia que el cuerpo acumula durante el día para favorecer el cansancio, el sueño y la relajación. Al bloquear temporalmente estos receptores, la cafeína enmascara la sensación de fatiga, eleva el estado de alerta y permite al deportista sostener esfuerzos intensos durante mucho más tiempo.</p>
+
+          <h4>¿Cuánto mejora el rendimiento deportivo?</h4>
+          <p>La postura oficial de las principales organizaciones internacionales, como el Comité Olímpico Internacional, confirma que la cafeína ofrece mejoras consistentes.</p>
+
+          <h5>Resistencia aeróbica en correr, ciclismo y natación</h5>
+          <p>Los metaanálisis registran mejoras de rendimiento de entre el 2% y el 7%. En el ámbito competitivo, un 2% de ventaja es una diferencia masiva.</p>
+
+          <h5>Fuerza y potencia explosiva</h5>
+          <p>También muestra incrementos de entre el 2% y el 7% en la fuerza máxima, la altura de los saltos, la velocidad de los sprints y los levantamientos olímpicos.</p>
+
+          <h5>Mecanismo indirecto para el músculo</h5>
+          <p>La cafeína no genera hipertrofia por sí misma, pero te permite entrenar más fuerte, con más energía y tolerando un mayor volumen de trabajo, lo que a largo plazo se traduce en más músculo.</p>
+
+          <h4>Dosis recomendadas y el peligro de que más sea mejor</h4>
+          <p>La evidencia científica demuestra que existe un rango óptimo muy claro. La dosis estándar estudiada es de 3 a 6 miligramos por kilogramo de peso corporal, consumida entre 30 y 90 minutos antes del entrenamiento como preentreno.</p>
+
+          <h5>Persona con un peso de 70 kg</h5>
+          <p>Entre 210 mg y 420 mg de cafeína.</p>
+
+          <h5>Persona con un peso de 80 kg</h5>
+          <p>Entre 240 mg y 480 mg de cafeína.</p>
+
+          <h5>Persona con un peso de 90 kg</h5>
+          <p>Entre 270 mg y 540 mg de cafeína.</p>
+
+          <h5>El techo de beneficio</h5>
+          <p>Superar los 9 mg/kg no ofrece ninguna mejora adicional en el rendimiento. Lo único que se logra duplicando la dosis es multiplicar drásticamente los efectos secundarios negativos.</p>
+
+          <h4>Efectos secundarios, tolerancia y riesgos reales</h4>
+          <p>Aunque es un suplemento sumamente seguro para adultos sanos en consumos de hasta 400 mg diarios, aproximadamente 4 o 5 cafés normales, posee factores que se deben controlar.</p>
+
+          <h5>El verdadero enemigo del deportista relacionado con el sueño</h5>
+          <p>La cafeína tiene una vida media de 4 a 6 horas en el cuerpo, pero en algunas personas puede tardar hasta 12 horas en eliminarse. Consumirla por la tarde o noche destruye la calidad del sueño. Dado que el sueño es el factor de recuperación y ganancia muscular más importante, usar cafeína tarde termina siendo contraproducente.</p>
+
+          <h5>Ansiedad y nerviosismo</h5>
+          <p>Al disparar la producción de adrenalina y noradrenalina, en personas sensibles puede generar temblores, palpitaciones, inquietud o crisis de ansiedad.</p>
+
+          <h5>Tolerancia y abstinencia</h5>
+          <p>El uso diario hace que el cuerpo se acostumbre y el efecto estimulante disminuya. Además, suspenderla de golpe puede generar un síndrome de abstinencia leve como dolor de cabeza, irritabilidad y somnolencia que dura entre 24 y 48 horas.</p>
+
+          <h5>Salud cardiovascular</h5>
+          <p>En personas sanas, los aumentos de presión arterial y frecuencia cardíaca son transitorios y seguros. No obstante, está contraindicada en personas con arritmias o hipertensión mal controlada sin previa consulta médica.</p>
+
+          <h4>Fuentes científicas para consulta y descarga directa</h4>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/33407172/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Posicionamiento Oficial de la ISSN (Cafeína y Ejercicio)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/29509641/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis sobre Cafeína y Ejercicios de Fuerza (Grgic et al.)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/29856119/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis sobre Cafeína y Rendimiento de Resistencia (Southward et al.)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/26357493/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Opinión Científica de la EFSA sobre la Seguridad de la Cafeína</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="beta-alanina" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Beta-Alanina</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Guía científica de la Beta-Alanina: ¿Sirve para el gimnasio o es solo para otros deportes?
+          </h2>
+          <p>Junto con la creatina, la proteína y la cafeína, la Beta-Alanina es uno de los poquísimos suplementos que cuentan con el máximo nivel de evidencia científica (Categoría A) por parte de la Sociedad Internacional de Nutrición Deportiva (ISSN). Sin embargo, a diferencia de la creatina que sirve para casi todo, la Beta-Alanina funciona en situaciones muy específicas. Si entrenás en el gimnasio, es fundamental que entiendas cómo trabaja para saber si realmente vale la pena en tu caso.</p>
+
+          <h4>¿Qué es y cómo funciona el escudo contra la acidez?</h4>
+          <p>La Beta-Alanina es un aminoácido que, al consumirse de forma sostenida, aumenta los niveles musculares de una molécula llamada Carnosina. Cuando realizás un esfuerzo muscular muy intenso y continuo, tus músculos acumulan hidrogeniones (H+), lo que hace que aumente la acidez muscular. Esto se traduce en esa conocida sensación de quemazón insoportable y fatiga que te obliga a detener el ejercicio. La Carnosina funciona como un amortiguador químico: absorbe esa acidez, retrasa el fuego muscular y te permite sostener el rendimiento por unos segundos más.</p>
+
+          <h4>La regla de oro y por qué se habla de esfuerzos de 1 a 4 minutos</h4>
+          <p>Acá es donde suele aparecer la mayor confusión. La evidencia científica demuestra que la Beta-Alanina funciona mejor en esfuerzos muy intensos que duran de 1 a 4 minutos de tensión continua. Para entenderlo bien, no debemos pensar en el deporte completo, sino en cuánto tiempo pasa el músculo bajo una exigencia máxima e ininterrumpida.</p>
+
+          <h5>Su efecto en deportes de fondo puro</h5>
+          <p>No sirve en una maratón o ciclismo recreativo de varias horas, donde la fatiga depende de la deshidratación o la energía, no de la acidez. El músculo no llega a esa quemazón extrema.</p>
+
+          <h5>Su efecto en Fuerza Máxima</h5>
+          <p>No sirve para Powerlifting o levantamientos pesados de pocas repeticiones (1 a 5 piezas), donde la serie dura apenas 10 o 15 segundos. Te quedás sin fuerza por una cuestión del sistema nervioso, no por acidez.</p>
+
+          <h5>Su efecto en disciplinas de alta intensidad acumulada</h5>
+          <p>Sí sirve para carreras de velocidad pura como los 400 metros, 800 metros o 1500 metros planos, pruebas de remo o natación competitiva (donde se va a fondo durante 2 o 3 minutos seguidos) y circuitos de Crossfit.</p>
+
+          <h4>¿Sirve para el gimnasio y la musculación?</h4>
+          <p>La respuesta corta es que no sirve para fuerza pura, pero sí para hipertrofia con alta fatiga metabólica. Si tu entrenamiento está enfocado en la estética, el volumen y el crecimiento muscular, la Beta-Alanina se vuelve un aliado interesante si la aplicás en las técnicas correctas.</p>
+
+          <h5>Series largas de altas repeticiones</h5>
+          <p>Trabajos de entre 12 y 20 repeticiones al fallo donde la serie se estira en el tiempo.</p>
+
+          <h5>Técnicas avanzadas de intensidad</h5>
+          <p>Superseries (hacer dos ejercicios seguidos sin descanso), Series Gigantes (tres o más ejercicios continuos) y Drop-sets (series descendentes). En todas estas situaciones, el tiempo bajo tensión del músculo supera fácilmente los 45 o 60 segundos y la acumulación de acidez es brutal. La Beta-Alanina te puede dar el beneficio modesto pero real de tolerar mejor ese esfuerzo y rascar 2 o 3 repeticiones extra, lo que a largo plazo se traduce en mayor volumen total de trabajo y más estímulo para ganar músculo.</p>
+
+          <h4>Cómo se toma y el famoso efecto del hormigueo</h4>
+
+          <h5>Funciona por acumulación</h5>
+          <p>Al igual que la creatina, la Beta-Alanina no tiene un efecto instantáneo. No sirve de nada tomarla solo los días de entrenamiento o justo antes de entrar. Se deben consumir entre 4 y 6 gramos diarios todos los días durante un mínimo de 2 a 4 semanas para saturar los músculos con carnosina.</p>
+
+          <h5>Por qué viene en los preentrenamientos comerciales</h5>
+          <p>Las marcas comerciales la meten en los preentrenos debido a su efecto secundario más famoso: la parestesia. Unos 15 minutos después de tomarla, se siente un cosquilleo o picazón en la cara, las manos o las orejas. Mucha gente asume que esa sensación significa que el suplemento está pegando, pero es un efecto inofensivo en las terminaciones nerviosas que no tiene relación con el rendimiento.</p>
+
+          <h5>Cómo evitar el cosquilleo</h5>
+          <p>Si te resulta muy molesto, simplemente dividí la dosis diaria en tomas más chicas a lo largo del día, por ejemplo, dos tomas de 2 gramos.</p>
+
+          <h4>Fuentes científicas para consulta y descarga directa</h4>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/26261414/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Posicionamiento Oficial de la ISSN sobre la Beta-Alanina</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/26174323/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis de Saunders sobre Capacidad y Rendimiento Físico</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="citrulina" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Citrulina</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Guía científica de la Citrulina: ¿Realidad o puro marketing para el bombeo muscular?
+          </h2>
+          <p>La Citrulina Malato se convirtió en uno de los ingredientes estrella de casi todos los preentrenamientos comerciales. Sin embargo, dentro de la nutrición deportiva moderna se encuentra en una zona intermedia: no es un suplemento humo, pero tampoco tiene la evidencia sólida y rotunda de la creatina o la cafeína. Sus resultados en los laboratorios siguen siendo variables e inconsistentes. Si entrenás fuerza o hipertrofia, analizamos qué dice la ciencia real para que decidas si vale la pena gastar tu presupuesto en ella.</p>
+
+          <h4>¿Qué es y cómo funciona en el cuerpo?</h4>
+          <p>La forma más utilizada en el deporte es la Citrulina Malato, que combina el aminoácido L-citrulina con ácido málico, el cual interviene en la energía celular. Al consumirse, tu cuerpo la convierte eficientemente en Arginina, la cual participa de forma directa en la producción de Óxido Nítrico (NO). El óxido nítrico actúa como un potente vasodilatador: relaja y ensancha las paredes de las arterias, permitiendo un mayor flujo sanguíneo y una mayor llegada de oxígeno y nutrientes a los músculos.</p>
+
+          <h5>La ventaja sobre la Arginina tradicional</h5>
+          <p>Hace años se vendía arginina directamente para buscar este efecto. Sin embargo, la ciencia demostró que el hígado la destruye casi por completo antes de que llegue a la sangre. La Citrulina, en cambio, se absorbe perfectamente, esquiva el filtro del hígado y eleva los niveles de arginina en el cuerpo de forma mucho más eficaz que tomar la propia arginina.</p>
+
+          <h4>En el gimnasio: ¿Sirve para Fuerza e Hipertrofia?</h4>
+          <p>La respuesta científica honesta es que puede ayudar, pero sus efectos son modestos y variables.</p>
+
+          <h5>Su impacto en la fuerza máxima</h5>
+          <p>Los estudios no muestran mejoras significativas en la fuerza pura, el 1RM o el rendimiento en Powerlifting. Para ganar fuerza, la creatina sigue siendo la reina absoluta.</p>
+
+          <h5>Hipertrofia por vías indirectas</h5>
+          <p>No hay evidencia fuerte de que la citrulina produzca más crecimiento muscular de forma directa, ya que no activa la síntesis proteica por sí sola. Si ayuda a ganar músculo, es por una vía indirecta: al retrasar levemente la fatiga, te permite meter alguna repetición extra al final de la serie, acumulando más volumen total de entrenamiento.</p>
+
+          <h5>El mito del bombeo o la congestión muscular</h5>
+          <p>Este es el efecto más consistente y real que reportan los usuarios. Al entrenar, los músculos se llenan de sangre y se sienten mucho más inflados y duros. Sin embargo, aquí es donde el marketing engaña: más bombeo no significa automáticamente más músculo. Aunque la hinchazón celular genera una buena sensación subjetiva durante el entrenamiento y estira las membranas celulares, las revisiones científicas más estrictas demuestran que este bombeo temporal no se traduce de forma directa en una mayor ganancia de masa muscular a largo plazo.</p>
+
+          <h4>¿Dónde parece funcionar mejor?</h4>
+          <p>Al igual que la beta-alanina, la citrulina rinde mejor en entrenamientos que generan mucha fatiga metabólica. No destaca en series cortas y pesadas.</p>
+
+          <h5>Series largas de altas repeticiones</h5>
+          <p>Trabajos de entre 12 y 20 repeticiones.</p>
+
+          <h5>Técnicas avanzadas de gimnasio</h5>
+          <p>Entrenamientos como superseries, series gigantes o drop-sets.</p>
+
+          <h5>Circuitos metabólicos y alta intensidad</h5>
+          <p>Entrenamientos con tiempos de descanso muy cortos, estilo Crossfit o deportes de combate.</p>
+
+          <h4>Cómo se toma, dosis y seguridad</h4>
+
+          <h5>La dosis efectiva</h5>
+          <p>Se utilizan entre 6 y 8 gramos antes de entrenar.</p>
+
+          <h5>El momento óptimo</h5>
+          <p>Se toma entre 40 y 60 minutos antes de comenzar el entrenamiento.</p>
+
+          <h5>Seguridad y efectos secundarios</h5>
+          <p>Es un suplemento sumamente seguro en adultos sanos. Al no ser un estimulante del sistema nervioso, no produce ansiedad, insomnio, ni taquicardias, haciéndola ideal para quienes entrenan tarde. El único efecto secundario en personas sensibles son ligeras molestias estomacales o náuseas si se superan las dosis recomendadas.</p>
+
+          <h4>El veredicto: ¿Vale la pena comprarla?</h4>
+
+          <h5>Respaldo Máximo o el podio de evidencia</h5>
+          <p>Creatina, Cafeína y Proteína (siempre que no logres cubrir tus requerimientos diarios con la comida real).</p>
+
+          <h5>Respaldo Moderado y Variable</h5>
+          <p>Beta-Alanina y Citrulina Malato.</p>
+
+          <h5>Evidencia floja o nula</h5>
+          <p>Aminoácidos de cadena ramificada o BCAA aislados, quemadores de grasa y la mayoría de los preentrenamientos comerciales que están llenos de ingredientes de relleno.</p>
+
+          <p>En resumen: si tu presupuesto es ajustado, invertilo siempre en creatina antes que en citrulina. Si ya tenés cubierto el podio básico (creatina, cafeína, buena alimentación) y tenés presupuesto extra para optimizar detalles, la citrulina es una gran opción secundaria.</p>
+
+          <h4>Fuentes científicas para consulta y descarga directa</h4>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/33315181/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Revisión crítica sobre Citrulina Malato y rendimiento</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/31341025/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis sobre Citrulina y rendimiento aeróbico/resistencia</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/20386132/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Estudio clásico sobre Citrulina Malato y reducción de fatiga muscular</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="gainers" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Mass Gainers</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Guía científica de los Ganadores de Peso (Gainers): ¿Sirven para ganar músculo o son solo calorías baratas?
+          </h2>
+          <p>Los ganadores de peso, conocidos popularmente como Mass Gainers, son de los suplementos más vendidos en las tiendas de fitness. Se comercializan con promesas de ganancias musculares masivas y rápidas. Sin embargo, si analizamos la evidencia científica real, descubrimos que estos productos no tienen propiedades mágicas. Son, en esencia, una herramienta de conveniencia calórica con una letra chica que todo deportista debe conocer.</p>
+
+          <h4>¿Qué son exactamente y qué traen adentro?</h4>
+          <p>Un mass gainer comercial es simplemente un polvo que mezcla proteínas, grasas, algunas vitaminas y, sobre todo, grandes cantidades de carbohidratos. Están diseñados para meter entre 500 y 1.200 calorías por porción de forma rápida y líquida.</p>
+
+          <h5>El truco de la Maltodextrina</h5>
+          <p>La inmensa mayoría de las marcas saturan el producto con maltodextrina. Este es un carbohidrato procesado muy barato que tiene un índice glucémico altísimo. El cuerpo lo digiere casi tan rápido como el azúcar de mesa, provocando picos de insulina seguidos de una fuerte sensación de sueño y pesadez una hora después de tomarlo.</p>
+
+          <h5>Proteína diluida</h5>
+          <p>Aunque la etiqueta prometa 50 gramos de proteína, esa cantidad suele requerir porciones gigantescas (3 o 4 cucharadas enormes). Proporcionalmente, estás pagando un precio alto por un polvo que es mayoritariamente carbohidrato de bajo costo.</p>
+
+          <h4>¿Tienen fundamento científico para ganar músculo?</h4>
+          <p>La respuesta científica honesta es que sí, pero de forma indirecta y sin ninguna magia. Para aumentar la masa muscular la ciencia demuestra que se necesitan tres pilares: entrenamiento de fuerza progresivo, suficiente proteína y un superávit calórico (consumir más energía de la que gastás). Si a una persona le cuesta mucho comer, el gainer ayuda a crear ese espacio. El principio es simple: más calorías significan más peso corporal. No existe un mecanismo especial; el producto solo aporta energía fácil de tomar en un batido.</p>
+
+          <h4>Los riesgos: ¿Músculo o grasa? ¿Son seguros?</h4>
+
+          <h5>Ganancia excesiva de grasa</h5>
+          <p>El cuerpo tiene un límite diario para construir músculo. Cuando el superávit calórico es demasiado grande y proviene de carbohidratos de absorción rápida, el peso sube rápido, pero la mayor parte de ese aumento se convierte en grasa corporal, no en músculo magro.</p>
+
+          <h5>Controles de calidad y metales pesados</h5>
+          <p>A diferencia de los medicamentos, los suplementos no sufren controles tan estrictos. Existen investigaciones serias que han alertado sobre etiquetados incorrectos e incluso presencia de niveles elevados de metales pesados en ciertas marcas de gainers.</p>
+
+          <h5>Nota importante sobre la digestión</h5>
+          <p>Es el problema más frecuente entre los usuarios. Al ser dosis tan masivas de polvo, carbohidratos rápidos y aditivos artificiales, suelen generar hinchazón, gases, pesadez y malestar gastrointestinal. Si sos una persona propensa a sufrir molestias abdominales o digestiones pesadas con los batidos de proteína comunes, un mass gainer comercial tiene muchísimas más probabilidades de caerte mal.</p>
+
+          <h4>¿Para quiénes sirven y para quiénes no?</h4>
+
+          <h5>Sí tienen sentido para</h5>
+          <p>Personas extremadamente delgadas, personas con muy poco apetito, metabolismos muy acelerados o atletas con un gasto calórico diario descomunal que físicamente no logran masticar tanta comida sólida sin sentir náuseas.</p>
+
+          <h5>No tienen sentido para</h5>
+          <p>El usuario promedio de gimnasio. Muchas personas que creen que no pueden crecer en realidad entrenan sin intensidad, no descansan bien o no llevan un registro real de lo que comen. Comprar un gainer pensando que es un pase directo al músculo es un error de marketing.</p>
+
+          <h4>La alternativa científica: El Gainer Casero</h4>
+          <p>Los nutricionistas deportivos siempre recomiendan evitar los polvos comerciales y armar tu propio batido calórico en la licuadora. Es infinitamente más barato, saludable, libre de aditivos pesados y aporta carbohidratos complejos de calidad.</p>
+
+          <h5>Receta para un Gainer Casero (aproximadamente 800 calorías)</h5>
+          <p>Leche entera o bebida vegetal (300 ml), avena en hojuelas o molida (80 a 100 gramos) para energía de liberación lenta y fibra, una banana entera para carbohidratos naturales y potasio, manteca de maní (2 cucharadas grandes) para grasas saludables y alta densidad calórica, y una porción de proteína de suero (Whey Protein) para aminoácidos de máxima calidad.</p>
+
+          <h4>Fuentes científicas para consulta y descarga directa</h4>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/28642334/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Posicionamiento Oficial de la ISSN sobre Dietas de Hipertrofia y Superávit Calórico</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/23617152/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Estudio Clínico sobre ganancia de masa grasa vs. magra en superávit calórico alto (Garthe et al.)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/21411835/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Análisis Clínico sobre el impacto de los carbohidratos de alto índice glucémico (Maltodextrina)</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="carnitina" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); margin-bottom: 40px;">
+          <div class="supp-badge">L-Carnitina</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Guía científica de la L-Carnitina: ¿Realmente quema grasa o es un mito de gimnasio?
+          </h2>
+          <p>La L-Carnitina es el ingrediente estrella de casi cualquier suplemento etiquetado como "fat burner" (quemador de grasa). La publicidad promete que, al tomarla, tu cuerpo utilizará la grasa acumulada como combustible de forma mágica mientras entrenás para marcar los abdominales. Sin embargo, cuando dejamos de lado los anuncios comerciales y revisamos los metaanálisis de la ciencia médica, la realidad es muy diferente.</p>
+
+          <h4>¿Qué es la L-Carnitina y cómo funciona?</h4>
+          <p>La L-Carnitina es una molécula que tu propio cuerpo produce de forma natural (en el hígado y los riñones) y que también consumís a través de la carne. Su función dentro de las células es actuar como un transportador: toma los ácidos grasos (la grasa) que están en la sangre y los mete dentro de la mitocondria (la central energética de la célula) para que ahí se utilicen para producir energía.</p>
+
+          <h5>El argumento del marketing y su problema real</h5>
+          <p>El marketing de los suplementos te dice que a más carnitina, más transportadores, y por lo tanto más grasa quemada. El problema es que en personas sanas y deportistas, los depósitos musculares de carnitina ya están prácticamente llenos al máximo. El cuerpo regula fuertemente estos procesos y tomar más carnitina en polvo no aumenta automáticamente la velocidad de quemado. El factor que limita la pérdida de grasa no es la carnitina, sino la necesidad real de energía (calorías) que tenga tu cuerpo.</p>
+
+          <h4>¿Qué dicen los grandes metaanálisis sobre la pérdida de peso?</h4>
+          <p>Cuando se analiza el impacto real en humanos a través de la recopilación de múltiples estudios, la respuesta científica es clara: sí existe un efecto real en la balanza, pero es muy pequeño y modesto. El metaanálisis más grande y riguroso realizado hasta la fecha reunió 37 estudios clínicos aleatorizados con un total de 2.292 participantes.</p>
+
+          <h5>Reducción de peso insignificante</h5>
+          <p>Los sujetos que tomaron L-Carnitina perdieron un promedio de apenas 1,21 kg de peso corporal total en comparación con el grupo de control que no tomó nada.</p>
+
+          <h5>Pérdida de grasa vs. porcentaje corporal</h5>
+          <p>Aunque se observó una reducción promedio de masa grasa de unos 2,08 kg, los estudios no encontraron cambios importantes en el porcentaje de grasa corporal ni en los centímetros de la cintura.</p>
+
+          <h5>¿Para quiénes funciona mejor?</h5>
+          <p>El análisis demostró que los pequeños beneficios aparecen casi exclusivamente en personas con sobrepeso u obesidad. No parece ser un suplemento útil para personas que ya están delgadas y solo buscan definir o marcar un poco más en el gimnasio.</p>
+
+          <h5>El único rey del adelgazamiento</h5>
+          <p>La ciencia insiste en que la L-Carnitina no compensa una mala dieta. La única forma de perder grasa es mediante un déficit calórico (gastar más calorías de las que consumís). Sin déficit, la carnitina no sirve para nada.</p>
+
+          <h4>¿Tiene alguna utilidad en el gimnasio?</h4>
+
+          <h5>No da más fuerza ni músculo</h5>
+          <p>No tiene un efecto para ganar masa muscular. No aumenta la testosterona ni la síntesis de proteína. Para estos fines, la creatina sigue estando a años luz de distancia en respaldo científico.</p>
+
+          <h5>Beneficio secundario en rendimiento</h5>
+          <p>Donde sí muestra algunos resultados positivos ciertos estudios es en la resistencia y la recuperación. Ayuda a reducir levemente el daño muscular después de entrenar y disminuye la fatiga, permitiendo entrenar con un poco más de energía, aunque los resultados varían mucho entre personas.</p>
+
+          <h4>Efectos secundarios, digestión y riesgos</h4>
+
+          <h5>La dosis más estudiada</h5>
+          <p>Los mayores beneficios en la reducción de peso se asociaron con dosis de 2.000 mg diarios (2 gramos).</p>
+
+          <h5>Alerta digestiva importante</h5>
+          <p>En dosis de 2 a 3 gramos, los efectos adversos más frecuentes son estomacales: náuseas, diarrea, cólicos y dolor abdominal. Si solés tener sensibilidad estomacal, pesadez o si otros suplementos como la proteína te suelen caer mal, la L-Carnitina tiene altas probabilidades de generarte molestias digestivas.</p>
+
+          <h5>La controversia del TMAO</h5>
+          <p>Investigaciones recientes sugieren que las bacterias intestinales pueden convertir la carnitina sobrante en un compuesto llamado TMAO. Algunos estudios han asociado niveles altos de TMAO con un mayor riesgo cardiovascular, aunque la relación directa por tomar el suplemento todavía sigue bajo fuerte debate científico.</p>
+
+          <h4>Fuentes científicas para consulta y descarga directa</h4>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/32359128/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis Principal (37 estudios y 2.292 participantes) - Clinical Nutrition ESPEN</a><br>
+          <a href="https://doi.org/10.1016/j.clnesp.2019.10.013" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Artículo completo del Metaanálisis en ScienceDirect</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/27335245/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanálisis anterior sobre L-Carnitina y pérdida de peso en adultos</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+
+        <article id="bcaa" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">BCAA</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Guia cientifica de los BCAA: Lo que la evidencia dice sobre estos aminoacidos
+          </h2>
+          <p>Los BCAA (Branched-Chain Amino Acids) son probablemente uno de los suplementos donde existe una de las mayores diferencias entre el marketing y la evidencia cientifica actual. Los tres BCAA son leucina, isoleucina y valina. La leucina es especialmente importante porque participa en la activacion de vias relacionadas con la sintesis de proteina muscular.</p>
+
+          <h4>¿Tienen fundamento biologico?</h4>
+          <p>Si, y este es el motivo por el que la idea parecia tan prometedora. La leucina activa una via celular conocida como mTOR, que esta involucrada en la sintesis de proteinas musculares. El problema es que para construir musculo no alcanza con activar esa senal. Tambien hacen falta todos los demas aminoacidos esenciales. Es como tener albaniles pero no tener ladrillos.</p>
+
+          <h4>¿Los BCAA construyen musculo?</h4>
+          <p>La evidencia actual indica que mucho menos de lo que se creia durante anos. Un punto importante es que los BCAA contienen solamente 3 aminoacidos, pero el musculo necesita los 9 aminoacidos esenciales para sintetizar nuevas proteinas. Por eso los investigadores comenzaron a preguntarse por que tomar solo tres aminoacidos si una proteina completa ya contiene todos, y ahi empezaron a aparecer resultados poco impresionantes.</p>
+
+          <h4>¿Que dicen las revisiones cientificas?</h4>
+          <p>Una revision critica publicada en el Journal of the International Society of Sports Nutrition concluyo que los BCAA por si solos estimulan la sintesis proteica muscular mucho menos que una proteina completa. Ademas, no pueden sostener una sintesis proteica maxima porque faltan aminoacidos esenciales necesarios para construir tejido muscular.</p>
+
+          <h4>¿Sirven para hipertrofia?</h4>
+          <p>La respuesta mas cercana al consenso actual seria: si ya consumis suficiente proteina, probablemente aporten poco o nada. Una persona que consume entre 1,6 y 2,2 gramos por kilo de peso al dia de proteina ya esta obteniendo abundantes BCAA a traves de carne, huevos, lacteos y whey protein. En ese contexto, agregar BCAA suele mostrar beneficios muy pequenos o inexistentes.</p>
+
+          <h4>¿Sirven para ganar fuerza?</h4>
+          <p>La evidencia es bastante debil. Los metaanalisis no muestran mejoras consistentes en fuerza maxima, potencia ni rendimiento comparable a creatina o cafeina.</p>
+
+          <h4>¿Sirven para recuperacion?</h4>
+          <p>Aca aparece la parte mas favorable. Algunos metaanalisis encuentran reducciones pequenas en dolor muscular post ejercicio (DOMS) y marcadores de dano muscular. Pero los efectos suelen ser modestos. Podrian ayudarte a sentir algo menos de dolor muscular, pero no parecen transformar significativamente la recuperacion deportiva.</p>
+
+          <h4>¿Sirven durante dietas de definicion?</h4>
+          <p>Este es uno de los pocos contextos donde algunos investigadores les ven cierta utilidad. Cuando una persona esta en deficit calorico, consume poca proteina y entrena mucho, los BCAA podrian ayudar a preservar masa muscular. Sin embargo, incluso en ese escenario, una proteina completa suele considerarse una estrategia superior.</p>
+
+          <h4>Comparacion con proteina whey</h4>
+          <p>Aca es donde los BCAA suelen perder claramente. Una proteina whey aporta los BCAA y ademas todos los demas aminoacidos esenciales. Por eso, para hipertrofia y recuperacion, la evidencia suele favorecer la proteina completa frente a los BCAA aislados.</p>
+
+          <h4>Riesgos y efectos secundarios</h4>
+          <p>Los BCAA tienen un perfil de seguridad bastante bueno. Los efectos adversos mas reportados son molestias digestivas, nauseas e hinchazon abdominal. No existe evidencia fuerte de toxicidad importante en personas sanas usando dosis habituales.</p>
+
+          <h4>¿Cuando podrian tener sentido?</h4>
+          <p>Quizas en algunos casos especificos: entrenamiento en ayunas prolongado, personas con ingestas proteicas insuficientes, o atletas de resistencia con restricciones alimentarias particulares. Pero para la mayoria de las personas que hacen gimnasio y consumen suficiente proteina, la utilidad adicional parece limitada.</p>
+
+          <h4>Fuentes cientificas para consulta y descarga directa</h4>
+          <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0184-9" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Revision critica de referencia (JISSN)</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/28852372/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Articulo completo en PubMed</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/29570034/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanalisis sobre BCAA y dano muscular / recuperacion</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/24284442/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Revision sistematica sobre aminoacidos y sintesis proteica muscular</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/28698222/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanalisis clasico sobre proteina y masa muscular (para comparar con BCAA)</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="termogenicos" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Termogenicos</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Quemadores termogenicos: fundamentos fisiologicos, eficacia y evidencia cientifica
+          </h2>
+          <p>Los llamados quemadores de grasa o termogenicos son suplementos disenados para aumentar ligeramente el gasto energetico del organismo y favorecer la utilizacion de grasa corporal como combustible. Generalmente contienen combinaciones de cafeina, extracto de te verde (EGCG), L-carnitina, colina, piperina y extractos vegetales estimulantes.</p>
+
+          <h4>¿Que dice la evidencia cientifica?</h4>
+          <p>La evidencia actual muestra que algunos ingredientes poseen efectos fisiologicos reales. No obstante, los efectos observados suelen ser modestos y considerablemente menores que los sugeridos por la publicidad. La mayoria de los estudios concluyen que los termogenicos pueden aportar pequenas ventajas, pero no sustituyen una alimentacion adecuada, el deficit calorico ni el entrenamiento fisico.</p>
+
+          <h4>Principales ingredientes y nivel de evidencia</h4>
+
+          <h5>Cafeina</h5>
+          <p>Es probablemente el componente con mayor respaldo cientifico. La evidencia muestra que puede aumentar el gasto energetico, mejorar el rendimiento fisico, disminuir la percepcion de fatiga y aumentar temporalmente la oxidacion de grasas. Su principal beneficio para la perdida de peso parece provenir de permitir entrenar con mayor intensidad. Nivel de evidencia: Alto.</p>
+
+          <h5>Te verde (EGCG)</h5>
+          <p>Los metaanalisis muestran pequenas reducciones de peso corporal, grasa corporal y perimetro de cintura. Sin embargo, el efecto promedio suele ser modesto. Nivel de evidencia: Moderado.</p>
+
+          <h5>L-carnitina</h5>
+          <p>Participa en el transporte de acidos grasos hacia las mitocondrias. Los metaanalisis muestran reducciones reales de peso corporal, aunque pequenas, rondando aproximadamente 1,2 kg respecto a placebo. Nivel de evidencia: Moderado.</p>
+
+          <h5>Colina</h5>
+          <p>Participa en diversos procesos metabolicos. Sin embargo, actualmente no existe evidencia solida que demuestre una perdida significativa de grasa corporal atribuible a la suplementacion con colina en personas sanas. Nivel de evidencia: Bajo.</p>
+
+          <h4>¿Funcionan realmente?</h4>
+          <p>La respuesta mas precisa seria: si, pero poco. Los termogenicos pueden producir un ligero aumento del gasto energetico, una leve mejora en la oxidacion de grasas y una pequena reduccion del apetito en algunos individuos. Sin embargo, los efectos observados suelen ser insuficientes para generar cambios importantes en la composicion corporal sin modificaciones en la dieta y el entrenamiento.</p>
+
+          <h4>El problema de interpretacion mas frecuente</h4>
+          <p>Muchas personas comienzan a utilizar un termogenico y simultaneamente mejoran su alimentacion, aumentan la actividad fisica y controlan mas su peso corporal. Posteriormente atribuyen toda la perdida de peso al suplemento. Desde el punto de vista cientifico resulta muy dificil separar esos factores, por eso los ensayos clinicos controlados suelen mostrar efectos mucho mas modestos que los testimonios personales.</p>
+
+          <h4>Posibles efectos adversos</h4>
+          <p>Los termogenicos presentan mas efectos adversos potenciales que suplementos como creatina, proteina o citrulina. Los mas frecuentes son nerviosismo, ansiedad, insomnio, aumento de la frecuencia cardiaca, molestias digestivas y aumento de la presion arterial en personas susceptibles. La probabilidad aumenta a medida que aumenta el contenido de estimulantes.</p>
+
+          <h4>Conclusiones principales</h4>
+          <p>Los termogenicos tienen bases fisiologicas reales y algunos ingredientes poseen respaldo cientifico, especialmente la cafeina. Sin embargo, la perdida de peso observada suele ser modesta, no reemplazan la dieta ni el entrenamiento, y sus efectos adversos son mas frecuentes que en otros suplementos deportivos. La evidencia actual no respalda considerarlos una herramienta principal para perder grasa corporal.</p>
+
+          <h4>Fuentes cientificas para consulta y descarga directa</h4>
+          <a href="https://ods.od.nih.gov/factsheets/ExerciseAndAthleticPerformance-HealthProfessional/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Hoja oficial del NIH sobre suplementos deportivos</a><br>
+          <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-021-00445-4" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Posicion oficial de la ISSN sobre cafeina</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/29528272/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanalisis sobre cafeina y rendimiento deportivo</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/32359762/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanalisis sobre L-carnitina y perdida de peso</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/19597519/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanalisis sobre te verde y control de peso</a><br>
+          <a href="https://bjsm.bmj.com/content/52/7/439" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Revision del Comite Olimpico Internacional sobre suplementos deportivos</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="preentrenos" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Pre-entrenos</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Pre-entrenos: ¿realmente funcionan? Evidencia cientifica, beneficios y riesgos
+          </h2>
+          <p>Los pre-entrenos (pre-workouts) son una categoria bastante distinta de los suplementos que vimos antes. Un pre-entreno no es una sustancia especifica, es una mezcla de varios ingredientes. Por eso, cuando alguien pregunta si funcionan los pre-entrenos, la respuesta correcta es: depende de que ingredientes tenga y en que cantidades.</p>
+
+          <h4>¿Que suele contener un pre-entreno?</h4>
+          <p>Los ingredientes mas frecuentes son cafeina, beta-alanina, citrulina, creatina (a veces), taurina, tirosina, vitaminas del grupo B y extractos vegetales. Por eso muchos pre-entrenos son en realidad una combinacion de varios suplementos que ya revisamos por separado.</p>
+
+          <h4>¿Que dice la evidencia cientifica?</h4>
+          <p>La evidencia mas solida indica que la mayor parte del efecto agudo de un pre-entreno suele explicarse por la cafeina. Es decir, si una persona siente mas energia, mas motivacion, mas concentracion y mas ganas de entrenar, normalmente la principal responsable suele ser la cafeina.</p>
+
+          <h4>¿Mejoran el rendimiento?</h4>
+          <p>Si. Existen revisiones sistematicas y metaanalisis que muestran mejoras pequenas a moderadas en potencia muscular, capacidad de entrenamiento, resistencia muscular y rendimiento durante sesiones intensas. Pero no todos los estudios encuentran el mismo efecto porque las formulas comerciales son muy diferentes entre si.</p>
+
+          <h4>¿Funcionan para fuerza maxima?</h4>
+          <p>La evidencia es moderadamente favorable. Los beneficios suelen ser pequenos: algunas repeticiones extra, algo mas de potencia y menor sensacion de esfuerzo. No estamos hablando de aumentar 30 kg en la sentadilla.</p>
+
+          <h4>¿Funcionan para hipertrofia?</h4>
+          <p>Los pre-entrenos no parecen aumentar directamente el crecimiento muscular. Lo que pueden hacer es permitir entrenar mas fuerte, aumentar el volumen total y mejorar la calidad de la sesion. Y eso, indirectamente, podria favorecer la hipertrofia.</p>
+
+          <h4>¿Que parte del efecto es fisiologica y que parte es psicologica?</h4>
+          <p>Curiosamente, ambas. Los estudios muestran efectos fisiologicos reales como estimulacion del sistema nervioso, aumento de alerta y menor percepcion de fatiga. Pero tambien efectos psicologicos como mayor motivacion y expectativa de mejor rendimiento. Y ambos pueden influir positivamente sobre el entrenamiento.</p>
+
+          <h4>Ingredientes ordenados por nivel de evidencia</h4>
+
+          <h5>Evidencia fuerte</h5>
+          <p>Cafeina.</p>
+
+          <h5>Evidencia moderada</h5>
+          <p>Beta-alanina y Citrulina.</p>
+
+          <h5>Evidencia variable</h5>
+          <p>Taurina, Tirosina y extractos vegetales. La mayoria de los demas ingredientes suelen aportar poco o tienen evidencia limitada.</p>
+
+          <h4>Problemas frecuentes con los pre-entrenos</h4>
+          <p>Muchas formulas contienen mezclas propietarias, dosis no transparentes y multiples estimulantes. Por eso a veces es dificil saber exactamente cuanto estas consumiendo.</p>
+
+          <h4>Efectos adversos mas comunes</h4>
+
+          <h5>Por la cafeina elevada</h5>
+          <p>Puede producir ansiedad, nerviosismo, palpitaciones, insomnio y temblores.</p>
+
+          <h5>Por la beta-alanina</h5>
+          <p>Puede generar hormigueo, picazon y sensacion de calor.</p>
+
+          <h5>Problemas digestivos</h5>
+          <p>Algunas personas presentan nauseas, malestar estomacal o diarrea.</p>
+
+          <h4>¿Son mejores que tomar cafeina sola?</h4>
+          <p>Desde una perspectiva cientifica, muchas veces una parte importante del efecto puede obtenerse simplemente con cafeina. La diferencia es que algunos pre-entrenos anaden citrulina, beta-alanina u otros compuestos que podrian aportar beneficios adicionales. Pero la magnitud extra suele ser bastante menor que la aportada por la cafeina.</p>
+
+          <h4>¿Son necesarios?</h4>
+          <p>No. Miles de atletas de alto nivel entrenan perfectamente sin pre-entrenos. No existe evidencia de que sean indispensables para ganar musculo, ganar fuerza o mejorar la composicion corporal.</p>
+
+          <h4>¿Quien podria beneficiarse y quien debe tener cuidado?</h4>
+
+          <h5>Podrian beneficiarse</h5>
+          <p>Personas que entrenan temprano, llegan cansadas al gimnasio, toleran bien la cafeina o buscan mejorar la calidad subjetiva del entrenamiento.</p>
+
+          <h5>Deben tener cuidado</h5>
+          <p>Personas con ansiedad, trastornos del sueno, hipertension, sensibilidad a estimulantes o problemas cardiacos. En estos casos el exceso de cafeina puede ser problematico.</p>
+
+          <h4>Fuentes cientificas para consulta y descarga directa</h4>
+          <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-021-00445-4" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Posicion oficial de la ISSN sobre cafeina</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/29528272/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanalisis sobre cafeina y rendimiento deportivo</a><br>
+          <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-015-0090-y" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Posicion oficial de la ISSN sobre beta-alanina</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/27797728/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Metaanalisis sobre beta-alanina y rendimiento</a><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/34417881/" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Revision critica sobre citrulina malato</a><br>
+          <a href="https://bjsm.bmj.com/content/52/7/439" target="_blank" class="source-link"><i class="fa-solid fa-up-right-from-square"></i> Revision del Comite Olimpico Internacional sobre suplementos deportivos</a>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="multivitaminicos" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border);">
+          <div class="supp-badge">Multivitaminicos</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Multivitaminicos: ¿sirven realmente? Evidencia cientifica, beneficios, riesgos y cuando tienen sentido
+          </h2>
+          <p>Los multivitaminicos son probablemente el suplemento mas consumido del mundo y tambien uno de los mas estudiados. La conclusion general de la evidencia moderna es bastante interesante: los multivitaminicos pueden corregir o prevenir deficiencias nutricionales, pero para una persona sana y bien alimentada, los beneficios sobre enfermedades, longevidad o rendimiento suelen ser mucho menores de lo que sugiere el marketing.</p>
+
+          <h4>La pregunta clave: ¿funcionan?</h4>
+          <p>Depende de que entendamos por funcionar.</p>
+
+          <h5>Si la persona tiene una deficiencia</h5>
+          <p>Si. Aca la evidencia es muy fuerte. Si alguien tiene deficit de vitamina D, vitamina B12, hierro, folato u otros micronutrientes, corregir esa deficiencia puede mejorar claramente la salud.</p>
+
+          <h5>Si la persona esta sana y bien nutrida</h5>
+          <p>La situacion cambia bastante. Los grandes estudios muestran que los multivitaminicos no reducen claramente la mortalidad, no reducen claramente los eventos cardiovasculares y no producen grandes beneficios preventivos en la poblacion general.</p>
+
+          <h4>El metaanalisis mas importante sobre mortalidad</h4>
+          <p>Uno de los metaanalisis mas citados reunio 21 estudios clinicos con mas de 91.000 participantes y casi 9.000 fallecimientos analizados. La conclusion fue que no hubo reduccion significativa de la mortalidad total con el uso de multivitaminicos. En otras palabras, tomar un multivitaminico no parece hacer que la gente viva mas tiempo.</p>
+
+          <h4>¿Previenen cancer?</h4>
+          <p>La revision realizada para la U.S. Preventive Services Task Force (USPSTF), que evaluo decenas de ensayos clinicos y cientos de miles de participantes, encontro poco o ningun beneficio para prevenir cancer o enfermedad cardiovascular. La evidencia no es suficientemente fuerte como para recomendar multivitaminicos con el objetivo principal de prevenir cancer.</p>
+
+          <h4>¿Mejoran el rendimiento deportivo?</h4>
+          <p>En personas sin deficiencias nutricionales, los multivitaminicos no parecen mejorar significativamente la fuerza, la hipertrofia, la potencia ni el rendimiento fisico. Por eso no suelen considerarse suplementos ergogenicos como la creatina, la cafeina o la beta-alanina.</p>
+
+          <h4>¿Y para gimnasio?</h4>
+
+          <h5>Si tenes una dieta adecuada</h5>
+          <p>Probablemente el multivitaminico aporte poco para tus resultados deportivos.</p>
+
+          <h5>Si tenes una dieta deficiente</h5>
+          <p>Puede ayudar a corregir carencias que si afectan la recuperacion, la energia, la funcion inmune y la salud general.</p>
+
+          <h4>¿Hay personas que si pueden beneficiarse?</h4>
+          <p>Si. La evidencia es mucho mas favorable en embarazadas, adultos mayores, personas con dietas muy restrictivas, veganos (especialmente por B12), personas con malabsorcion intestinal, pacientes post cirugia bariatrica y personas con alcoholismo cronico. En estos grupos el suplemento tiene bastante mas sentido.</p>
+
+          <h4>¿Tienen riesgos?</h4>
+          <p>Mucha gente cree que como son vitaminas no pueden hacer dano, pero eso no es del todo cierto. La mayoria son seguros en dosis normales, pero tomar multiples suplementos simultaneamente puede producir excesos de algunos nutrientes.</p>
+
+          <h5>Hipervitaminosis</h5>
+          <p>Especialmente con vitaminas liposolubles (A, D, E, K), que pueden acumularse en el organismo.</p>
+
+          <h5>Interacciones con medicamentos</h5>
+          <p>Algunas vitaminas y minerales pueden interferir con anticoagulantes, tratamientos tiroideos y ciertos antibioticos.</p>
+
+          <h5>Falsa sensacion de seguridad</h5>
+          <p>Algunas personas piensan que ya toman vitaminas y por lo tanto su alimentacion no importa tanto. Pero la evidencia muestra que los suplementos no reemplazan una dieta saludable.</p>
+
+          <h4>Lo mas solido que sabemos hoy</h4>
+          <p>Los multivitaminicos corrigen deficiencias nutricionales, pero no parecen aumentar la longevidad en adultos sanos, no muestran beneficios claros para prevenir enfermedades cardiovasculares, la evidencia para prevencion de cancer es debil o inconsistente, y no mejoran significativamente fuerza, hipertrofia ni rendimiento en personas bien nutridas. Son mas utiles cuando existe una necesidad nutricional concreta o una deficiencia documentada.</p>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+        <article id="ranking-suplementos" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); margin-bottom: 40px;">
+          <div class="supp-badge">Ranking de Suplementos</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2.2rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Ranking de suplementos según la evidencia científica
+          </h2>
+          <p>Una tabla resumen para ver de un vistazo qué suplementos tienen mayor respaldo científico y cuáles ofrecen poco o ningún beneficio real.</p>
+
+          <div style="overflow-x: auto; margin-top: 24px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--color-brand-red);">
+                  <th style="text-align: left; padding: 12px 10px; color: var(--color-brand-cream); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Puesto</th>
+                  <th style="text-align: left; padding: 12px 10px; color: var(--color-brand-cream); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Suplemento</th>
+                  <th style="text-align: left; padding: 12px 10px; color: var(--color-brand-cream); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Evidencia</th>
+                  <th style="text-align: left; padding: 12px 10px; color: var(--color-brand-cream); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Utilidad práctica</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">🥇 1</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Creatina</td>
+                  <td style="padding: 12px 10px;">🟢🟢🟢🟢🟢</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Excelente</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">🥈 2</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Cafeína</td>
+                  <td style="padding: 12px 10px;">🟢🟢🟢🟢🟢</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Excelente</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">🥉 3</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Proteína (Whey)</td>
+                  <td style="padding: 12px 10px;">🟢🟢🟢🟢🟢</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Excelente</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">4</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Beta-alanina</td>
+                  <td style="padding: 12px 10px;">🟢🟢🟢🟢</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Muy buena</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">5</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Citrulina</td>
+                  <td style="padding: 12px 10px;">🟢🟢🟢</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Buena</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">6</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Mass Gainers</td>
+                  <td style="padding: 12px 10px;">🟢🟢🟢</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Útiles en casos específicos</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">7</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Multivitamínicos</td>
+                  <td style="padding: 12px 10px;">🟢🟢</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Solo si existe deficiencia o una indicación específica</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">8</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Pre-entrenos</td>
+                  <td style="padding: 12px 10px;">🟡</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Depende de su composición; muchos efectos provienen de la cafeína</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">9</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">L-Carnitina</td>
+                  <td style="padding: 12px 10px;">🟡</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Beneficios limitados en la mayoría de las personas sanas</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-glass-border);">
+                  <td style="padding: 12px 10px;">🔟</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">BCAA</td>
+                  <td style="padding: 12px 10px;">🔴</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Poco beneficio cuando la ingesta total de proteínas es suficiente</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 10px;">11</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-main); font-weight: 600;">Termogénicos</td>
+                  <td style="padding: 12px 10px;">🔴</td>
+                  <td style="padding: 12px 10px; color: var(--color-text-muted);">Evidencia débil y efectos pequeños o inconsistentes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="logo" style="margin-bottom: 20px;">
+          <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+          <div class="logo-text">Sé Tu<span>Entrenador</span></div>
+        </a>
+        <p>Especialistas en transformar la teoría científica en resultados prácticos de gimnasio, pista y salud diaria.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Contenidos</h5>
+        <ul>
+          <li><a href="entrenamiento.html">Entrenamiento de Fuerza</a></li>
+          <li><a href="entrenamiento.html">Cardio & Resistencia</a></li>
+          <li><a href="entrenamiento.html">Rutinas Funcionales</a></li>
+          <li><a href="alimentacion.html">Nutrición Deportiva</a></li>
+          <li><a href="suplementacion.html">Suplementos Aprobados</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Contacto y redes</h5>
+        <ul class="footer-social-list">
+          <li><a href="#" class="wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-instagram"></i> @setupropiopreparadorfisico</a></li>
+          <li><a href="https://www.facebook.com/Setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-facebook"></i> Setupropiopreparadorfisico</a></li>
+          <li><a href="mailto:setupropiopreparadorfisico@gmail.com"><i class="fa-solid fa-envelope"></i> setupropiopreparadorfisico@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Enlaces rápidos</h5>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html">Alimentación</a></li>
+          <li><a href="suplementacion.html">Suplementación</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Sé Tu Entrenador. Todos los derechos reservados.</p>
+      <p style="font-size: 0.75rem; color: var(--color-text-muted); width: 100%; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+        <strong>Descargo de responsabilidad:</strong> La información provista en este sitio web y en el libro tiene fines puramente educativos e informativos y no sustituye el consejo, diagnóstico o tratamiento médico o nutricional profesional. Consultá siempre con un médico antes de iniciar cualquier programa de ejercicios o nutrición.
+      </p>
+    </div>
+  </footer>
+
+  <a href="#" class="whatsapp-float wa-book-link" target="_blank" aria-label="Comprar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <script src="script.js"></script>
+</body>
+</html>
