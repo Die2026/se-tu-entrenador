@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Términos de Servicio - Se Tu Entrenador</title>
+  <meta name="description" content="Términos de Servicio de Se Tu Entrenador: condiciones de uso del sitio, las herramientas, el contenido y la compra del libro.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .section-badge {
+      display: block;
+      text-align: center;
+      color: #d4af37;
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+    }
+    .main-index {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 50px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .main-index h3 {
+      font-size: 1rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .main-index-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .main-index-grid a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 14px;
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      transition: all 0.3s ease;
+    }
+    .main-index-grid a:hover {
+      color: #d4af37;
+      border-color: rgba(212, 175, 55, 0.4);
+      background-color: rgba(212, 175, 55, 0.06);
+    }
+    .main-index-grid a i {
+      color: #d4af37;
+      font-size: 0.8rem;
+    }
+    .terminos-body h4 {
+      color: var(--color-text-main);
+      font-size: 1.2rem;
+      margin-top: 30px;
+      margin-bottom: 12px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+    }
+    .terminos-body h4:first-of-type {
+      margin-top: 0;
+    }
+    .terminos-body p {
+      margin-bottom: 14px;
+      line-height: 1.75;
+      font-size: 0.98rem;
+      color: var(--color-text-muted);
+    }
+    .terminos-update {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 40px;
+    }
+    .terminos-contacto {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0 0 0;
+    }
+    .terminos-contacto li {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+    }
+    .terminos-contacto li strong {
+      color: var(--color-text-main);
+    }
+    @media (max-width: 768px) {
+      .main-index-grid { grid-template-columns: 1fr; }
+      .section-badge { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <div class="logo-text">Se Tu<span>Entrenador</span></div>
+      </a>
+      <button class="mobile-menu-toggle" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav>
+        <ul id="nav-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html">Alimentacion</a></li>
+          <li><a href="suplementacion.html">Suplementacion</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+          <li><a href="#" class="nav-btn wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> Consultar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL: TÉRMINOS DE SERVICIO -->
+  <section class="section bg-dark-accent" style="padding-top: 150px;">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 30px;">
+        <h1 class="font-serif text-gradient" style="font-size: 2.4rem;">Términos de Servicio</h1>
+        <p>Condiciones de uso del sitio Se Tu Entrenador, sus herramientas, contenidos y la compra de El Libro.</p>
+      </div>
+      <p class="terminos-update">Última actualización: 23 de agosto de 2026</p>
+
+      <!-- INDICE -->
+      <div class="main-index" id="contenido-seccion">
+        <h3><i class="fa-solid fa-list"></i> &nbsp;Contenido de esta sección</h3>
+        <div class="main-index-grid">
+          <a href="#responsable"><i class="fa-solid fa-chevron-down"></i> 1. Identificación del responsable</a>
+          <a href="#objeto"><i class="fa-solid fa-chevron-down"></i> 2. Objeto del sitio</a>
+          <a href="#herramientas"><i class="fa-solid fa-chevron-down"></i> 3. Uso de las herramientas y contenidos</a>
+          <a href="#mi-evaluacion"><i class="fa-solid fa-chevron-down"></i> 4. Información en Mi Evaluación</a>
+          <a href="#cuentas"><i class="fa-solid fa-chevron-down"></i> 5. Cuentas de usuario</a>
+          <a href="#entrenamiento-rutinas"><i class="fa-solid fa-chevron-down"></i> 6. Entrenamiento y rutinas</a>
+          <a href="#alimentacion-suplementacion"><i class="fa-solid fa-chevron-down"></i> 7. Alimentación y suplementación</a>
+          <a href="#el-libro"><i class="fa-solid fa-chevron-down"></i> 8. El Libro</a>
+          <a href="#cambios-defectos"><i class="fa-solid fa-chevron-down"></i> 9. Cambios por defectos del producto</a>
+          <a href="#derechos-consumidor"><i class="fa-solid fa-chevron-down"></i> 10. Derechos del consumidor</a>
+          <a href="#propiedad-intelectual"><i class="fa-solid fa-chevron-down"></i> 11. Propiedad intelectual</a>
+          <a href="#enlaces-externos"><i class="fa-solid fa-chevron-down"></i> 12. Enlaces y plataformas externas</a>
+          <a href="#disponibilidad"><i class="fa-solid fa-chevron-down"></i> 13. Disponibilidad y funcionamiento</a>
+          <a href="#modificacion-terminos"><i class="fa-solid fa-chevron-down"></i> 14. Modificación de los Términos</a>
+          <a href="#contacto"><i class="fa-solid fa-chevron-down"></i> 15. Contacto</a>
+        </div>
+      </div>
+
+      <div class="pillar-card article-body terminos-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); max-width: 900px; margin: 0 auto 40px auto;">
+
+        <h4 id="responsable">1. Identificación del responsable</h4>
+        <p>El sitio web Se Tu Entrenador, disponible en setuentrenador.netlify.app, es administrado por Diego Percossi.</p>
+        <p>Correo electrónico: setupropiopreparadorfisico@gmail.com<br>
+        Medios de contacto: WhatsApp<br>
+        Instagram: @setupropiopreparadorfisico<br>
+        Facebook: Setupropiopreparadorfisico</p>
+
+        <h4 id="objeto">2. Objeto del sitio</h4>
+        <p>Se Tu Entrenador es una plataforma destinada a proporcionar información, herramientas y contenidos relacionados con entrenamiento físico, alimentación, suplementación, evaluaciones y rutinas de ejercicio.</p>
+        <p>El sitio también ofrece material educativo y un producto físico denominado El Libro.</p>
+
+        <h4 id="herramientas">3. Uso de las herramientas y contenidos</h4>
+        <p>Las herramientas, cálculos, evaluaciones, rutinas y contenidos disponibles en el sitio tienen finalidad informativa y educativa.</p>
+        <p>La información proporcionada por el sitio no constituye diagnóstico médico, tratamiento médico ni reemplaza la consulta con profesionales de la salud debidamente habilitados.</p>
+        <p>Los resultados obtenidos mediante las herramientas del sitio son orientativos y pueden no contemplar las características particulares de cada persona.</p>
+        <p>El usuario es responsable de los datos que introduce y del uso que realiza de los resultados obtenidos.</p>
+
+        <h4 id="mi-evaluacion">4. Información introducida en Mi Evaluación</h4>
+        <p>Para utilizar la herramienta Mi Evaluación, el usuario puede introducir información personal, física y antropométrica, como edad, peso, altura y otros datos necesarios para realizar los cálculos correspondientes.</p>
+        <p>Actualmente, el sitio no requiere la creación de una cuenta ni un registro de usuario para utilizar esta herramienta.</p>
+        <p>Los datos introducidos son utilizados para realizar los cálculos y mostrar los resultados correspondientes dentro de la herramienta.</p>
+        <p>El sitio no afirma, mediante estos Términos, que dichos datos sean almacenados permanentemente ni que sean eliminados inmediatamente después de utilizar la herramienta.</p>
+
+        <h4 id="cuentas">5. Cuentas de usuario</h4>
+        <p>Actualmente, Se Tu Entrenador no requiere que el usuario cree una cuenta, proporcione una contraseña o se registre para acceder a sus principales contenidos y herramientas.</p>
+
+        <h4 id="entrenamiento-rutinas">6. Entrenamiento y rutinas</h4>
+        <p>Las rutinas y contenidos relacionados con el entrenamiento físico tienen carácter orientativo y educativo.</p>
+        <p>El usuario debe considerar sus propias capacidades, experiencia, condición física y circunstancias particulares antes de realizar cualquier actividad física.</p>
+        <p>Se recomienda consultar con un profesional de la salud cuando existan condiciones que puedan afectar la práctica de ejercicio físico.</p>
+        <p>Se Tu Entrenador no garantiza resultados físicos determinados derivados del uso de las rutinas, evaluaciones o contenidos publicados.</p>
+
+        <h4 id="alimentacion-suplementacion">7. Alimentación y suplementación</h4>
+        <p>Los contenidos relacionados con alimentación y suplementación tienen finalidad educativa e informativa.</p>
+        <p>La información publicada no constituye una prescripción médica, nutricional ni farmacológica personalizada.</p>
+        <p>Las necesidades nutricionales y de suplementación pueden variar según las características individuales de cada persona.</p>
+
+        <h4 id="el-libro">8. El Libro</h4>
+        <p>Actualmente, El Libro es el único producto pago disponible en Se Tu Entrenador.</p>
+        <p>El precio informado al momento de la última actualización de estos Términos es de $25.000 ARS.</p>
+        <p>La compra se coordina mediante WhatsApp.</p>
+        <p>El producto se entrega en formato físico/papel y actualmente no se ofrece como producto digital en formato PDF.</p>
+        <p>Las condiciones concretas de pago, entrega y coordinación de la compra serán informadas al momento de realizar la operación.</p>
+
+        <h4 id="cambios-defectos">9. Cambios por defectos del producto</h4>
+        <p>El ejemplar entregado será reemplazado cuando presente un defecto que afecte al producto, como, por ejemplo, páginas faltantes u otros problemas de impresión o fabricación que impidan o dificulten su utilización normal.</p>
+        <p>En esos casos, el comprador deberá comunicarse mediante los medios de contacto disponibles para informar el inconveniente y coordinar el reemplazo del ejemplar.</p>
+        <p>La disconformidad subjetiva con el contenido del libro, que el contenido no resulte del agrado del comprador o que el comprador simplemente cambie de opinión respecto del contenido no constituye, por sí misma, un defecto del producto.</p>
+        <p>Lo establecido en esta sección se entiende sin perjuicio de los derechos que correspondan al consumidor conforme a la legislación vigente.</p>
+
+        <h4 id="derechos-consumidor">10. Derechos del consumidor</h4>
+        <p>Las operaciones de compra realizadas a través de medios electrónicos o a distancia se encuentran sujetas a la normativa argentina aplicable en materia de defensa del consumidor.</p>
+        <p>Ninguna disposición de estos Términos pretende limitar, excluir o renunciar a derechos que la legislación vigente reconozca al consumidor.</p>
+        <p>Cuando corresponda legalmente, serán aplicables los derechos de información, garantía, devolución, revocación o cualquier otro derecho previsto por la normativa vigente.</p>
+
+        <h4 id="propiedad-intelectual">11. Propiedad intelectual</h4>
+        <p>Los textos, contenidos, materiales, diseños, elementos gráficos, estructura y demás elementos propios de Se Tu Entrenador están protegidos por las normas aplicables de propiedad intelectual.</p>
+        <p>No está permitido reproducir, distribuir, modificar, publicar o utilizar comercialmente los contenidos del sitio sin autorización previa del responsable, salvo los usos permitidos por la legislación vigente.</p>
+
+        <h4 id="enlaces-externos">12. Enlaces y plataformas externas</h4>
+        <p>El sitio puede incluir enlaces o medios de contacto que dirijan a plataformas externas, incluyendo WhatsApp, Instagram y Facebook.</p>
+        <p>El funcionamiento, disponibilidad y condiciones de dichas plataformas dependen de sus respectivos proveedores y se encuentran sujetos a sus propios términos y políticas.</p>
+
+        <h4 id="disponibilidad">13. Disponibilidad y funcionamiento del sitio</h4>
+        <p>Se Tu Entrenador procurará mantener el sitio disponible y funcionando correctamente.</p>
+        <p>No obstante, no se garantiza que el sitio permanezca disponible de manera permanente ni que esté completamente libre de errores, interrupciones o fallas técnicas.</p>
+        <p>El contenido, las herramientas y las funcionalidades pueden ser actualizados, modificados o discontinuados cuando resulte necesario.</p>
+
+        <h4 id="modificacion-terminos">14. Modificación de los Términos</h4>
+        <p>Estos Términos de Servicio podrán ser modificados cuando se produzcan cambios relevantes en el funcionamiento del sitio, sus contenidos, productos, servicios o cuando resulte necesario para adecuarlos a la normativa vigente.</p>
+        <p>La versión vigente será la publicada en el sitio e indicará la fecha de su última actualización.</p>
+
+        <h4 id="contacto">15. Contacto</h4>
+        <p>Para consultas relacionadas con el sitio, sus contenidos, las herramientas disponibles o la adquisición de El Libro, el usuario puede comunicarse con:</p>
+        <ul class="terminos-contacto">
+          <li><strong>Diego Percu</strong></li>
+          <li>Correo electrónico: setupropiopreparadorfisico@gmail.com</li>
+          <li>WhatsApp: medio de contacto disponible desde el sitio</li>
+          <li>Instagram: @setupropiopreparadorfisico</li>
+          <li>Facebook: Setupropiopreparadorfisico</li>
+        </ul>
+
+        <p style="margin-top: 24px;"><em>Última actualización: 23 de agosto de 2026</em></p>
+
+        <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="logo" style="margin-bottom: 20px;">
+          <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+          <div class="logo-text">Se Tu<span>Entrenador</span></div>
+        </a>
+        <p>Especialistas en transformar la teoria cientifica en resultados practicos de gimnasio, pista y salud diaria.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Contenidos</h5>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamiento</a></li>
+          <li><a href="alimentacion.html">Alimentación</a></li>
+          <li><a href="suplementacion.html">Suplementación</a></li>
+          <li><a href="libro.html">El Libro</a></li>
+          <li><a href="evaluacion.html">Mi Evaluación</a></li>
+          <li><a href="rutinas.html">Rutinas</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Contacto y redes</h5>
+        <ul class="footer-social-list">
+          <li><a href="#" class="wa-general-link" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-instagram"></i> @setupropiopreparadorfisico</a></li>
+          <li><a href="https://www.facebook.com/Setupropiopreparadorfisico" target="_blank"><i class="fa-brands fa-facebook"></i> Setupropiopreparadorfisico</a></li>
+          <li><a href="mailto:setupropiopreparadorfisico@gmail.com"><i class="fa-solid fa-envelope"></i> setupropiopreparadorfisico@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Sé Tu Entrenador. Todos los derechos reservados.</p>
+      <div class="footer-bottom-links">
+        <a href="terminos.html">Terminos de Servicio</a>
+        <a href="#" class="wa-general-link" target="_blank">Politica de Privacidad</a>
+      </div>
+      <p style="font-size: 0.75rem; color: var(--color-text-muted); width: 100%; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+        <strong>Descargo de responsabilidad:</strong> La informacion provista en este sitio web y en el libro tiene fines puramente educativos e informativos y no sustituye el consejo, diagnostico o tratamiento medico o nutricional profesional.
+      </p>
+    </div>
+  </footer>
+
+  <a href="#" class="whatsapp-float wa-book-link" target="_blank" aria-label="Comprar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <script src="script.js"></script>
+</body>
+</html>
