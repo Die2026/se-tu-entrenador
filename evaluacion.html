@@ -2255,6 +2255,12 @@
         let ultimaPosicion = null;
         let ultimoResultado = null;
 
+        // Umbrales para descartar ruido/errores del GPS y evitar
+        // que se acumule distancia ficticia estando quieto.
+        const PRECISION_MAXIMA_ACEPTADA_M = 25; // ignora lecturas con precisión peor a esto
+        const DISTANCIA_MINIMA_VALIDA_M = 4;    // por debajo de esto se considera ruido/jitter del GPS
+        const VELOCIDAD_MAXIMA_PLAUSIBLE_MS = 8; // ~28,8 km/h: por encima se descarta el salto como error de GPS
+
         // Fórmula de Haversine: distancia real en metros entre dos coordenadas GPS
         function distanciaHaversine(lat1, lon1, lat2, lon2) {
           const R = 6371000; // radio de la Tierra en metros
@@ -2318,23 +2324,57 @@
         }
 
         function manejarPosicion(pos) {
-          const { latitude, longitude, accuracy, speed } = pos.coords;
+          const { latitude, longitude, accuracy } = pos.coords;
+          const ahora = pos.timestamp || Date.now();
+
+          // Si la precisión del GPS es mala (señal débil), no se usa esta
+          // lectura para acumular distancia: solo se informa el estado.
+          if (typeof accuracy === 'number' && accuracy > PRECISION_MAXIMA_ACEPTADA_M) {
+            elStatus.textContent = 'Buscando señal GPS más precisa… (precisión actual: ±' + Math.round(accuracy) + ' m). Alejate de techos o paredes si estás en interiores.';
+            elStatus.classList.remove('ok');
+            elStatus.classList.add('error');
+            elLivePrecision.textContent = '±' + Math.round(accuracy) + ' m';
+            return;
+          }
 
           elStatus.textContent = 'GPS activo. Registrando tu recorrido…';
           elStatus.classList.add('ok');
           elStatus.classList.remove('error');
 
-          if (ultimaPosicion) {
-            const d = distanciaHaversine(ultimaPosicion.lat, ultimaPosicion.lon, latitude, longitude);
-            // Filtro simple de ruido GPS: ignora saltos irreales (>50 m entre lecturas)
-            if (d > 0 && d < 50) {
-              distanciaTotalM += d;
-            }
+          // Primera lectura válida (con buena precisión): se toma como
+          // punto de partida. No se contabiliza distancia todavía.
+          if (!ultimaPosicion) {
+            ultimaPosicion = { lat: latitude, lon: longitude, t: ahora };
+            actualizarStatsEnVivo(0, accuracy);
+            return;
           }
-          ultimaPosicion = { lat: latitude, lon: longitude };
 
-          const velocidadKmh = typeof speed === 'number' && speed >= 0 ? speed * 3.6 : 0;
-          actualizarStatsEnVivo(velocidadKmh, accuracy);
+          const d = distanciaHaversine(ultimaPosicion.lat, ultimaPosicion.lon, latitude, longitude);
+          const dtSeg = Math.max((ahora - ultimaPosicion.t) / 1000, 0.001);
+          const velocidadImplicitaMs = d / dtSeg;
+
+          // Descarta la lectura si:
+          //  - el desplazamiento es tan pequeño que puede ser ruido del GPS
+          //    estando la persona quieta (jitter), o
+          //  - la velocidad implícita es fisiológicamente imposible (salto
+          //    de posición por error del GPS).
+          const esRuido = d < DISTANCIA_MINIMA_VALIDA_M;
+          const esSaltoImposible = velocidadImplicitaMs > VELOCIDAD_MAXIMA_PLAUSIBLE_MS;
+
+          let velocidadKmhMostrar = 0;
+
+          if (!esRuido && !esSaltoImposible) {
+            distanciaTotalM += d;
+            velocidadKmhMostrar = velocidadImplicitaMs * 3.6;
+            // Solo se actualiza el punto de referencia cuando el
+            // movimiento fue aceptado como válido.
+            ultimaPosicion = { lat: latitude, lon: longitude, t: ahora };
+          }
+          // Si fue descartado (ruido o salto imposible), se mantiene la
+          // posición anterior como referencia y no se suma distancia,
+          // evitando que se acumulen kilómetros estando quieto.
+
+          actualizarStatsEnVivo(velocidadKmhMostrar, accuracy);
         }
 
         function manejarErrorGps(err) {
@@ -2350,7 +2390,9 @@
             return;
           }
 
-          // Reiniciar estado
+          // Reiniciar estado: la distancia siempre arranca en 0 m y el
+          // punto de partida se toma recién con la primera lectura GPS
+          // válida que se reciba después de presionar "Iniciar Test".
           segundosRestantes = DURACION_TOTAL_SEG;
           distanciaTotalM = 0;
           ultimaPosicion = null;
