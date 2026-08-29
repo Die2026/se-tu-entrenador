@@ -9,6 +9,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+
+  <!-- ==========================================================
+       PWA: "Mi Evaluación" — funcionamiento sin conexión
+       Solo se agrega en esta página. No afecta al resto del sitio.
+       ========================================================== -->
+  <link rel="manifest" href="manifest-mievaluacion.webmanifest">
+  <meta name="theme-color" content="#a63a3a">
+  <!-- Compatibilidad de instalación en iOS / Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mi Evaluación">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <style>
     .section-badge {
       display: block;
@@ -600,6 +613,276 @@
       margin-top: 12px;
       line-height: 1.6;
     }
+
+    /* Sub-indice interno de cada articulo (En esta sección) */
+    .article-subindex {
+      background-color: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--border-radius-md);
+      padding: 24px 28px;
+      margin-bottom: 30px;
+    }
+    .article-subindex p {
+      font-size: 0.85rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .article-subindex ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .article-subindex ul li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text-main);
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    .article-subindex ul li a i {
+      color: #d4af37;
+      font-size: 0.75rem;
+    }
+    .article-subindex ul li a:hover {
+      color: #d4af37;
+    }
+
+    /* ==========================================
+       TEST DE COOPER
+       Reutiliza clases ya existentes en el sitio
+       (article-subindex, bullet-list, imc-input-group,
+       imc-result-card, rutina-note, supp-list, etc.)
+       y agrega solo lo estrictamente necesario.
+       ========================================== */
+
+    #test-cooper {
+      margin-top: 40px;
+    }
+
+    .cooper-gps-card {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 32px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .cooper-timer {
+      font-family: var(--font-serif);
+      font-size: 3.6rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1;
+      margin: 10px 0 6px 0;
+    }
+
+    .cooper-timer-label {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+    }
+
+    .cooper-live-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 20px 0 26px 0;
+    }
+
+    .cooper-live-stat {
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 14px 10px;
+    }
+
+    .cooper-live-stat .val {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--color-brand-cream);
+    }
+
+    .cooper-live-stat .lbl {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .cooper-gps-status {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 20px;
+      min-height: 20px;
+    }
+
+    .cooper-gps-status.ok { color: #25d366; }
+    .cooper-gps-status.error { color: #e05a5a; }
+
+    .cooper-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto 24px auto;
+      text-align: left;
+    }
+
+    @media (max-width: 576px) {
+      .cooper-form-grid { grid-template-columns: 1fr; }
+      .cooper-live-stats { grid-template-columns: 1fr; }
+      .cooper-timer { font-size: 2.6rem; }
+    }
+
+    .cooper-results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .cooper-results-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .cooper-results-grid { grid-template-columns: 1fr; }
+    }
+
+    .cooper-result-item {
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .cooper-result-item .val {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .cooper-result-item .lbl {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 6px;
+    }
+
+    .cooper-example-badge {
+      display: inline-block;
+      background-color: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: #d4af37;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .cooper-table-wrapper {
+      overflow-x: auto;
+      margin: 20px 0 28px 0;
+    }
+
+    .cooper-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 480px;
+    }
+
+    .cooper-table th {
+      text-align: left;
+      padding: 10px 8px;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.8px;
+      border-bottom: 2px solid var(--color-brand-red);
+    }
+
+    .cooper-table td {
+      padding: 10px 8px;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-glass-border);
+    }
+
+    .cooper-table td:first-child {
+      color: var(--color-text-main);
+      font-weight: 600;
+    }
+
+    .cooper-history-empty {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      padding: 20px 0;
+    }
+
+    .cooper-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin: 24px 0;
+    }
+
+    .cooper-flow-step {
+      background-color: rgba(166, 58, 58, 0.1);
+      border: 1px solid rgba(166, 58, 58, 0.25);
+      color: var(--color-brand-cream);
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 10px 26px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+    }
+
+    .cooper-flow-arrow {
+      color: var(--color-brand-red);
+      font-size: 1.1rem;
+    }
+
+    .cooper-btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    #cooper-btn-borrar-historial {
+      background: none;
+      border: 1px solid var(--color-glass-border);
+      color: var(--color-text-muted);
+      padding: 10px 18px;
+      border-radius: var(--border-radius-md);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    #cooper-btn-borrar-historial:hover {
+      border-color: var(--color-brand-red);
+      color: var(--color-brand-red);
+    }
   </style>
 </head>
 <body>
@@ -634,15 +917,20 @@
       <div class="section-header" style="margin-bottom: 50px;">
         <h1 class="font-serif text-gradient" style="font-size: 3rem; margin-bottom: 20px;">Mi Evaluación</h1>
         <p>Herramientas prácticas para conocer tu punto de partida. Ingresá tus datos y obtené resultados al instante, sin registrarte y sin recargar la página.</p>
+        <button type="button" id="btn-instalar-pwa" class="btn btn-secondary" style="display:none; margin: 24px auto 0 auto;">
+          <i class="fa-solid fa-download"></i> Instalar Mi Evaluación (usar sin conexión)
+        </button>
+        <p id="pwa-offline-msg" style="display:none; margin-top: 14px; font-size: 0.85rem; color: var(--color-text-muted);">
+          <i class="fa-solid fa-wifi" style="color:#25d366;"></i> Estás usando "Mi Evaluación" sin conexión a Internet. Tus datos y evaluaciones se guardan en este dispositivo.
+        </p>
       </div>
 
       <!-- INDICE (preparado para futuras herramientas) -->
-      <div class="main-index">
+      <div class="main-index" id="contenido-seccion">
         <h3><i class="fa-solid fa-list"></i> &nbsp;Herramientas disponibles</h3>
         <div class="main-index-grid">
-          <a href="#calculadora-imc"><i class="fa-solid fa-chevron-down"></i> Calculadora de Índice de Masa Corporal (IMC)</a>
-          <a href="#calculadora-hidratacion"><i class="fa-solid fa-chevron-down"></i> Hidratación</a>
-          <a href="#evaluacion-metabolica"><i class="fa-solid fa-chevron-down"></i> Evaluación Metabólica</a>
+          <a href="#calculadora-imc"><i class="fa-solid fa-chevron-down"></i> Calculadora de Índice de Masa Corporal (IMC), Hidratación y Evaluación Metabólica</a>
+          <a href="#test-cooper"><i class="fa-solid fa-chevron-down"></i> Test de Cooper</a>
         </div>
       </div>
 
@@ -903,6 +1191,410 @@
           <p class="pdf-informe-hint" id="pdf-informe-hint">
             Completá al menos tu peso y tu altura para poder generar el informe.
           </p>
+        </div>
+
+        <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
+
+        <!-- ============================================================
+             TEST DE COOPER
+             Nueva sección dentro de "Mi Evaluación". No modifica ninguna
+             otra parte de la página. Usa geolocalización real (GPS) para
+             medir la distancia recorrida durante los 12 minutos de la
+             prueba y calcula VO2max estimado, clasificación e historial.
+             ============================================================ -->
+        <div id="test-cooper" class="pillar-card article-body" style="background-color: var(--bg-secondary); padding: 40px; border: 1px solid var(--color-glass-border); scroll-margin-top: 100px; margin-top: 40px;">
+          <div class="section-badge">Test de Cooper</div>
+          <h2 class="font-serif text-gradient-red" style="font-size: 2rem; text-align:center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            Evaluá tu capacidad aeróbica
+          </h2>
+
+          <div class="article-subindex">
+            <p><i class="fa-solid fa-list-ul"></i> &nbsp;En esta sección</p>
+            <ul>
+              <li><a href="#cooper-intro"><i class="fa-solid fa-chevron-right"></i> Qué es el Test de Cooper</a></li>
+              <li><a href="#cooper-para-quien"><i class="fa-solid fa-chevron-right"></i> ¿Para quién está pensado?</a></li>
+              <li><a href="#cooper-antes"><i class="fa-solid fa-chevron-right"></i> Antes de realizar el test</a></li>
+              <li><a href="#cooper-como"><i class="fa-solid fa-chevron-right"></i> Cómo realizar el Test de Cooper</a></li>
+              <li><a href="#cooper-widget"><i class="fa-solid fa-chevron-right"></i> Realizar el test (GPS)</a></li>
+              <li><a href="#cooper-resultados-obtenidos"><i class="fa-solid fa-chevron-right"></i> Qué resultados vas a obtener</a></li>
+              <li><a href="#cooper-vo2max"><i class="fa-solid fa-chevron-right"></i> VO₂máx estimado</a></li>
+              <li><a href="#cooper-interpretacion"><i class="fa-solid fa-chevron-right"></i> Cómo se interpreta el resultado</a></li>
+              <li><a href="#cooper-historial"><i class="fa-solid fa-chevron-right"></i> Historial y evolución</a></li>
+              <li><a href="#cooper-hiit"><i class="fa-solid fa-chevron-right"></i> Relación con entrenamientos intensos</a></li>
+              <li><a href="#cooper-mejora"><i class="fa-solid fa-chevron-right"></i> Mejorá tu Test de Cooper</a></li>
+              <li><a href="#cooper-nuevo-test"><i class="fa-solid fa-chevron-right"></i> Nuevo Test de Cooper</a></li>
+              <li><a href="#cooper-objetivo"><i class="fa-solid fa-chevron-right"></i> Tu objetivo</a></li>
+              <li><a href="#cooper-referencias"><i class="fa-solid fa-chevron-right"></i> Referencias</a></li>
+            </ul>
+          </div>
+
+          <h4 id="cooper-intro">Qué es el Test de Cooper</h4>
+          <p>El Test de Cooper es una prueba de campo de 12 minutos que permite valorar la capacidad aeróbica a partir de la distancia que una persona consigue recorrer durante ese tiempo.</p>
+          <p>La prueba consiste en recorrer la mayor distancia posible durante 12 minutos, corriendo o combinando carrera y marcha según la condición física de cada persona.</p>
+          <p>A partir de la distancia obtenida se puede realizar una estimación del VO₂máx, un indicador relacionado con la capacidad del organismo para utilizar oxígeno durante el ejercicio.</p>
+          <p>El Test de Cooper fue desarrollado por Kenneth H. Cooper y publicado originalmente en 1968. El trabajo original estudió la relación entre el rendimiento en la prueba de 12 minutos y el consumo máximo de oxígeno medido en laboratorio.</p>
+
+          <h4 id="cooper-para-quien">¿Para quién está pensado?</h4>
+          <p>Este test está pensado principalmente para personas que realizan actividad física recreativa o que desean comenzar un proceso de entrenamiento y mejorar su condición física.</p>
+          <p>No está diseñado como herramienta de evaluación para deportistas profesionales, atletas de élite o personas que entrenan a niveles de alto rendimiento.</p>
+          <p>En deportistas de alto rendimiento se utilizan evaluaciones más específicas, adaptadas a las características y demandas de cada deporte.</p>
+          <p>El objetivo de esta evaluación es sencillo: conocer desde dónde partís, entrenar y comprobar si estás mejorando.</p>
+
+          <h4 id="cooper-antes">Antes de realizar el test</h4>
+          <p>El Test de Cooper requiere realizar un esfuerzo físico elevado.</p>
+          <p>Antes de realizarlo es importante considerar el estado de salud, el nivel habitual de actividad física y los antecedentes personales.</p>
+          <p>Si sos sedentario, tenés una enfermedad conocida, antecedentes cardiovasculares, síntomas durante el ejercicio, factores de riesgo relevantes o dudas sobre tu capacidad para realizar ejercicio intenso, consultá previamente con un profesional de la salud.</p>
+          <p>Según cada caso, el profesional puede determinar la necesidad de una evaluación médica previa y, cuando corresponda, una prueba de esfuerzo o ergometría.</p>
+
+          <div class="rutina-note">
+            <h5><i class="fa-solid fa-triangle-exclamation"></i> Importante</h5>
+            <p>Este test no reemplaza una consulta médica ni una prueba de esfuerzo realizada por profesionales de la salud.</p>
+          </div>
+
+          <h4 id="cooper-como">¿Cómo realizar el Test de Cooper?</h4>
+
+          <h5>1. Elegí el lugar</h5>
+          <p>Realizá la prueba en una superficie segura y preferentemente plana. Una pista de atletismo o un recorrido conocido puede facilitar el control de la distancia. Para el GPS del celular, procurá realizar las evaluaciones posteriores en condiciones similares para poder comparar mejor los resultados.</p>
+
+          <h5>2. Preparación</h5>
+          <p>Realizá un calentamiento adecuado antes de comenzar. Tené el teléfono con suficiente batería y llevá el dispositivo de manera que pueda recibir correctamente la señal GPS.</p>
+
+          <h5>3. Activá el GPS</h5>
+          <p>Activá la ubicación del teléfono y permití que Se Tu Entrenador acceda a ella. El GPS permitirá registrar el desplazamiento y calcular la distancia recorrida.</p>
+
+          <h5>4. Comenzá la prueba</h5>
+          <p>Presioná INICIAR TEST. Comenzará una cuenta regresiva de 12:00. Durante la prueba se registrará la distancia recorrida.</p>
+
+          <h5>5. Durante los 12 minutos</h5>
+          <p>El objetivo es recorrer la mayor distancia posible durante los 12 minutos. No significa salir corriendo a máxima velocidad desde el primer segundo. Intentá encontrar un ritmo elevado que puedas sostener durante toda la prueba. Si tu condición física no permite correr continuamente, podés combinar carrera y marcha.</p>
+
+          <h5>6. Finalización</h5>
+          <p>Cuando se cumplan los 12 minutos, el test finalizará. La aplicación mostrará la distancia total recorrida y calculará los resultados correspondientes.</p>
+
+          <!-- ============================================================
+               WIDGET DEL TEST (GPS REAL)
+               Utiliza navigator.geolocation para medir la distancia
+               real recorrida. No genera resultados ficticios: si el
+               usuario no permite el GPS o no se mueve, la distancia
+               registrada será la real (incluso cero).
+               ============================================================ -->
+          <h4 id="cooper-widget">Realizar el test (GPS)</h4>
+          <div class="cooper-gps-card">
+
+            <!-- Datos previos necesarios para la clasificación -->
+            <div id="cooper-form" class="cooper-form-grid">
+              <div class="imc-input-group" style="margin-bottom: 0;">
+                <label>Sexo</label>
+                <div class="metab-radio-group">
+                  <div class="metab-radio-option">
+                    <input type="radio" name="cooper-sexo" id="cooper-sexo-hombre" value="hombre" checked>
+                    <label for="cooper-sexo-hombre"><i class="fa-solid fa-mars"></i> Hombre</label>
+                  </div>
+                  <div class="metab-radio-option">
+                    <input type="radio" name="cooper-sexo" id="cooper-sexo-mujer" value="mujer">
+                    <label for="cooper-sexo-mujer"><i class="fa-solid fa-venus"></i> Mujer</label>
+                  </div>
+                </div>
+              </div>
+              <div class="imc-input-group" style="margin-bottom: 0;">
+                <label for="cooper-edad">Edad</label>
+                <div class="imc-input-wrapper">
+                  <input type="number" id="cooper-edad" inputmode="numeric" min="1" step="1" placeholder="Ej: 30">
+                  <span class="imc-unit">años</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="cooper-timer" id="cooper-timer">12:00</div>
+            <div class="cooper-timer-label">Tiempo restante</div>
+
+            <div class="cooper-live-stats">
+              <div class="cooper-live-stat">
+                <div class="val" id="cooper-live-distancia">0 m</div>
+                <div class="lbl">Distancia</div>
+              </div>
+              <div class="cooper-live-stat">
+                <div class="val" id="cooper-live-velocidad">0,0 km/h</div>
+                <div class="lbl">Velocidad actual</div>
+              </div>
+              <div class="cooper-live-stat">
+                <div class="val" id="cooper-live-precision">—</div>
+                <div class="lbl">Precisión GPS</div>
+              </div>
+            </div>
+
+            <div class="cooper-gps-status" id="cooper-gps-status">Presioná "Iniciar Test" para activar el GPS y comenzar la prueba.</div>
+
+            <div class="cooper-btn-row">
+              <button type="button" id="cooper-btn-iniciar" class="btn btn-primary">
+                <i class="fa-solid fa-play"></i> Iniciar Test
+              </button>
+              <button type="button" id="cooper-btn-detener" class="btn btn-secondary" style="display:none;">
+                <i class="fa-solid fa-stop"></i> Detener Test
+              </button>
+            </div>
+
+            <!-- RESULTADOS REALES DE LA PRUEBA -->
+            <div id="cooper-resultado-real" style="display:none; margin-top: 30px; text-align: left;">
+              <h5 style="text-align:center; color: var(--color-brand-cream); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 6px;">
+                <i class="fa-solid fa-circle-check"></i> Resultado de tu evaluación
+              </h5>
+              <div class="cooper-results-grid">
+                <div class="cooper-result-item">
+                  <div class="val" id="cooper-res-distancia">—</div>
+                  <div class="lbl">Distancia recorrida</div>
+                </div>
+                <div class="cooper-result-item">
+                  <div class="val" id="cooper-res-tiempo">12:00</div>
+                  <div class="lbl">Tiempo</div>
+                </div>
+                <div class="cooper-result-item">
+                  <div class="val" id="cooper-res-velocidad">—</div>
+                  <div class="lbl">Velocidad media</div>
+                </div>
+                <div class="cooper-result-item">
+                  <div class="val" id="cooper-res-ritmo">—</div>
+                  <div class="lbl">Ritmo medio</div>
+                </div>
+                <div class="cooper-result-item">
+                  <div class="val" id="cooper-res-vo2">—</div>
+                  <div class="lbl">VO₂máx estimado</div>
+                </div>
+                <div class="cooper-result-item">
+                  <div class="val" id="cooper-res-clasificacion">—</div>
+                  <div class="lbl">Clasificación</div>
+                </div>
+              </div>
+              <div class="cooper-btn-row" style="margin-top: 24px;">
+                <button type="button" id="cooper-btn-guardar" class="btn btn-primary">
+                  <i class="fa-solid fa-floppy-disk"></i> Guardar en mi historial
+                </button>
+              </div>
+              <p class="cooper-gps-status" id="cooper-guardado-msg" style="display:none; color:#25d366;">
+                <i class="fa-solid fa-circle-check"></i> Evaluación guardada en tu historial (en este dispositivo).
+              </p>
+            </div>
+          </div>
+
+          <h4 id="cooper-resultados-obtenidos">¿Qué resultados vas a obtener?</h4>
+          <p>Al finalizar el test podrás conocer:</p>
+          <ul class="bullet-list">
+            <li>Distancia recorrida.</li>
+            <li>Tiempo.</li>
+            <li>Velocidad media.</li>
+            <li>Ritmo medio.</li>
+            <li>VO₂máx estimado.</li>
+            <li>Clasificación según edad, sexo y distancia.</li>
+          </ul>
+          <p>El tiempo del test es siempre de 12 minutos. La distancia y los demás resultados dependen del rendimiento obtenido durante la prueba.</p>
+
+          <h5>Ejemplo de resultado</h5>
+          <span class="cooper-example-badge"><i class="fa-solid fa-flask"></i> Solo un ejemplo, no es tu resultado</span>
+          <p>Este es solamente un ejemplo para mostrar cómo se presentan los resultados:</p>
+          <div class="cooper-results-grid">
+            <div class="cooper-result-item">
+              <div class="val">2.450 m</div>
+              <div class="lbl">Distancia recorrida</div>
+            </div>
+            <div class="cooper-result-item">
+              <div class="val">12:00</div>
+              <div class="lbl">Tiempo</div>
+            </div>
+            <div class="cooper-result-item">
+              <div class="val">12,25 km/h</div>
+              <div class="lbl">Velocidad media</div>
+            </div>
+            <div class="cooper-result-item">
+              <div class="val">4:54 min/km</div>
+              <div class="lbl">Ritmo medio</div>
+            </div>
+            <div class="cooper-result-item">
+              <div class="val">43,5 ml/kg/min</div>
+              <div class="lbl">VO₂máx estimado</div>
+            </div>
+            <div class="cooper-result-item">
+              <div class="val">Bueno</div>
+              <div class="lbl">Clasificación</div>
+            </div>
+          </div>
+          <p style="margin-top: 16px;">Tu resultado será diferente y se calculará a partir de tu propia prueba.</p>
+
+          <h4 id="cooper-vo2max">VO₂máx estimado</h4>
+          <p>A partir de la distancia recorrida se puede estimar el VO₂máx mediante la ecuación clásica asociada al Test de Cooper:</p>
+          <div class="rutina-note">
+            <h5><i class="fa-solid fa-calculator"></i> Fórmula</h5>
+            <p>VO₂máx = (distancia en metros − 504,9) / 44,73</p>
+          </div>
+          <p>Por ejemplo, si una persona recorre 2.400 metros: VO₂máx estimado ≈ 42,4 ml/kg/min.</p>
+          <p>El resultado es un VO₂máx estimado, no una medición directa. Una prueba de laboratorio con análisis de gases permite medir directamente el consumo de oxígeno. El Test de Cooper es una prueba de campo que permite obtener una estimación práctica a partir del rendimiento obtenido.</p>
+
+          <h4 id="cooper-interpretacion">¿Cómo se interpreta el resultado?</h4>
+          <p>La clasificación tiene en cuenta: sexo, edad y distancia recorrida.</p>
+          <p>Para esta evaluación se utiliza la referencia clásica del Test de Cooper, con cinco categorías: Excelente — Muy bueno — Bueno — Regular — Bajo.</p>
+
+          <h5><i class="fa-solid fa-mars"></i> Hombres</h5>
+          <div class="cooper-table-wrapper">
+            <table class="cooper-table">
+              <thead>
+                <tr><th>Edad</th><th>Excelente</th><th>Muy bueno</th><th>Bueno</th><th>Regular</th><th>Bajo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>20–29</td><td>&gt;2800 m</td><td>2400–2800 m</td><td>2200–2399 m</td><td>1600–2199 m</td><td>&lt;1600 m</td></tr>
+                <tr><td>30–39</td><td>&gt;2700 m</td><td>2300–2700 m</td><td>1900–2299 m</td><td>1500–1999 m</td><td>&lt;1500 m</td></tr>
+                <tr><td>40–49</td><td>&gt;2500 m</td><td>2100–2500 m</td><td>1700–2099 m</td><td>1400–1699 m</td><td>&lt;1400 m</td></tr>
+                <tr><td>50+</td><td>&gt;2400 m</td><td>2000–2400 m</td><td>1600–1999 m</td><td>1300–1599 m</td><td>&lt;1300 m</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5><i class="fa-solid fa-venus"></i> Mujeres</h5>
+          <div class="cooper-table-wrapper">
+            <table class="cooper-table">
+              <thead>
+                <tr><th>Edad</th><th>Excelente</th><th>Muy bueno</th><th>Bueno</th><th>Regular</th><th>Bajo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>20–29</td><td>&gt;2700 m</td><td>2200–2700 m</td><td>1800–2199 m</td><td>1500–1799 m</td><td>&lt;1500 m</td></tr>
+                <tr><td>30–39</td><td>&gt;2500 m</td><td>2000–2500 m</td><td>1700–1999 m</td><td>1400–1699 m</td><td>&lt;1400 m</td></tr>
+                <tr><td>40–49</td><td>&gt;2300 m</td><td>1900–2300 m</td><td>1500–1899 m</td><td>1200–1499 m</td><td>&lt;1200 m</td></tr>
+                <tr><td>50+</td><td>&gt;2200 m</td><td>1700–2200 m</td><td>1400–1699 m</td><td>1100–1399 m</td><td>&lt;1100 m</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Estas categorías son una referencia de rendimiento, no un diagnóstico médico.</p>
+
+          <h4 id="cooper-historial">No importa solamente el resultado: importa tu evolución</h4>
+          <p>Un resultado aislado permite conocer tu estado actual. Pero repetir la prueba después de un período de entrenamiento permite observar si realmente estás mejorando.</p>
+          <p>Por eso, podés registrar tus evaluaciones y comparar tus resultados a lo largo del tiempo.</p>
+
+          <h5>Tu evolución</h5>
+          <p>A medida que realices nuevas evaluaciones, podrás observar cómo evoluciona tu rendimiento. Una persona puede mejorar considerablemente su distancia recorrida aunque todavía permanezca dentro de la misma categoría.</p>
+          <p>Lo importante no es solamente dónde estás, sino cuánto podés mejorar desde tu punto de partida.</p>
+
+          <div class="cooper-table-wrapper">
+            <table class="cooper-table" id="cooper-historial-tabla">
+              <thead>
+                <tr><th>Evaluación</th><th>Distancia</th><th>VO₂máx estimado</th><th>Clasificación</th></tr>
+              </thead>
+              <tbody id="cooper-historial-body">
+                <!-- Se completa dinámicamente con las evaluaciones guardadas -->
+              </tbody>
+            </table>
+          </div>
+          <p class="cooper-history-empty" id="cooper-historial-vacio">
+            Todavía no registraste ninguna evaluación. Realizá tu primer Test de Cooper para comenzar tu historial.
+          </p>
+          <div class="cooper-btn-row" id="cooper-historial-acciones" style="display:none;">
+            <button type="button" id="cooper-btn-pdf-historial" class="btn btn-primary">
+              <i class="fa-solid fa-file-pdf"></i> Descargar historial en PDF
+            </button>
+            <button type="button" id="cooper-btn-borrar-historial">
+              <i class="fa-solid fa-trash"></i> Borrar historial
+            </button>
+          </div>
+
+          <h4 id="cooper-hiit">¿Qué relación tiene la capacidad aeróbica con los entrenamientos intensos?</h4>
+          <p>La capacidad aeróbica constituye una base importante para afrontar esfuerzos físicos prolongados y para recuperarse entre esfuerzos.</p>
+          <p>Por eso, una persona que obtiene un buen resultado en el Test de Cooper, especialmente si no es un deportista profesional, generalmente parte de una mejor condición cardiorrespiratoria para afrontar posteriormente trabajos de mayor intensidad.</p>
+          <p>Esto puede ser especialmente importante cuando se incorporan entrenamientos intermitentes, HIIT o Tabata, en los que se alternan períodos de esfuerzo intenso con períodos de recuperación.</p>
+          <p>Una persona con una buena capacidad aeróbica puede presentar una mayor tolerancia al esfuerzo y una mejor capacidad de recuperación entre intervalos que una persona sedentaria o con una capacidad aeróbica muy baja.</p>
+          <p>Por el contrario, cuando una persona comienza a entrenar con una condición aeróbica deficiente, los esfuerzos intensos pueden resultarle mucho más exigentes. Puede aparecer una sensación de agotamiento muy elevada y, si la intensidad es excesiva para su nivel, pueden presentarse síntomas como mareos, náuseas o malestar.</p>
+          <p>Esto no significa que una persona con una clasificación baja no pueda realizar HIIT o entrenamientos intervalados. Significa que la intensidad y el volumen deben adecuarse a su condición física y progresar de manera gradual.</p>
+          <p>Por eso, mejorar primero la capacidad aeróbica puede ser una buena base para posteriormente tolerar mejor diferentes formas de entrenamiento de mayor intensidad.</p>
+          <p>Un buen resultado en el Test de Cooper no garantiza que una persona esté preparada para cualquier entrenamiento HIIT o Tabata. La tolerancia a estos entrenamientos también depende de la experiencia, la fuerza, la recuperación, la intensidad utilizada y otros componentes de la condición física.</p>
+          <p>El Test de Cooper debe considerarse, por lo tanto, una herramienta para conocer la capacidad aeróbica y establecer un punto de partida, no una autorización automática para realizar cualquier tipo de entrenamiento.</p>
+
+          <h4 id="cooper-mejora">MEJORÁ TU TEST DE COOPER</h4>
+          <p>Si querés mejorar tu resultado, podés realizar un programa progresivo de cuatro semanas orientado a desarrollar tu capacidad aeróbica y mejorar tu rendimiento en esfuerzos de 12 minutos.</p>
+          <p>Está pensado para personas no profesionales que están en condiciones de realizar ejercicio. No es un programa destinado a deportistas de élite.</p>
+
+          <h5>Antes de comenzar</h5>
+          <p>Si actualmente no realizás actividad física o no podés correr durante períodos prolongados, no comiences directamente con las sesiones de mayor intensidad. La progresión debe adaptarse a tu condición física.</p>
+
+          <h5>Ejemplo 1</h5>
+          <div class="cooper-table-wrapper">
+            <table class="cooper-table">
+              <thead>
+                <tr><th></th><th>Día 1</th><th>Día 2</th><th>Día 3</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Semana 1</td><td>Carrera moderada</td><td>Intervalos</td><td>Carrera moderada</td></tr>
+                <tr><td>Semana 2</td><td>Carrera moderada</td><td>Intervalos</td><td>Carrera moderada</td></tr>
+                <tr><td>Semana 3</td><td>Carrera moderada</td><td>Intervalos</td><td>Cambios de ritmo</td></tr>
+                <tr><td>Semana 4</td><td>Carrera moderada</td><td>Intervalos suaves</td><td>Test de Cooper</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5>Ejemplo 2</h5>
+          <div class="cooper-table-wrapper">
+            <table class="cooper-table">
+              <thead>
+                <tr><th></th><th>Día 1</th><th>Día 2</th><th>Día 3</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Semana 1</td><td>20–25 min moderado</td><td>6 × 1 min intenso + 2 min recuperación</td><td>25–30 min moderado</td></tr>
+                <tr><td>Semana 2</td><td>30 min moderado</td><td>6 × 2 min intenso + 2 min recuperación</td><td>30–35 min moderado</td></tr>
+                <tr><td>Semana 3</td><td>30–35 min moderado</td><td>5 × 3 min intenso + 2 min recuperación</td><td>Cambios de ritmo</td></tr>
+                <tr><td>Semana 4</td><td>25–30 min moderado</td><td>4 × 3 min intenso + 3 min recuperación</td><td>Nuevo Test de Cooper</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4 id="cooper-nuevo-test">NUEVO TEST DE COOPER</h4>
+          <p>Antes de realizar nuevamente el test:</p>
+          <ul class="bullet-list">
+            <li>Descansá adecuadamente.</li>
+            <li>Realizá un calentamiento.</li>
+            <li>Utilizá, en lo posible, un recorrido similar al de la primera evaluación.</li>
+            <li>Intentá mantener condiciones similares.</li>
+            <li>Activá el GPS.</li>
+            <li>Iniciá el test de 12 minutos.</li>
+          </ul>
+
+          <h5>Objetivo</h5>
+          <p>Intentá superar tu propia distancia anterior. No es necesario compararte con otras personas. Comparate con vos mismo.</p>
+
+          <h5>¿Cómo saber si estás mejorando?</h5>
+          <p>Después de completar el programa, compará: distancia inicial con distancia obtenida en la nueva evaluación.</p>
+          <p>También podés comparar:</p>
+          <ul class="bullet-list">
+            <li>Distancia recorrida.</li>
+            <li>VO₂máx estimado.</li>
+            <li>Clasificación.</li>
+            <li>Capacidad para mantener el ritmo.</li>
+            <li>Percepción del esfuerzo.</li>
+          </ul>
+          <p>Una mejora de la distancia recorrida indica una evolución favorable del rendimiento en esta prueba, aunque las condiciones de cada evaluación pueden influir en el resultado.</p>
+
+          <div class="rutina-note">
+            <h5><i class="fa-solid fa-triangle-exclamation"></i> Importante sobre el entrenamiento</h5>
+            <p>Este programa es una orientación general y no reemplaza una evaluación individual realizada por un profesional del ejercicio o de la salud. Si durante una sesión aparece dolor en el pecho, dificultad respiratoria inusual, mareos, desmayo, palpitaciones preocupantes u otros síntomas importantes, interrumpí el ejercicio y buscá evaluación médica. No es necesario entrenar a máxima intensidad para mejorar. La progresión debe respetar la condición física de cada persona.</p>
+          </div>
+
+          <h4 id="cooper-objetivo">TU OBJETIVO</h4>
+          <p>El objetivo no es solamente conseguir una buena clasificación. El objetivo es poder observar tu evolución:</p>
+          <div class="cooper-flow">
+            <div class="cooper-flow-step">EVALUÁ</div>
+            <i class="fa-solid fa-arrow-down cooper-flow-arrow"></i>
+            <div class="cooper-flow-step">ENTRENÁ</div>
+            <i class="fa-solid fa-arrow-down cooper-flow-arrow"></i>
+            <div class="cooper-flow-step">REPETÍ EL TEST</div>
+            <i class="fa-solid fa-arrow-down cooper-flow-arrow"></i>
+            <div class="cooper-flow-step">COMPARÁ</div>
+            <i class="fa-solid fa-arrow-down cooper-flow-arrow"></i>
+            <div class="cooper-flow-step">MEJORÁ</div>
+          </div>
+          <p>El Test de Cooper puede convertirse así en una herramienta sencilla para que una persona conozca su condición aeróbica, comience un proceso de entrenamiento y pueda comprobar objetivamente si está progresando.</p>
+
+          <h4 id="cooper-referencias">Referencias</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.8;">
+            Cooper, K. H. (1968). A means of assessing maximal oxygen intake: Correlation between field and treadmill testing. JAMA, 203(3), 201–204.<br>
+            Wen, D., Utesch, T., Wu, J., Robertson, S., Liu, J., Hu, G., & Chen, H. (2019). Effects of different protocols of high intensity interval training for VO₂max improvements in adults: A meta-analysis of randomised controlled trials. Journal of Science and Medicine in Sport, 22(8), 941–947.<br>
+            Milanović, Z., Sporiš, G., & Weston, M. (2015). Effectiveness of High-Intensity Interval Training (HIIT) and Continuous Endurance Training for VO₂max Improvements: A Systematic Review and Meta-Analysis of Controlled Trials. Sports Medicine, 45, 1469–1481.<br>
+            Se Tu Entrenador — material propio. El Libro, sección Test de Cooper. Material de referencia utilizado para el desarrollo y presentación de los contenidos de evaluación física.
+          </p>
+          <a href="#contenido-seccion" class="back-to-section">← Volver al contenido de la sección</a>
         </div>
 
       </div>
@@ -1515,7 +2207,521 @@
       actualizarEstadoBotonPDF();
 
       btnDescargarPdf.addEventListener('click', generarInformePDF);
+
+      /* ==========================================================
+         TEST DE COOPER (GPS REAL)
+         - Usa navigator.geolocation.watchPosition para acumular la
+           distancia real recorrida (fórmula de Haversine).
+         - Countdown real de 12:00 minutos con setInterval.
+         - Al finalizar (o al detener manualmente) se calculan:
+           velocidad media, ritmo medio y VO2max estimado con la
+           fórmula clásica del Test de Cooper.
+         - La clasificación depende del sexo y la edad ingresados.
+         - El historial se guarda en localStorage (por dispositivo),
+           igual que el resto de las herramientas del sitio.
+         ========================================================== */
+      (function () {
+        const DURACION_TOTAL_SEG = 12 * 60;
+        const HISTORIAL_KEY = 'cooper_historial_v1';
+
+        const elTimer = document.getElementById('cooper-timer');
+        const elLiveDistancia = document.getElementById('cooper-live-distancia');
+        const elLiveVelocidad = document.getElementById('cooper-live-velocidad');
+        const elLivePrecision = document.getElementById('cooper-live-precision');
+        const elStatus = document.getElementById('cooper-gps-status');
+        const btnIniciar = document.getElementById('cooper-btn-iniciar');
+        const btnDetener = document.getElementById('cooper-btn-detener');
+        const elResultadoReal = document.getElementById('cooper-resultado-real');
+        const elResDistancia = document.getElementById('cooper-res-distancia');
+        const elResTiempo = document.getElementById('cooper-res-tiempo');
+        const elResVelocidad = document.getElementById('cooper-res-velocidad');
+        const elResRitmo = document.getElementById('cooper-res-ritmo');
+        const elResVo2 = document.getElementById('cooper-res-vo2');
+        const elResClasificacion = document.getElementById('cooper-res-clasificacion');
+        const btnGuardar = document.getElementById('cooper-btn-guardar');
+        const elGuardadoMsg = document.getElementById('cooper-guardado-msg');
+        const elHistorialBody = document.getElementById('cooper-historial-body');
+        const elHistorialVacio = document.getElementById('cooper-historial-vacio');
+        const elHistorialAcciones = document.getElementById('cooper-historial-acciones');
+        const btnBorrarHistorial = document.getElementById('cooper-btn-borrar-historial');
+        const inputEdad = document.getElementById('cooper-edad');
+
+        if (!btnIniciar) return; // seguridad: si el widget no está presente, no hacer nada
+
+        let watchId = null;
+        let intervalId = null;
+        let segundosRestantes = DURACION_TOTAL_SEG;
+        let distanciaTotalM = 0;
+        let ultimaPosicion = null;
+        let ultimoResultado = null;
+
+        // Fórmula de Haversine: distancia real en metros entre dos coordenadas GPS
+        function distanciaHaversine(lat1, lon1, lat2, lon2) {
+          const R = 6371000; // radio de la Tierra en metros
+          const toRad = (deg) => (deg * Math.PI) / 180;
+          const dLat = toRad(lat2 - lat1);
+          const dLon = toRad(lon2 - lon1);
+          const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          return R * c;
+        }
+
+        function formatearTiempo(segundos) {
+          const m = Math.floor(segundos / 60);
+          const s = segundos % 60;
+          return m + ':' + String(s).padStart(2, '0');
+        }
+
+        function obtenerSexo() {
+          const inputs = document.querySelectorAll('input[name="cooper-sexo"]');
+          let sexo = 'hombre';
+          inputs.forEach((i) => { if (i.checked) sexo = i.value; });
+          return sexo;
+        }
+
+        // Tablas de clasificación clásicas del Test de Cooper (hombres y mujeres)
+        const TABLA_HOMBRES = [
+          { max: 29, excelente: 2800, muyBueno: 2400, bueno: 2200, regular: 1600 },
+          { max: 39, excelente: 2700, muyBueno: 2300, bueno: 1900, regular: 1500 },
+          { max: 49, excelente: 2500, muyBueno: 2100, bueno: 1700, regular: 1400 },
+          { max: Infinity, excelente: 2400, muyBueno: 2000, bueno: 1600, regular: 1300 }
+        ];
+        const TABLA_MUJERES = [
+          { max: 29, excelente: 2700, muyBueno: 2200, bueno: 1800, regular: 1500 },
+          { max: 39, excelente: 2500, muyBueno: 2000, bueno: 1700, regular: 1400 },
+          { max: 49, excelente: 2300, muyBueno: 1900, bueno: 1500, regular: 1200 },
+          { max: Infinity, excelente: 2200, muyBueno: 1700, bueno: 1400, regular: 1100 }
+        ];
+
+        function clasificar(distanciaM, sexo, edad) {
+          const tabla = sexo === 'mujer' ? TABLA_MUJERES : TABLA_HOMBRES;
+          const fila = tabla.find((f) => edad <= f.max) || tabla[tabla.length - 1];
+          if (distanciaM > fila.excelente) return 'Excelente';
+          if (distanciaM >= fila.muyBueno) return 'Muy bueno';
+          if (distanciaM >= fila.bueno) return 'Bueno';
+          if (distanciaM >= fila.regular) return 'Regular';
+          return 'Bajo';
+        }
+
+        function calcularVo2max(distanciaM) {
+          return (distanciaM - 504.9) / 44.73;
+        }
+
+        function actualizarStatsEnVivo(velocidadKmh, precisionM) {
+          elLiveDistancia.textContent = Math.round(distanciaTotalM) + ' m';
+          elLiveVelocidad.textContent = velocidadKmh.toFixed(1).replace('.', ',') + ' km/h';
+          if (typeof precisionM === 'number') {
+            elLivePrecision.textContent = '±' + Math.round(precisionM) + ' m';
+          }
+        }
+
+        function manejarPosicion(pos) {
+          const { latitude, longitude, accuracy, speed } = pos.coords;
+
+          elStatus.textContent = 'GPS activo. Registrando tu recorrido…';
+          elStatus.classList.add('ok');
+          elStatus.classList.remove('error');
+
+          if (ultimaPosicion) {
+            const d = distanciaHaversine(ultimaPosicion.lat, ultimaPosicion.lon, latitude, longitude);
+            // Filtro simple de ruido GPS: ignora saltos irreales (>50 m entre lecturas)
+            if (d > 0 && d < 50) {
+              distanciaTotalM += d;
+            }
+          }
+          ultimaPosicion = { lat: latitude, lon: longitude };
+
+          const velocidadKmh = typeof speed === 'number' && speed >= 0 ? speed * 3.6 : 0;
+          actualizarStatsEnVivo(velocidadKmh, accuracy);
+        }
+
+        function manejarErrorGps(err) {
+          elStatus.textContent = 'No se pudo acceder al GPS: ' + (err && err.message ? err.message : 'permiso denegado.') + ' Activá la ubicación para poder registrar la distancia real.';
+          elStatus.classList.add('error');
+          elStatus.classList.remove('ok');
+        }
+
+        function iniciarTest() {
+          if (!('geolocation' in navigator)) {
+            elStatus.textContent = 'Tu navegador o dispositivo no permite acceder al GPS.';
+            elStatus.classList.add('error');
+            return;
+          }
+
+          // Reiniciar estado
+          segundosRestantes = DURACION_TOTAL_SEG;
+          distanciaTotalM = 0;
+          ultimaPosicion = null;
+          elTimer.textContent = formatearTiempo(segundosRestantes);
+          actualizarStatsEnVivo(0);
+          elResultadoReal.style.display = 'none';
+          elGuardadoMsg.style.display = 'none';
+          btnIniciar.style.display = 'none';
+          btnDetener.style.display = 'inline-flex';
+          elStatus.textContent = 'Solicitando acceso al GPS…';
+          elStatus.classList.remove('error', 'ok');
+
+          watchId = navigator.geolocation.watchPosition(manejarPosicion, manejarErrorGps, {
+            enableHighAccuracy: true,
+            maximumAge: 0,
+            timeout: 15000
+          });
+
+          intervalId = setInterval(() => {
+            segundosRestantes--;
+            elTimer.textContent = formatearTiempo(Math.max(segundosRestantes, 0));
+            if (segundosRestantes <= 0) {
+              finalizarTest();
+            }
+          }, 1000);
+        }
+
+        function finalizarTest() {
+          if (intervalId) { clearInterval(intervalId); intervalId = null; }
+          if (watchId !== null && navigator.geolocation.clearWatch) {
+            navigator.geolocation.clearWatch(watchId);
+            watchId = null;
+          }
+          btnIniciar.style.display = 'inline-flex';
+          btnDetener.style.display = 'none';
+          elStatus.textContent = 'Test finalizado. Estos son los resultados obtenidos a partir de tu GPS.';
+          elStatus.classList.add('ok');
+          elStatus.classList.remove('error');
+
+          const tiempoTranscurridoSeg = DURACION_TOTAL_SEG - Math.max(segundosRestantes, 0);
+          const distanciaFinal = Math.round(distanciaTotalM);
+          const horas = tiempoTranscurridoSeg / 3600;
+          const velocidadMediaKmh = horas > 0 ? (distanciaFinal / 1000) / horas : 0;
+          const ritmoMinPorKm = distanciaFinal > 0 ? (tiempoTranscurridoSeg / 60) / (distanciaFinal / 1000) : 0;
+          const vo2max = distanciaFinal > 0 ? calcularVo2max(distanciaFinal) : 0;
+
+          const edadStr = inputEdad.value;
+          const edad = parseFloat(edadStr);
+          const sexo = obtenerSexo();
+          const edadValida = !isNaN(edad) && edad > 0;
+          const clasificacion = (distanciaFinal > 0 && edadValida) ? clasificar(distanciaFinal, sexo, edad) : 'Sin datos suficientes';
+
+          const ritmoMin = Math.floor(ritmoMinPorKm);
+          const ritmoSeg = Math.round((ritmoMinPorKm - ritmoMin) * 60);
+
+          elResDistancia.textContent = distanciaFinal + ' m';
+          elResTiempo.textContent = formatearTiempo(tiempoTranscurridoSeg);
+          elResVelocidad.textContent = velocidadMediaKmh.toFixed(2).replace('.', ',') + ' km/h';
+          elResRitmo.textContent = distanciaFinal > 0 ? (ritmoMin + ':' + String(ritmoSeg).padStart(2, '0') + ' min/km') : '—';
+          elResVo2.textContent = distanciaFinal > 0 ? vo2max.toFixed(1).replace('.', ',') + ' ml/kg/min' : '—';
+          elResClasificacion.textContent = clasificacion;
+
+          elResultadoReal.style.display = 'block';
+
+          ultimoResultado = {
+            fecha: new Date().toISOString(),
+            distancia: distanciaFinal,
+            vo2max: distanciaFinal > 0 ? Math.round(vo2max * 10) / 10 : null,
+            clasificacion: clasificacion
+          };
+        }
+
+        function detenerTestManual() {
+          // Permite finalizar antes de tiempo (por ejemplo, si el usuario decide cortar la prueba)
+          finalizarTest();
+        }
+
+        function leerHistorial() {
+          try {
+            const raw = localStorage.getItem(HISTORIAL_KEY);
+            return raw ? JSON.parse(raw) : [];
+          } catch (e) {
+            return [];
+          }
+        }
+
+        function guardarHistorial(lista) {
+          try {
+            localStorage.setItem(HISTORIAL_KEY, JSON.stringify(lista));
+          } catch (e) { /* localStorage no disponible */ }
+        }
+
+        function renderHistorial() {
+          const lista = leerHistorial();
+          if (!lista.length) {
+            elHistorialBody.innerHTML = '';
+            elHistorialVacio.style.display = 'block';
+            elHistorialAcciones.style.display = 'none';
+            return;
+          }
+          elHistorialVacio.style.display = 'none';
+          elHistorialAcciones.style.display = 'flex';
+          elHistorialBody.innerHTML = lista.map((ev, idx) => {
+            const fecha = new Date(ev.fecha);
+            const fechaTexto = fecha.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            return '<tr>' +
+              '<td>Evaluación ' + (idx + 1) + ' (' + fechaTexto + ')</td>' +
+              '<td>' + ev.distancia + ' m</td>' +
+              '<td>' + (ev.vo2max !== null && ev.vo2max !== undefined ? String(ev.vo2max).replace('.', ',') + ' ml/kg/min' : '—') + '</td>' +
+              '<td>' + ev.clasificacion + '</td>' +
+              '</tr>';
+          }).join('');
+        }
+
+        btnIniciar.addEventListener('click', iniciarTest);
+        btnDetener.addEventListener('click', detenerTestManual);
+
+        btnGuardar.addEventListener('click', () => {
+          if (!ultimoResultado) return;
+          const lista = leerHistorial();
+          lista.push(ultimoResultado);
+          guardarHistorial(lista);
+          renderHistorial();
+          elGuardadoMsg.style.display = 'block';
+        });
+
+        btnBorrarHistorial.addEventListener('click', () => {
+          if (confirm('¿Seguro que querés borrar todo tu historial del Test de Cooper en este dispositivo?')) {
+            guardarHistorial([]);
+            renderHistorial();
+          }
+        });
+
+        /* ----------------------------------------------------------
+           DESCARGA DEL HISTORIAL EN PDF
+           Genera un PDF maquetado (jsPDF + AutoTable, ya cargados
+           en esta página) con todas las evaluaciones guardadas,
+           para que la persona pueda comparar su evolución test a
+           test y guardarlas o compartirlas fuera del dispositivo.
+           ---------------------------------------------------------- */
+        const btnPdfHistorial = document.getElementById('cooper-btn-pdf-historial');
+
+        function generarPdfHistorialCooper() {
+          const lista = leerHistorial();
+          if (!lista.length) return;
+
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+          const pageWidth = doc.internal.pageSize.getWidth();
+          const pageHeight = doc.internal.pageSize.getHeight();
+          const marginX = 18;
+
+          const PDF_COLOR_ROJO = [166, 58, 58];
+          const PDF_COLOR_DORADO = [212, 175, 55];
+          const PDF_COLOR_TEXTO = [40, 40, 40];
+          const PDF_COLOR_MUTED = [110, 110, 110];
+
+          let y = 20;
+
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(20);
+          doc.setTextColor(...PDF_COLOR_ROJO);
+          doc.text('Sé Tu Entrenador', marginX, y);
+
+          y += 8;
+          doc.setFontSize(13);
+          doc.setTextColor(...PDF_COLOR_TEXTO);
+          doc.text('Historial del Test de Cooper', marginX, y);
+
+          y += 7;
+          const fechaGeneracion = new Date();
+          const fechaTexto = fechaGeneracion.toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9.5);
+          doc.setTextColor(...PDF_COLOR_MUTED);
+          doc.text('Generado el ' + fechaTexto, marginX, y);
+
+          y += 10;
+
+          // Datos de la persona (sexo y edad ingresados en el widget)
+          let sexoTexto = 'No especificado';
+          document.querySelectorAll('input[name="cooper-sexo"]').forEach((input) => {
+            if (input.checked) sexoTexto = input.value === 'hombre' ? 'Hombre' : 'Mujer';
+          });
+          const edadStr = inputEdad.value;
+          const edadTexto = edadStr !== '' && !isNaN(parseFloat(edadStr)) ? parseFloat(edadStr) + ' años' : 'No especificado';
+
+          doc.setDrawColor(225, 225, 225);
+          doc.setLineWidth(0.3);
+          doc.line(marginX, y, pageWidth - marginX, y);
+          y += 8;
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(13);
+          doc.setTextColor(...PDF_COLOR_ROJO);
+          doc.text('Datos utilizados para la clasificación', marginX, y);
+          y += 8;
+          doc.autoTable({
+            startY: y,
+            margin: { left: marginX, right: marginX },
+            theme: 'plain',
+            styles: { fontSize: 10, cellPadding: 2.2, textColor: PDF_COLOR_TEXTO },
+            columnStyles: { 0: { fontStyle: 'bold', cellWidth: 55 } },
+            body: [
+              ['Sexo', sexoTexto],
+              ['Edad', edadTexto]
+            ]
+          });
+          y = doc.lastAutoTable.finalY + 10;
+
+          // Tabla comparativa de todas las evaluaciones guardadas
+          doc.setDrawColor(225, 225, 225);
+          doc.line(marginX, y, pageWidth - marginX, y);
+          y += 8;
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(13);
+          doc.setTextColor(...PDF_COLOR_ROJO);
+          doc.text('Evolución de tus evaluaciones', marginX, y);
+          y += 8;
+
+          const body = lista.map((ev, idx) => {
+            const fecha = new Date(ev.fecha);
+            const fechaEv = fecha.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            return [
+              'Evaluación ' + (idx + 1),
+              fechaEv,
+              ev.distancia + ' m',
+              (ev.vo2max !== null && ev.vo2max !== undefined) ? String(ev.vo2max).replace('.', ',') + ' ml/kg/min' : '—',
+              ev.clasificacion
+            ];
+          });
+
+          doc.autoTable({
+            startY: y,
+            margin: { left: marginX, right: marginX },
+            theme: 'grid',
+            headStyles: { fillColor: PDF_COLOR_ROJO, textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 9.5 },
+            styles: { fontSize: 9.5, cellPadding: 3, textColor: PDF_COLOR_TEXTO },
+            head: [['Evaluación', 'Fecha', 'Distancia', 'VO2máx est.', 'Clasificación']],
+            body: body
+          });
+          y = doc.lastAutoTable.finalY + 10;
+
+          // Comparación entre la primera y la última evaluación (si hay más de una)
+          if (lista.length > 1) {
+            const primera = lista[0];
+            const ultima = lista[lista.length - 1];
+            const diferenciaM = ultima.distancia - primera.distancia;
+            const signo = diferenciaM >= 0 ? '+' : '';
+            if (y > pageHeight - 45) { doc.addPage(); y = 20; }
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(13);
+            doc.setTextColor(...PDF_COLOR_ROJO);
+            doc.text('Comparación: primera vs. última evaluación', marginX, y);
+            y += 8;
+            doc.autoTable({
+              startY: y,
+              margin: { left: marginX, right: marginX },
+              theme: 'plain',
+              styles: { fontSize: 10, cellPadding: 2.2, textColor: PDF_COLOR_TEXTO },
+              columnStyles: { 0: { fontStyle: 'bold', cellWidth: 55 } },
+              body: [
+                ['Diferencia de distancia', signo + diferenciaM + ' m'],
+                ['Clasificación inicial', primera.clasificacion],
+                ['Clasificación actual', ultima.clasificacion]
+              ]
+            });
+            y = doc.lastAutoTable.finalY + 10;
+          }
+
+          // Observaciones
+          if (y > pageHeight - 40) { doc.addPage(); y = 20; }
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(13);
+          doc.setTextColor(...PDF_COLOR_ROJO);
+          doc.text('Observaciones', marginX, y);
+          y += 7;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9.5);
+          doc.setTextColor(...PDF_COLOR_MUTED);
+          const textoObs = 'Estos resultados se basan en la distancia recorrida durante 12 minutos, registrada mediante el GPS del dispositivo, y en la fórmula clásica de estimación del VO2máx del Test de Cooper. Son una guía orientativa y no reemplazan una evaluación realizada por un profesional de la salud o del ejercicio.';
+          const lineasObs = doc.splitTextToSize(textoObs, pageWidth - marginX * 2);
+          doc.text(lineasObs, marginX, y);
+
+          // Pie de página en todas las páginas
+          const totalPaginas = doc.internal.getNumberOfPages();
+          for (let i = 1; i <= totalPaginas; i++) {
+            doc.setPage(i);
+            doc.setDrawColor(225, 225, 225);
+            doc.setLineWidth(0.2);
+            doc.line(marginX, pageHeight - 14, pageWidth - marginX, pageHeight - 14);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...PDF_COLOR_MUTED);
+            doc.text('© Sé Tu Entrenador — Todos los derechos reservados.', marginX, pageHeight - 9);
+            doc.text('Página ' + i + ' de ' + totalPaginas, pageWidth - marginX, pageHeight - 9, { align: 'right' });
+          }
+
+          const yyyy = fechaGeneracion.getFullYear();
+          const mm = String(fechaGeneracion.getMonth() + 1).padStart(2, '0');
+          const dd = String(fechaGeneracion.getDate()).padStart(2, '0');
+          doc.save('Test_de_Cooper_' + yyyy + '-' + mm + '-' + dd + '.pdf');
+        }
+
+        if (btnPdfHistorial) {
+          btnPdfHistorial.addEventListener('click', generarPdfHistorialCooper);
+        }
+
+        // Estado inicial del historial al cargar la página
+        renderHistorial();
+      })();
     });
+  </script>
+
+  <!-- ==========================================================
+       PWA: registro del Service Worker + prompt de instalación
+       Solo afecta a esta página ("Mi Evaluación"). Permite que el
+       Test de Cooper (GPS), las calculadoras y la descarga del
+       PDF funcionen sin conexión a Internet, y habilita la opción
+       de "Instalar" en Android/Chrome y agregar a inicio en iOS.
+       ========================================================== -->
+  <script>
+    (function () {
+      const btnInstalar = document.getElementById('btn-instalar-pwa');
+      const msgOffline = document.getElementById('pwa-offline-msg');
+      let deferredPrompt = null;
+
+      // Registro del Service Worker (si el navegador lo soporta)
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw-mievaluacion.js').catch(() => {
+            /* si falla el registro, la página sigue funcionando normalmente con conexión */
+          });
+        });
+      }
+
+      // Aviso de estado sin conexión (informativo, no bloquea nada)
+      function actualizarEstadoConexion() {
+        if (msgOffline) {
+          msgOffline.style.display = navigator.onLine ? 'none' : 'block';
+        }
+      }
+      window.addEventListener('online', actualizarEstadoConexion);
+      window.addEventListener('offline', actualizarEstadoConexion);
+      actualizarEstadoConexion();
+
+      // Chrome/Android: captura el evento nativo de instalación y
+      // muestra el botón propio (respeta el diseño del sitio, en
+      // lugar del banner por defecto del navegador).
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        deferredPrompt = event;
+        if (btnInstalar) btnInstalar.style.display = 'inline-flex';
+      });
+
+      if (btnInstalar) {
+        btnInstalar.addEventListener('click', async () => {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          btnInstalar.style.display = 'none';
+        });
+      }
+
+      // Si ya está instalada (modo standalone), no mostrar el botón
+      const yaInstalada = window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
+      if (yaInstalada && btnInstalar) {
+        btnInstalar.style.display = 'none';
+      }
+    })();
   </script>
 </body>
 </html>

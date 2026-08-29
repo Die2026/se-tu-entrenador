@@ -1,0 +1,27 @@
+{
+  "name": "Mi Evaluación - Se Tu Entrenador",
+  "short_name": "Mi Evaluación",
+  "description": "Calculadora de IMC, hidratación, evaluación metabólica y Test de Cooper (con GPS y guardado local), utilizable sin conexión a Internet.",
+  "start_url": "./evaluacion.html",
+  "scope": "./",
+  "id": "./evaluacion.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0b0d",
+  "theme_color": "#a63a3a",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
