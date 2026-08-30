@@ -9,6 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+
+  <!-- ==========================================================
+       PWA: "Rutinas" — funcionamiento sin conexión
+       Solo se agrega en esta página. No afecta al resto del sitio.
+       ========================================================== -->
+  <link rel="manifest" href="manifest-rutinas.webmanifest">
+  <meta name="theme-color" content="#a63a3a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Rutinas">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <style>
     .section-badge {
       display: block;
@@ -299,6 +311,265 @@
       .section-badge { font-size: 1.8rem; }
       .rutina-header-bar { flex-direction: column; align-items: flex-start; }
     }
+
+    /* ==========================================
+       DISEÑÁ TU PROPIA RUTINA
+       ========================================== */
+    .rutina-modo-select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+    }
+    .rutina-modo-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 20px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      color: var(--color-text-muted);
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .rutina-modo-btn i { font-size: 1.2rem; color: #d4af37; }
+    .rutina-modo-btn:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      color: var(--color-text-main);
+    }
+    .rutina-modo-btn.active {
+      background-color: rgba(166, 58, 58, 0.12);
+      border-color: var(--color-brand-red);
+      color: var(--color-text-main);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+    .rutina-modo-view { display: none; }
+    .rutina-modo-view.active { display: block; }
+
+    .propia-dias-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto 26px auto;
+    }
+    .propia-dia-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 30px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .propia-dia-tab.active {
+      background-color: rgba(166, 58, 58, 0.15);
+      border-color: var(--color-brand-red);
+      color: var(--color-text-main);
+    }
+    .propia-dia-tab .propia-dia-borrar {
+      color: var(--color-text-muted);
+      opacity: 0.6;
+      font-size: 0.78rem;
+    }
+    .propia-dia-tab .propia-dia-borrar:hover { opacity: 1; color: var(--color-brand-red); }
+    .propia-dia-add {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: none;
+      border: 1px dashed var(--color-glass-border);
+      border-radius: 30px;
+      color: #d4af37;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .propia-dia-add:hover { border-color: #d4af37; }
+
+    .propia-panel {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .propia-grupos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .propia-grupo-chip {
+      padding: 9px 16px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 30px;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .propia-grupo-chip:hover { border-color: rgba(212, 175, 55, 0.4); }
+    .propia-grupo-chip.selected {
+      background-color: rgba(166, 58, 58, 0.15);
+      border-color: var(--color-brand-red);
+      color: var(--color-text-main);
+    }
+
+    .propia-biblioteca-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 18px 0;
+      background: none;
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 10px 18px;
+      color: #d4af37;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .propia-biblioteca-toggle:hover { border-color: #d4af37; }
+
+    .propia-biblioteca-body {
+      display: none;
+      background-color: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--border-radius-md);
+      padding: 24px 26px;
+      margin-bottom: 30px;
+    }
+    .propia-biblioteca-body.open { display: block; }
+    .propia-biblioteca-grupo { margin-bottom: 20px; }
+    .propia-biblioteca-grupo:last-child { margin-bottom: 0; }
+    .propia-biblioteca-grupo-titulo {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #d4af37;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .propia-ejercicios-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .propia-ejercicio-chip {
+      padding: 7px 14px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 20px;
+      color: var(--color-text-main);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .propia-ejercicio-chip:hover {
+      border-color: var(--color-brand-red);
+      color: #ffffff;
+      background-color: rgba(166, 58, 58, 0.18);
+    }
+    .propia-ejercicio-chip i { margin-right: 6px; color: #25d366; }
+
+    .propia-ficha-empty {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      padding: 30px 20px;
+      border: 1px dashed var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+    }
+
+    .propia-ficha-item {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+    .propia-ficha-item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .propia-ficha-nombre {
+      color: var(--color-text-main);
+      font-weight: 700;
+      font-size: 0.98rem;
+    }
+    .propia-ficha-grupo-label {
+      color: var(--color-text-muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .propia-ficha-borrar {
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+      flex-shrink: 0;
+    }
+    .propia-ficha-borrar:hover { color: var(--color-brand-red); }
+
+    .propia-ficha-fila {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .propia-ficha-campo { display: flex; flex-direction: column; gap: 4px; }
+    .propia-ficha-campo label {
+      font-size: 0.68rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .propia-ficha-input {
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 6px;
+      padding: 7px 8px;
+      color: var(--color-text-main);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+    .propia-ficha-input:focus {
+      outline: none;
+      border-color: var(--color-brand-red);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+    .propia-ficha-serierep { width: 62px; }
+    .propia-ficha-peso { width: 48px; }
+
+    @media (max-width: 576px) {
+      .propia-ficha-input { font-size: 0.8rem; }
+      .propia-ficha-serierep { width: 52px; }
+      .propia-ficha-peso { width: 40px; }
+    }
   </style>
 </head>
 <body>
@@ -332,7 +603,24 @@
       <div class="section-header" style="margin-bottom: 50px;">
         <h1 class="font-serif text-gradient" style="font-size: 3rem; margin-bottom: 20px;">Rutinas de Adaptación</h1>
         <p>Elegí tu rutina, registrá el peso de cada ejercicio a medida que entrenás (se guarda solo en este dispositivo) y descargala en PDF cuando quieras.</p>
+        <button type="button" id="btn-instalar-pwa-rutinas" class="btn btn-secondary" style="display:none; margin: 24px auto 0 auto;">
+          <i class="fa-solid fa-download"></i> Instalar Rutinas (usar sin conexión)
+        </button>
+        <p id="pwa-offline-msg-rutinas" style="display:none; margin-top: 14px; font-size: 0.85rem; color: var(--color-text-muted);">
+          <i class="fa-solid fa-wifi" style="color:#25d366;"></i> Estás usando "Rutinas" sin conexión a Internet. Tus datos se guardan en este dispositivo.
+        </p>
       </div>
+
+      <div class="rutina-modo-select">
+        <button type="button" class="rutina-modo-btn active" data-modo="adaptacion">
+          <i class="fa-solid fa-list-check"></i> Rutinas de Adaptación
+        </button>
+        <button type="button" class="rutina-modo-btn" data-modo="propia">
+          <i class="fa-solid fa-pen-ruler"></i> Diseñá tu propia rutina
+        </button>
+      </div>
+
+      <div id="modo-adaptacion" class="rutina-modo-view active">
 
       <div class="main-index" id="contenido-seccion">
         <h3><i class="fa-solid fa-venus-mars"></i> &nbsp;Elegí tu rutina</h3>
@@ -385,6 +673,64 @@
           <div class="rutina-final-box" id="final-mujeres"></div>
         </div>
       </div>
+
+      </div>
+      <!-- FIN modo-adaptacion -->
+
+      <!-- ============================================================
+           DISEÑÁ TU PROPIA RUTINA
+           Herramienta independiente: no modifica ni depende de
+           "Rutinas de Adaptación". Permite elegir grupos musculares,
+           armar una ficha de ejercicios por día, guardar el progreso
+           semana a semana (localStorage) y descargar un PDF de
+           evolución. Todo el contenido se guarda solo en este
+           dispositivo.
+           ============================================================ -->
+      <div id="modo-propia" class="rutina-modo-view">
+
+        <div class="rutina-indicaciones" style="max-width:900px; margin:0 auto 30px auto;">
+          <p><i class="fa-solid fa-circle-info"></i> &nbsp;Cómo usar esta herramienta</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i><span>Elegí uno o varios grupos musculares para cada día de entrenamiento.</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Abrí la biblioteca de ejercicios y sumá los que quieras a tu ficha.</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Completá series, repeticiones y el peso de cada semana a medida que entrenás.</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Agregá tantos días como necesite tu rutina y descargá tu progreso en PDF cuando quieras.</span></li>
+          </ul>
+        </div>
+
+        <div class="rutina-note" style="max-width:900px; margin:0 auto 30px auto;">
+          <h5><i class="fa-solid fa-book"></i> Antes de armar tu rutina</h5>
+          <p>En el libro "Sé tu Entrenador" vas a encontrar la explicación completa sobre cómo planificar tus entrenamientos: cómo combinar ejercicios multiarticulares, intermedios y monoarticulares, cómo organizar el volumen y la progresión, y cómo adaptar todo según tu objetivo. Esta herramienta te ayuda a armar y registrar tu rutina; el criterio para diseñarla lo encontrás en el libro.</p>
+        </div>
+
+        <div class="propia-dias-tabs" id="propia-dias-tabs"></div>
+
+        <div class="propia-panel">
+          <h3 style="font-size:1rem; color: var(--color-brand-cream); text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">
+            <i class="fa-solid fa-dumbbell"></i> &nbsp;Grupos musculares de este día
+          </h3>
+          <div class="propia-grupos-grid" id="propia-grupos-grid"></div>
+
+          <button type="button" class="propia-biblioteca-toggle" id="propia-biblioteca-toggle">
+            <i class="fa-solid fa-book-open"></i> Ver biblioteca de ejercicios
+          </button>
+          <div class="propia-biblioteca-body" id="propia-biblioteca-body"></div>
+
+          <h3 style="font-size:1rem; color: var(--color-brand-cream); text-transform:uppercase; letter-spacing:2px; margin: 30px 0 16px 0;">
+            <i class="fa-solid fa-list-ol"></i> &nbsp;Ficha de este día
+          </h3>
+          <div id="propia-ficha"></div>
+
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:24px;">
+            <span class="rutina-guardado-msg" id="propia-guardado-msg"><i class="fa-solid fa-circle-check"></i> Guardado</span>
+            <button type="button" class="btn btn-primary" id="propia-btn-pdf">
+              <i class="fa-solid fa-file-pdf"></i> Descargar evolución en PDF
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <!-- FIN modo-propia -->
 
     </div>
   </section>
@@ -542,6 +888,18 @@
 
       renderRutina('hombres');
       renderRutina('mujeres');
+
+      /* ---------- 1.b SELECTOR DE MODO (Adaptación / Propia) ---------- */
+      const modoBtns = document.querySelectorAll('.rutina-modo-btn');
+      modoBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modo = btn.dataset.modo;
+          modoBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.rutina-modo-view').forEach(v => v.classList.remove('active'));
+          document.getElementById('modo-' + modo).classList.add('active');
+        });
+      });
 
       /* ---------- 2. SELECTOR DE GENERO ---------- */
       const genderBtns = document.querySelectorAll('.rutina-gender-btn');
@@ -778,7 +1136,533 @@
         btn.addEventListener('click', () => generarPDF(btn.dataset.gender));
       });
 
+      /* ============================================================
+         DISEÑÁ TU PROPIA RUTINA
+         Herramienta independiente. No depende de "Rutinas de
+         Adaptación" ni la modifica. Todo el estado se guarda en
+         localStorage bajo la clave 'rutina_propia_v1'.
+         ============================================================ */
+      (function () {
+        const elTabs = document.getElementById('propia-dias-tabs');
+        const elGrupos = document.getElementById('propia-grupos-grid');
+        const elBibliotecaToggle = document.getElementById('propia-biblioteca-toggle');
+        const elBibliotecaBody = document.getElementById('propia-biblioteca-body');
+        const elFicha = document.getElementById('propia-ficha');
+        const elGuardadoMsg = document.getElementById('propia-guardado-msg');
+        const btnPdf = document.getElementById('propia-btn-pdf');
+
+        if (!elTabs) return; // el contenedor no está en esta página
+
+        const STORAGE_KEY = 'rutina_propia_v1';
+
+        // Los 10 grupos musculares seleccionables, tal como se pidió.
+        const GRUPOS = [
+          { key: 'pecho', label: 'Pecho' },
+          { key: 'espalda', label: 'Espalda' },
+          { key: 'hombros', label: 'Hombros' },
+          { key: 'biceps', label: 'Bíceps' },
+          { key: 'triceps', label: 'Tríceps' },
+          { key: 'cuadriceps', label: 'Cuádriceps' },
+          { key: 'isquiotibiales', label: 'Isquiotibiales' },
+          { key: 'gluteos', label: 'Glúteos' },
+          { key: 'gemelos', label: 'Gemelos' },
+          { key: 'abdomen', label: 'Abdomen' }
+        ];
+
+        // Biblioteca completa de ejercicios, organizada exactamente
+        // según los 10 grupos musculares solicitados. El bloque
+        // "Piernas y Glúteos" de la biblioteca original se repartió
+        // entre Cuádriceps / Isquiotibiales / Glúteos / Gemelos.
+        const BIBLIOTECA = {
+          pecho: [
+            'Press de Banca', 'Press de Banca con Mancuernas', 'Press de Banca Inclinado',
+            'Press Inclinado con Mancuernas', 'Press de Banca Declinado', 'Press Declinado con Mancuernas',
+            'Press de Pecho en Máquina', 'Press Inclinado en Máquina', 'Press Declinado en Máquina',
+            'Press de Pecho en Polea', 'Press Unilateral en Polea', 'Fondos para Pecho',
+            'Aperturas con Mancuernas', 'Aperturas con Mancuernas en Banco Inclinado',
+            'Aperturas en Poleas', 'Aperturas en Poleas en Banco Inclinado', 'Pec Deck / Mariposa'
+          ],
+          espalda: [
+            'Dominadas', 'Dominadas Supinas', 'Dominadas Neutras', 'Jalón al Pecho',
+            'Jalón al Pecho con Agarre Cerrado', 'Jalón al Pecho con Agarre Neutro', 'Jalón Unilateral',
+            'Remo con Barra', 'Remo con Mancuerna', 'Remo Unilateral con Mancuerna', 'Remo en Polea Baja',
+            'Remo Unilateral en Polea Baja', 'Remo T', 'Remo en Máquina', 'Remo en Máquina con Apoyo de Pecho',
+            'Remo en Máquina Unilateral', 'Pullover con Polea', 'Pullover en Máquina', 'Hiperextensiones',
+            'Hiperextensiones a 45°', 'Extensión Lumbar en Máquina'
+          ],
+          hombros: [
+            'Press Militar', 'Press Militar con Mancuernas', 'Press de Hombros en Máquina',
+            'Press de Hombros Unilateral en Máquina', 'Press Arnold', 'Press de Hombros en Polea',
+            'Press en Landmine', 'Elevación Frontal', 'Elevación Frontal con Mancuernas',
+            'Elevación Frontal en Polea', 'Elevación Lateral', 'Elevación Lateral con Mancuernas',
+            'Elevación Lateral en Polea', 'Elevación Lateral en Máquina', 'Elevación Lateral Unilateral en Polea',
+            'Pájaros Invertidos', 'Pájaros Invertidos con Mancuernas', 'Pájaros Invertidos en Máquina',
+            'Pájaros Invertidos en Polea', 'Face Pull', 'Remo al Mentón', 'Encogimientos de Hombros',
+            'Encogimientos de Hombros con Barra', 'Encogimientos de Hombros con Mancuernas',
+            'Encogimientos de Hombros en Máquina'
+          ],
+          biceps: [
+            'Dominadas Supinas', 'Curl de Bíceps con Barra', 'Curl con Barra EZ', 'Curl con Barra Recta',
+            'Curl con Mancuernas', 'Curl de Bíceps Alternos', 'Curl Martillo', 'Curl Martillo con Mancuernas',
+            'Curl Martillo con Cuerda', 'Banco Scott', 'Banco Scott con Barra EZ', 'Banco Scott con Mancuernas',
+            'Curl con Mancuernas en Banco Inclinado', 'Curl Concentrado', 'Curl con Polea Baja',
+            'Curl con Polea Baja y Barra', 'Curl con Polea Baja y Cuerda', 'Curl Unilateral en Polea',
+            'Curl en Polea Alta', 'Brazos en Cruz en Polea Alta', 'Curl Spider', 'Curl Zottman',
+            'Curl Inverso', 'Curl de Bíceps en Máquina'
+          ],
+          triceps: [
+            'Fondos en Paralelas', 'Fondos entre Bancos', 'Press Francés', 'Rompe Cráneos',
+            'Press Francés con Mancuernas', 'Extensión de Tríceps sobre la Cabeza',
+            'Extensión de Tríceps sobre la Cabeza con Mancuerna', 'Extensión de Tríceps sobre la Cabeza en Polea',
+            'Tríceps Copa', 'Copa en Polea Baja', 'Extensión de Tríceps en Polea Alta',
+            'Extensión de Tríceps en Polea con Cuerda', 'Extensión de Tríceps en Polea con Barra',
+            'Extensión de Tríceps en Polea con Barra V', 'Extensión de Tríceps a una Mano en Polea Alta',
+            'Extensión de Tríceps Unilateral', 'Patada de Tríceps', 'Patada de Tríceps en Polea',
+            'Press Cerrado', 'Extensión de Tríceps en Máquina'
+          ],
+          cuadriceps: [
+            'Sentadilla', 'Sentadilla Frontal', 'Sentadilla Pendular', 'Sentadilla en Máquina',
+            'Sentadilla Sumo', 'Sentadilla Goblet', 'Sentadilla Hack', 'Prensa de Pierna', 'Prensa Horizontal',
+            'Prensa Inclinada', 'Zancada', 'Zancada Inversa', 'Zancada Caminando', 'Sentadilla Búlgara',
+            'Subidas al Cajón', 'Extensión de Cuádriceps en Máquina'
+          ],
+          isquiotibiales: [
+            'Peso Muerto Convencional', 'Peso Muerto Sumo', 'Peso Muerto a una Pierna',
+            'Curl Femoral Acostado', 'Curl Femoral Sentado', 'Curl Femoral de Pie',
+            'Curl Nórdico de Isquiotibiales', 'Buenos Días', 'Extensión de Cadera en Máquina'
+          ],
+          gluteos: [
+            'Elevación de Cadera (Hip Thrust)', 'Puente de Glúteos', 'Empuje de Cadera con Cable',
+            'Patada de Glúteos en Polea', 'Patada de Glúteo en Máquina', 'Patada de Glúteo en Polea Arrodillado',
+            'Abducción de Cadera en Máquina', 'Abducción de Cadera en Polea', 'Aducción de Cadera en Máquina',
+            'Aducción de Cadera en Polea', 'Desplazamiento Lateral con Banda'
+          ],
+          gemelos: [
+            'Elevación de Talones', 'Elevación de Talones Sentado', 'Elevación de Talones en Prensa',
+            'Elevación de Talones en Máquina', 'Elevación de Tibial Anterior'
+          ],
+          abdomen: [
+            'Crunch Abdominal', 'Crunch en Máquina', 'Crunch en Polea', 'Crunch Invertido',
+            'Elevación de Piernas', 'Elevación de Rodillas', 'Elevación de Piernas en Banco',
+            'Elevación de Piernas Colgado', 'Elevación de Rodillas Colgado', 'Rueda Abdominal',
+            'Abdominales en Banco Declinado', 'Abdominales en Banco Inclinado', 'Bicicleta Abdominal',
+            'Giro Ruso', 'Plancha', 'Plancha Lateral', 'Pallof Press', 'Dead Bug', 'Bird Dog',
+            'Hollow Body Hold'
+          ]
+        };
+
+        const GRUPO_LABEL = {};
+        GRUPOS.forEach(g => { GRUPO_LABEL[g.key] = g.label; });
+
+        /* ---------- Estado ---------- */
+        function estadoVacio() {
+          return {
+            dias: [crearDia('Día 1')],
+            diaActivo: 0
+          };
+        }
+
+        function crearDia(nombre) {
+          return {
+            nombre: nombre,
+            gruposSeleccionados: [],
+            bibliotecaAbierta: false,
+            ejercicios: [] // { nombre, grupo, series, reps, pesos: ['','','',''] }
+          };
+        }
+
+        function cargarEstado() {
+          try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return estadoVacio();
+            const parsed = JSON.parse(raw);
+            if (!parsed.dias || !parsed.dias.length) return estadoVacio();
+            return parsed;
+          } catch (e) {
+            return estadoVacio();
+          }
+        }
+
+        function guardarEstado() {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
+            mostrarGuardadoPropia();
+          } catch (e) { /* localStorage no disponible */ }
+        }
+
+        function mostrarGuardadoPropia() {
+          if (!elGuardadoMsg) return;
+          elGuardadoMsg.classList.add('show');
+          clearTimeout(elGuardadoMsg._t);
+          elGuardadoMsg._t = setTimeout(() => elGuardadoMsg.classList.remove('show'), 1600);
+        }
+
+        let estado = cargarEstado();
+
+        function diaActual() {
+          return estado.dias[estado.diaActivo];
+        }
+
+        /* ---------- Render: pestañas de días ---------- */
+        function renderTabs() {
+          elTabs.innerHTML = '';
+          estado.dias.forEach((dia, idx) => {
+            const tab = document.createElement('div');
+            tab.className = 'propia-dia-tab' + (idx === estado.diaActivo ? ' active' : '');
+            tab.innerHTML = '<span>' + dia.nombre + '</span>' +
+              (estado.dias.length > 1 ? ' <i class="fa-solid fa-xmark propia-dia-borrar" title="Eliminar día"></i>' : '');
+            tab.addEventListener('click', (e) => {
+              if (e.target.classList.contains('propia-dia-borrar')) return;
+              estado.diaActivo = idx;
+              guardarEstado();
+              renderTodo();
+            });
+            const borrar = tab.querySelector('.propia-dia-borrar');
+            if (borrar) {
+              borrar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!confirm('¿Eliminar "' + dia.nombre + '" y todos sus ejercicios?')) return;
+                estado.dias.splice(idx, 1);
+                if (estado.diaActivo >= estado.dias.length) estado.diaActivo = estado.dias.length - 1;
+                guardarEstado();
+                renderTodo();
+              });
+            }
+            elTabs.appendChild(tab);
+          });
+
+          const btnAdd = document.createElement('button');
+          btnAdd.type = 'button';
+          btnAdd.className = 'propia-dia-add';
+          btnAdd.innerHTML = '<i class="fa-solid fa-plus"></i> Agregar día';
+          btnAdd.addEventListener('click', () => {
+            estado.dias.push(crearDia('Día ' + (estado.dias.length + 1)));
+            estado.diaActivo = estado.dias.length - 1;
+            guardarEstado();
+            renderTodo();
+          });
+          elTabs.appendChild(btnAdd);
+        }
+
+        /* ---------- Render: selector de grupos musculares ---------- */
+        function renderGrupos() {
+          const dia = diaActual();
+          elGrupos.innerHTML = '';
+          GRUPOS.forEach(g => {
+            const chip = document.createElement('div');
+            chip.className = 'propia-grupo-chip' + (dia.gruposSeleccionados.includes(g.key) ? ' selected' : '');
+            chip.textContent = g.label;
+            chip.addEventListener('click', () => {
+              const idx = dia.gruposSeleccionados.indexOf(g.key);
+              if (idx === -1) {
+                dia.gruposSeleccionados.push(g.key);
+                // Al elegir un grupo muscular, la biblioteca se abre
+                // automáticamente para mostrar sus ejercicios sin
+                // necesidad de un clic adicional.
+                dia.bibliotecaAbierta = true;
+              } else {
+                dia.gruposSeleccionados.splice(idx, 1);
+              }
+              guardarEstado();
+              renderGrupos();
+              renderBiblioteca();
+            });
+            elGrupos.appendChild(chip);
+          });
+        }
+
+        /* ---------- Render: biblioteca (solo grupos seleccionados) ---------- */
+        function renderBiblioteca() {
+          const dia = diaActual();
+          elBibliotecaBody.classList.toggle('open', dia.bibliotecaAbierta);
+          elBibliotecaToggle.innerHTML = dia.bibliotecaAbierta
+            ? '<i class="fa-solid fa-book"></i> Ocultar biblioteca de ejercicios'
+            : '<i class="fa-solid fa-book-open"></i> Ver biblioteca de ejercicios';
+
+          if (!dia.gruposSeleccionados.length) {
+            elBibliotecaBody.innerHTML = '<p style="color:var(--color-text-muted); font-size:0.9rem; margin:0;">Elegí al menos un grupo muscular para ver sus ejercicios.</p>';
+            return;
+          }
+
+          elBibliotecaBody.innerHTML = '';
+          dia.gruposSeleccionados.forEach(grupoKey => {
+            const bloque = document.createElement('div');
+            bloque.className = 'propia-biblioteca-grupo';
+
+            const titulo = document.createElement('div');
+            titulo.className = 'propia-biblioteca-grupo-titulo';
+            titulo.textContent = GRUPO_LABEL[grupoKey];
+            bloque.appendChild(titulo);
+
+            const lista = document.createElement('div');
+            lista.className = 'propia-ejercicios-list';
+            (BIBLIOTECA[grupoKey] || []).forEach(nombreEj => {
+              const chip = document.createElement('div');
+              chip.className = 'propia-ejercicio-chip';
+              chip.innerHTML = '<i class="fa-solid fa-plus"></i>' + nombreEj;
+              chip.addEventListener('click', () => {
+                dia.ejercicios.push({
+                  nombre: nombreEj,
+                  grupo: GRUPO_LABEL[grupoKey],
+                  series: '3',
+                  reps: '8-12',
+                  pesos: ['', '', '', '']
+                });
+                guardarEstado();
+                renderFicha();
+              });
+              lista.appendChild(chip);
+            });
+            bloque.appendChild(lista);
+
+            elBibliotecaBody.appendChild(bloque);
+          });
+        }
+
+        /* ---------- Render: ficha de entrenamiento del día ---------- */
+        function renderFicha() {
+          const dia = diaActual();
+          elFicha.innerHTML = '';
+
+          if (!dia.ejercicios.length) {
+            elFicha.innerHTML = '<p class="propia-ficha-empty">Todavía no agregaste ejercicios a este día. Elegí un grupo muscular y sumá ejercicios desde la biblioteca.</p>';
+            return;
+          }
+
+          dia.ejercicios.forEach((ej, idx) => {
+            const item = document.createElement('div');
+            item.className = 'propia-ficha-item';
+
+            const header = document.createElement('div');
+            header.className = 'propia-ficha-item-header';
+            header.innerHTML =
+              '<div>' +
+                '<div class="propia-ficha-nombre">' + (idx + 1) + '. ' + ej.nombre + '</div>' +
+                '<div class="propia-ficha-grupo-label">' + ej.grupo + '</div>' +
+              '</div>';
+            const btnBorrar = document.createElement('button');
+            btnBorrar.type = 'button';
+            btnBorrar.className = 'propia-ficha-borrar';
+            btnBorrar.innerHTML = '<i class="fa-solid fa-trash"></i>';
+            btnBorrar.title = 'Eliminar ejercicio';
+            btnBorrar.addEventListener('click', () => {
+              dia.ejercicios.splice(idx, 1);
+              guardarEstado();
+              renderFicha();
+            });
+            header.appendChild(btnBorrar);
+            item.appendChild(header);
+
+            const fila = document.createElement('div');
+            fila.className = 'propia-ficha-fila';
+
+            function crearCampo(label, valor, clase, onchange) {
+              const wrap = document.createElement('div');
+              wrap.className = 'propia-ficha-campo';
+              const lab = document.createElement('label');
+              lab.textContent = label;
+              const input = document.createElement('input');
+              input.type = 'text';
+              input.className = 'propia-ficha-input ' + clase;
+              input.value = valor;
+              input.addEventListener('input', () => { onchange(input.value); guardarEstado(); });
+              wrap.appendChild(lab);
+              wrap.appendChild(input);
+              return wrap;
+            }
+
+            fila.appendChild(crearCampo('Series', ej.series, 'propia-ficha-serierep', (v) => { ej.series = v; }));
+            fila.appendChild(crearCampo('Reps', ej.reps, 'propia-ficha-serierep', (v) => { ej.reps = v; }));
+            for (let s = 0; s < 4; s++) {
+              fila.appendChild(crearCampo('Sem. ' + (s + 1) + ' (kg)', ej.pesos[s], 'propia-ficha-peso', (v) => { ej.pesos[s] = v; }));
+            }
+
+            item.appendChild(fila);
+            elFicha.appendChild(item);
+          });
+        }
+
+        function renderTodo() {
+          renderTabs();
+          renderGrupos();
+          renderBiblioteca();
+          renderFicha();
+        }
+
+        elBibliotecaToggle.addEventListener('click', () => {
+          const dia = diaActual();
+          dia.bibliotecaAbierta = !dia.bibliotecaAbierta;
+          guardarEstado();
+          renderBiblioteca();
+        });
+
+        /* ---------- PDF de evolución ---------- */
+        function generarPdfPropia() {
+          const PDF_ROJO = [166, 58, 58];
+          const PDF_DORADO = [180, 145, 45];
+          const PDF_TEXTO = [40, 40, 40];
+          const PDF_MUTED = [110, 110, 110];
+          const PDF_BORDE = [225, 225, 225];
+
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+          const pageWidth = doc.internal.pageSize.getWidth();
+          const pageHeight = doc.internal.pageSize.getHeight();
+          const marginX = 16;
+          let y = 20;
+
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(20);
+          doc.setTextColor(...PDF_ROJO);
+          doc.text('Sé Tu Entrenador', marginX, y);
+          y += 8;
+          doc.setFontSize(13);
+          doc.setTextColor(...PDF_TEXTO);
+          doc.text('Mi Rutina Personalizada — Evolución', marginX, y);
+          y += 7;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9.5);
+          doc.setTextColor(...PDF_MUTED);
+          const fechaTexto = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+          doc.text('Generado el ' + fechaTexto, marginX, y);
+          y += 10;
+
+          const hayEjercicios = estado.dias.some(d => d.ejercicios.length > 0);
+          if (!hayEjercicios) {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(...PDF_TEXTO);
+            doc.text('Todavía no agregaste ejercicios a tu rutina personalizada.', marginX, y);
+            doc.save('Mi_Rutina_Personalizada.pdf');
+            return;
+          }
+
+          estado.dias.forEach((dia, idx) => {
+            if (!dia.ejercicios.length) return;
+
+            if (idx > 0) { doc.addPage(); y = 20; }
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(15);
+            doc.setTextColor(...PDF_ROJO);
+            doc.text(dia.nombre, marginX, y);
+            y += 6;
+
+            if (dia.gruposSeleccionados.length) {
+              doc.setFont('helvetica', 'normal');
+              doc.setFontSize(9.5);
+              doc.setTextColor(...PDF_MUTED);
+              const gruposTexto = dia.gruposSeleccionados.map(g => GRUPO_LABEL[g]).join(' + ');
+              doc.text(gruposTexto, marginX, y);
+              y += 8;
+            } else {
+              y += 4;
+            }
+
+            const body = dia.ejercicios.map((ej, i) => {
+              const pesos = ej.pesos.map(p => p ? (p + ' kg') : '-');
+              return [(i + 1) + '. ' + ej.nombre, ej.series + ' x ' + ej.reps, ...pesos];
+            });
+
+            doc.autoTable({
+              startY: y,
+              margin: { left: marginX, right: marginX },
+              theme: 'grid',
+              styles: { fontSize: 8.2, cellPadding: 2.2, textColor: PDF_TEXTO, lineColor: PDF_BORDE, lineWidth: 0.2 },
+              columnStyles: {
+                0: { cellWidth: 62 },
+                1: { cellWidth: 26 },
+                2: { cellWidth: 21, halign: 'center' },
+                3: { cellWidth: 21, halign: 'center' },
+                4: { cellWidth: 21, halign: 'center' },
+                5: { cellWidth: 21, halign: 'center' }
+              },
+              head: [['Ejercicio', 'Series x Rep', 'Sem. 1', 'Sem. 2', 'Sem. 3', 'Sem. 4']],
+              headStyles: { fillColor: PDF_ROJO, textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 8.2 },
+              body: body
+            });
+
+            y = doc.lastAutoTable.finalY + 10;
+          });
+
+          // Pie de página en todas las hojas
+          const total = doc.internal.getNumberOfPages();
+          for (let i = 1; i <= total; i++) {
+            doc.setPage(i);
+            doc.setDrawColor(...PDF_BORDE);
+            doc.setLineWidth(0.2);
+            doc.line(marginX, pageHeight - 14, pageWidth - marginX, pageHeight - 14);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...PDF_MUTED);
+            doc.text('Sé Tu Entrenador', marginX, pageHeight - 9);
+            doc.text('Página ' + i + ' de ' + total, pageWidth - marginX, pageHeight - 9, { align: 'right' });
+          }
+
+          doc.save('Mi_Rutina_Personalizada.pdf');
+        }
+
+        btnPdf.addEventListener('click', generarPdfPropia);
+
+        renderTodo();
+      })();
+
     });
+  </script>
+
+  <!-- ==========================================================
+       PWA: registro del Service Worker + prompt de instalación
+       Solo afecta a esta página ("Rutinas"). Permite que las
+       Rutinas de Adaptación, el constructor "Diseñá tu propia
+       rutina" y la descarga de PDF funcionen sin conexión a
+       Internet, y habilita "Instalar" en Android/Chrome y
+       "Agregar a inicio" en iOS.
+       ========================================================== -->
+  <script>
+    (function () {
+      const btnInstalar = document.getElementById('btn-instalar-pwa-rutinas');
+      const msgOffline = document.getElementById('pwa-offline-msg-rutinas');
+      let deferredPrompt = null;
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw-rutinas.js').catch(() => {
+            /* si falla el registro, la página sigue funcionando normalmente con conexión */
+          });
+        });
+      }
+
+      function actualizarEstadoConexion() {
+        if (msgOffline) {
+          msgOffline.style.display = navigator.onLine ? 'none' : 'block';
+        }
+      }
+      window.addEventListener('online', actualizarEstadoConexion);
+      window.addEventListener('offline', actualizarEstadoConexion);
+      actualizarEstadoConexion();
+
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        deferredPrompt = event;
+        if (btnInstalar) btnInstalar.style.display = 'inline-flex';
+      });
+
+      if (btnInstalar) {
+        btnInstalar.addEventListener('click', async () => {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          btnInstalar.style.display = 'none';
+        });
+      }
+
+      const yaInstalada = window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
+      if (yaInstalada && btnInstalar) {
+        btnInstalar.style.display = 'none';
+      }
+    })();
   </script>
 </body>
 </html>

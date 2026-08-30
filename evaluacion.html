@@ -17,11 +17,11 @@
   <link rel="manifest" href="manifest-mievaluacion.webmanifest">
   <meta name="theme-color" content="#a63a3a">
   <!-- Compatibilidad de instalación en iOS / Safari -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Mi Evaluación">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" href="icon-192.png" sizes="192x192">
   <style>
     .section-badge {
       display: block;
@@ -2254,6 +2254,7 @@
         let distanciaTotalM = 0;
         let ultimaPosicion = null;
         let ultimoResultado = null;
+        let wakeLock = null; // Screen Wake Lock activo durante el test
 
         // Umbrales para descartar ruido/errores del GPS y evitar
         // que se acumule distancia ficticia estando quieto.
@@ -2383,6 +2384,45 @@
           elStatus.classList.remove('ok');
         }
 
+        /* ----------------------------------------------------------
+           SCREEN WAKE LOCK
+           Mantiene la pantalla encendida durante los 12 minutos del
+           test, sin que el usuario tenga que activar ni desactivar
+           nada manualmente. Si el navegador no soporta la API, el
+           test sigue funcionando igual (solo no se evita que la
+           pantalla se apague sola).
+           ---------------------------------------------------------- */
+        let testEnCurso = false;
+
+        async function solicitarWakeLock() {
+          if (!('wakeLock' in navigator)) return;
+          try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            wakeLock.addEventListener('release', () => {
+              wakeLock = null;
+            });
+          } catch (e) {
+            wakeLock = null;
+          }
+        }
+
+        async function liberarWakeLock() {
+          if (wakeLock) {
+            try { await wakeLock.release(); } catch (e) { /* ya liberado */ }
+            wakeLock = null;
+          }
+        }
+
+        // Si el Wake Lock se pierde (por ejemplo, al cambiar de pestaña
+        // o bloquear momentáneamente el teléfono) y el test sigue en
+        // curso, se vuelve a solicitar en cuanto la página es visible
+        // de nuevo.
+        document.addEventListener('visibilitychange', () => {
+          if (testEnCurso && document.visibilityState === 'visible' && !wakeLock) {
+            solicitarWakeLock();
+          }
+        });
+
         function iniciarTest() {
           if (!('geolocation' in navigator)) {
             elStatus.textContent = 'Tu navegador o dispositivo no permite acceder al GPS.';
@@ -2411,6 +2451,9 @@
             timeout: 15000
           });
 
+          testEnCurso = true;
+          solicitarWakeLock();
+
           intervalId = setInterval(() => {
             segundosRestantes--;
             elTimer.textContent = formatearTiempo(Math.max(segundosRestantes, 0));
@@ -2426,6 +2469,8 @@
             navigator.geolocation.clearWatch(watchId);
             watchId = null;
           }
+          testEnCurso = false;
+          liberarWakeLock();
           btnIniciar.style.display = 'inline-flex';
           btnDetener.style.display = 'none';
           elStatus.textContent = 'Test finalizado. Estos son los resultados obtenidos a partir de tu GPS.';
