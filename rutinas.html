@@ -488,6 +488,57 @@
     }
     .propia-ejercicio-chip i { margin-right: 6px; color: #25d366; }
 
+    .propia-ejercicio-chip-custom {
+      border-style: dashed;
+      color: #d4af37;
+    }
+    .propia-ejercicio-chip-custom i { color: #d4af37; }
+    .propia-ejercicio-chip-custom:hover {
+      border-color: #d4af37;
+      background-color: rgba(212, 175, 55, 0.1);
+      color: #d4af37;
+    }
+
+    .propia-custom-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .propia-custom-input {
+      flex: 1;
+      min-width: 160px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 20px;
+      padding: 7px 14px;
+      color: var(--color-text-main);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      transition: var(--transition-smooth);
+    }
+    .propia-custom-input:focus {
+      outline: none;
+      border-color: var(--color-brand-red);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+    .propia-custom-confirmar {
+      flex-shrink: 0;
+      background-color: var(--color-brand-red);
+      border: none;
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+    }
+    .propia-custom-confirmar:hover { background-color: var(--color-brand-red-hover); }
+
     .propia-ficha-empty {
       text-align: center;
       color: var(--color-text-muted);
@@ -1413,6 +1464,56 @@
               });
               lista.appendChild(chip);
             });
+
+            // Opción "Agregar ejercicio": permite escribir manualmente
+            // el nombre de un ejercicio que no está en la biblioteca.
+            const chipCustom = document.createElement('div');
+            chipCustom.className = 'propia-ejercicio-chip propia-ejercicio-chip-custom';
+            chipCustom.innerHTML = '<i class="fa-solid fa-pen"></i>Agregar ejercicio';
+            chipCustom.addEventListener('click', () => {
+              const yaAbierto = lista.querySelector('.propia-custom-input-row');
+              if (yaAbierto) { yaAbierto.remove(); return; }
+
+              const fila = document.createElement('div');
+              fila.className = 'propia-custom-input-row';
+
+              const input = document.createElement('input');
+              input.type = 'text';
+              input.className = 'propia-custom-input';
+              input.placeholder = 'Nombre del ejercicio';
+
+              const btnConfirmar = document.createElement('button');
+              btnConfirmar.type = 'button';
+              btnConfirmar.className = 'propia-custom-confirmar';
+              btnConfirmar.innerHTML = '<i class="fa-solid fa-check"></i>';
+
+              function agregarPersonalizado() {
+                const nombre = input.value.trim();
+                if (!nombre) { input.focus(); return; }
+                dia.ejercicios.push({
+                  nombre: nombre,
+                  grupo: GRUPO_LABEL[grupoKey],
+                  series: '3',
+                  reps: '8-12',
+                  pesos: ['', '', '', '']
+                });
+                guardarEstado();
+                fila.remove();
+                renderFicha();
+              }
+
+              btnConfirmar.addEventListener('click', agregarPersonalizado);
+              input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); agregarPersonalizado(); }
+              });
+
+              fila.appendChild(input);
+              fila.appendChild(btnConfirmar);
+              lista.appendChild(fila);
+              input.focus();
+            });
+            lista.appendChild(chipCustom);
+
             bloque.appendChild(lista);
 
             elBibliotecaBody.appendChild(bloque);
@@ -1497,12 +1598,118 @@
         });
 
         /* ---------- PDF de evolución ---------- */
+        /* ---------- Utilidades para RM estimado y gráfico de evolución ----------
+           Todo se calcula y dibuja con las funciones nativas de jsPDF (líneas,
+           círculos y texto), sin depender de ninguna librería externa de
+           gráficos. Así la generación del PDF funciona igual en la web y en
+           la PWA instalada sin conexión a Internet. */
+
+        // Convierte el valor de peso guardado (string) a número, o null si no hay dato.
+        function parsePesoNumerico(valor) {
+          if (!valor) return null;
+          const n = parseFloat(String(valor).replace(',', '.'));
+          return isNaN(n) || n <= 0 ? null : n;
+        }
+
+        // Extrae el primer número de repeticiones del campo "Reps" (admite rangos como "8-12").
+        function parseRepsBase(reps) {
+          if (!reps) return null;
+          const match = String(reps).match(/\d+/);
+          if (!match) return null;
+          const n = parseInt(match[0], 10);
+          return isNaN(n) || n <= 0 ? null : n;
+        }
+
+        // Estima la 1RM con la fórmula de Epley a partir del peso y las repeticiones.
+        function calcularRMEstimado(peso, reps) {
+          if (!peso || !reps) return null;
+          const rm = peso * (1 + reps / 30);
+          return Math.round(rm * 10) / 10;
+        }
+
+        // Dibuja, con las primitivas de jsPDF, un gráfico de línea con la evolución
+        // del peso (kg) a lo largo de las 4 semanas para un ejercicio puntual.
+        function dibujarGraficoEvolucion(doc, x, y, width, height, pesosSemanas, colorLinea, colorTexto, colorMuted, colorBorde) {
+          const padLeft = 14;
+          const padBottom = 10;
+          const padTop = 6;
+          const padRight = 6;
+
+          const chartX = x + padLeft;
+          const chartY = y + padTop;
+          const chartWidth = width - padLeft - padRight;
+          const chartHeight = height - padTop - padBottom;
+
+          const valoresValidos = pesosSemanas.filter(v => v !== null);
+          const maxValor = valoresValidos.length ? Math.max(...valoresValidos) : 0;
+          const escalaMax = maxValor > 0 ? Math.ceil((maxValor * 1.2) / 5) * 5 : 10;
+
+          // Ejes
+          doc.setDrawColor(...colorBorde);
+          doc.setLineWidth(0.3);
+          doc.line(chartX, chartY, chartX, chartY + chartHeight);
+          doc.line(chartX, chartY + chartHeight, chartX + chartWidth, chartY + chartHeight);
+
+          // Líneas de referencia horizontales y etiquetas del eje Y
+          const pasos = 4;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          doc.setTextColor(...colorMuted);
+          for (let i = 0; i <= pasos; i++) {
+            const valorEje = (escalaMax / pasos) * i;
+            const yPos = chartY + chartHeight - (chartHeight * (valorEje / escalaMax));
+            if (i > 0) {
+              doc.setDrawColor(240, 240, 240);
+              doc.setLineWidth(0.15);
+              doc.line(chartX, yPos, chartX + chartWidth, yPos);
+            }
+            doc.text(String(Math.round(valorEje)), chartX - 2, yPos + 1.5, { align: 'right' });
+          }
+
+          // Posiciones X de cada semana
+          const n = pesosSemanas.length;
+          const puntos = pesosSemanas.map((valor, i) => {
+            const px = chartX + (chartWidth / (n - 1)) * i;
+            const py = valor === null ? null : chartY + chartHeight - (chartHeight * (valor / escalaMax));
+            return { x: px, y: py, valor: valor };
+          });
+
+          // Conexión entre puntos consecutivos con datos
+          doc.setDrawColor(...colorLinea);
+          doc.setLineWidth(0.6);
+          for (let i = 0; i < puntos.length - 1; i++) {
+            if (puntos[i].y !== null && puntos[i + 1].y !== null) {
+              doc.line(puntos[i].x, puntos[i].y, puntos[i + 1].x, puntos[i + 1].y);
+            }
+          }
+
+          // Puntos y valores
+          puntos.forEach((p) => {
+            if (p.y === null) return;
+            doc.setFillColor(...colorLinea);
+            doc.circle(p.x, p.y, 1.1, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(6.8);
+            doc.setTextColor(...colorTexto);
+            doc.text(p.valor + ' kg', p.x, p.y - 3, { align: 'center' });
+          });
+
+          // Etiquetas del eje X
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7);
+          doc.setTextColor(...colorMuted);
+          puntos.forEach((p, i) => {
+            doc.text('Sem. ' + (i + 1), p.x, chartY + chartHeight + 6, { align: 'center' });
+          });
+        }
+
         function generarPdfPropia() {
           const PDF_ROJO = [166, 58, 58];
           const PDF_DORADO = [180, 145, 45];
           const PDF_TEXTO = [40, 40, 40];
           const PDF_MUTED = [110, 110, 110];
           const PDF_BORDE = [225, 225, 225];
+          const PDF_VERDE = [37, 211, 102];
 
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -1584,6 +1791,77 @@
 
             y = doc.lastAutoTable.finalY + 10;
           });
+
+          /* ---------- RM estimado y evolución de carga (al finalizar la Semana 4) ----------
+             Se agrega como una sección nueva al final del PDF, sin modificar las
+             tablas ni la estructura ya existentes arriba. Para cada ejercicio con
+             al menos un peso cargado se dibuja su gráfico de evolución (Sem. 1 a 4)
+             y, si hay datos de la Semana 4, su RM estimado. */
+          const ejerciciosConDatos = [];
+          estado.dias.forEach((dia) => {
+            dia.ejercicios.forEach((ej) => {
+              const pesosNum = ej.pesos.map(p => parsePesoNumerico(p));
+              if (pesosNum.some(v => v !== null)) {
+                ejerciciosConDatos.push({ dia: dia.nombre, ejercicio: ej, pesosNum: pesosNum });
+              }
+            });
+          });
+
+          if (ejerciciosConDatos.length) {
+            doc.addPage();
+            y = 20;
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(15);
+            doc.setTextColor(...PDF_ROJO);
+            doc.text('Evolución de la Carga y RM Estimado', marginX, y);
+            y += 6;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.setTextColor(...PDF_MUTED);
+            doc.text('RM estimado calculado con el peso y las repeticiones registrados en la Semana 4 (fórmula de Epley).', marginX, y);
+            y += 10;
+
+            const chartWidth = pageWidth - marginX * 2;
+            const chartHeight = 46;
+            const bloqueAlto = 8 + chartHeight + 10;
+
+            ejerciciosConDatos.forEach(({ dia, ejercicio, pesosNum }) => {
+              if (y + bloqueAlto > pageHeight - 22) {
+                doc.addPage();
+                y = 20;
+              }
+
+              doc.setFont('helvetica', 'bold');
+              doc.setFontSize(10.5);
+              doc.setTextColor(...PDF_TEXTO);
+              doc.text(ejercicio.nombre, marginX, y);
+              doc.setFont('helvetica', 'normal');
+              doc.setFontSize(8.5);
+              doc.setTextColor(...PDF_MUTED);
+              doc.text(dia + ' · ' + ejercicio.grupo, pageWidth - marginX, y, { align: 'right' });
+              y += 6;
+
+              dibujarGraficoEvolucion(doc, marginX, y, chartWidth, chartHeight, pesosNum, PDF_ROJO, PDF_TEXTO, PDF_MUTED, PDF_BORDE);
+              y += chartHeight;
+
+              const pesoSem4 = pesosNum[3];
+              const repsBase = parseRepsBase(ejercicio.reps);
+              const rm = calcularRMEstimado(pesoSem4, repsBase);
+
+              doc.setFont('helvetica', 'bold');
+              doc.setFontSize(9);
+              if (rm !== null) {
+                doc.setTextColor(...PDF_VERDE);
+                doc.text('RM estimado (Semana 4): ' + rm + ' kg', marginX, y + 5);
+              } else {
+                doc.setTextColor(...PDF_MUTED);
+                doc.text('RM estimado (Semana 4): sin datos suficientes de la Semana 4', marginX, y + 5);
+              }
+
+              y += 12;
+            });
+          }
 
           // Pie de página en todas las hojas
           const total = doc.internal.getNumberOfPages();

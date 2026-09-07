@@ -13,7 +13,7 @@
    ni intercepta el resto del sitio.
    ========================================================== */
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = 'setuentrenador-rutinas-' + CACHE_VERSION;
 
 // Recursos propios del sitio necesarios para "Rutinas"
