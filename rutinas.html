@@ -317,7 +317,7 @@
        ========================================== */
     .rutina-modo-select {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
       max-width: 900px;
       margin: 0 auto 40px auto;
@@ -621,6 +621,123 @@
       .propia-ficha-serierep { width: 52px; }
       .propia-ficha-peso { width: 40px; }
     }
+
+    /* ==========================================
+       CREÁ TUS RUTINAS INTERMITENTES
+       ========================================== */
+    .intermitente-panel {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .intermitente-card {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 32px;
+      text-align: center;
+    }
+    .intermitente-subtitle {
+      font-size: 1.05rem;
+      color: var(--color-brand-cream);
+      text-align: left;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .intermitente-config-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      text-align: left;
+    }
+    .intermitente-hint {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-top: 14px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .intermitente-bloques-lista,
+    .intermitente-estaciones-lista {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+    }
+    .intermitente-bloque-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      color: var(--color-text-main);
+    }
+    .intermitente-bloque-item i {
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .intermitente-bloque-item i:hover { color: var(--color-brand-red); }
+
+    .intermitente-fase {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #25d366;
+      margin-bottom: 8px;
+    }
+    .intermitente-tiempo {
+      font-family: var(--font-serif);
+      font-size: 4.6rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .intermitente-estacion {
+      font-size: 1.1rem;
+      color: var(--color-brand-cream);
+      min-height: 26px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .intermitente-info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .intermitente-info-item {
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 14px 10px;
+    }
+    .intermitente-info-item .val {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--color-brand-cream);
+    }
+    .intermitente-info-item .lbl {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 576px) {
+      .intermitente-config-grid { grid-template-columns: 1fr; }
+      .intermitente-tiempo { font-size: 3.4rem; }
+      .intermitente-card { padding: 22px; }
+    }
   </style>
 </head>
 <body>
@@ -668,6 +785,9 @@
         </button>
         <button type="button" class="rutina-modo-btn" data-modo="propia">
           <i class="fa-solid fa-pen-ruler"></i> Diseñá tu propia rutina
+        </button>
+        <button type="button" class="rutina-modo-btn" data-modo="intermitente">
+          <i class="fa-solid fa-stopwatch"></i> Creá tus Rutinas Intermitentes
         </button>
       </div>
 
@@ -782,6 +902,133 @@
 
       </div>
       <!-- FIN modo-propia -->
+
+      <!-- ============================================================
+           CREÁ TUS RUTINAS INTERMITENTES
+           Herramienta independiente para realizar el entrenamiento en
+           el momento con un reloj de intervalos configurable. No
+           depende de "Rutinas de Adaptación" ni de "Diseñá tu propia
+           rutina", ni las modifica. No usa PWA ni genera PDF: es solo
+           para usar durante la sesión de entrenamiento.
+           ============================================================ -->
+      <div id="modo-intermitente" class="rutina-modo-view">
+
+        <div class="rutina-indicaciones" style="max-width:900px; margin:0 auto 30px auto;">
+          <p><i class="fa-solid fa-circle-info"></i> &nbsp;Cómo usar esta herramienta</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i><span>Configurá el tiempo de trabajo, el tiempo de descanso y la cantidad de rondas. Viene configurado como Tabata (20s / 10s x 8 rondas).</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Si querés combinar varios bloques distintos en la misma sesión, agregalos a la lista antes de iniciar.</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Elegí ejercicios de la biblioteca para usarlos como estaciones (opcional).</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Iniciá el reloj y seguí las señales sonoras de trabajo, descanso y finalización.</span></li>
+          </ul>
+        </div>
+
+        <div class="intermitente-panel">
+
+          <!-- CONFIGURACIÓN -->
+          <div id="inter-config" class="intermitente-card">
+            <h3 class="intermitente-subtitle"><i class="fa-solid fa-sliders"></i> Configuración del bloque</h3>
+            <div class="intermitente-config-grid">
+              <div class="imc-input-group" style="margin-bottom:0;">
+                <label for="inter-trabajo">Tiempo de trabajo</label>
+                <div class="imc-input-wrapper">
+                  <input type="number" id="inter-trabajo" inputmode="numeric" min="1" step="1" value="20">
+                  <span class="imc-unit">seg</span>
+                </div>
+              </div>
+              <div class="imc-input-group" style="margin-bottom:0;">
+                <label for="inter-descanso">Tiempo de descanso</label>
+                <div class="imc-input-wrapper">
+                  <input type="number" id="inter-descanso" inputmode="numeric" min="0" step="1" value="10">
+                  <span class="imc-unit">seg</span>
+                </div>
+              </div>
+              <div class="imc-input-group" style="margin-bottom:0;">
+                <label for="inter-rondas">Cantidad de rondas</label>
+                <div class="imc-input-wrapper">
+                  <input type="number" id="inter-rondas" inputmode="numeric" min="1" step="1" value="8">
+                  <span class="imc-unit">rondas</span>
+                </div>
+              </div>
+            </div>
+            <p class="intermitente-hint" id="inter-resumen-config">Bloque: 20s trabajo / 10s descanso × 8 rondas — Duración estimada: 4:00</p>
+
+            <div id="inter-bloques-lista" class="intermitente-bloques-lista"></div>
+            <div class="cooper-btn-row" style="margin-top: 14px;">
+              <button type="button" id="inter-btn-agregar-bloque" class="btn btn-secondary">
+                <i class="fa-solid fa-plus"></i> Agregar este bloque a la sesión
+              </button>
+            </div>
+
+            <h3 class="intermitente-subtitle" style="margin-top:34px;"><i class="fa-solid fa-dumbbell"></i> Ejercicios / estaciones (opcional)</h3>
+            <div id="inter-categorias-grid" class="propia-grupos-grid"></div>
+            <div id="inter-biblioteca-body" class="propia-biblioteca-body open" style="margin-top:16px;"></div>
+
+            <h4 class="intermitente-subtitle" style="font-size:0.9rem; margin-top:24px;"><i class="fa-solid fa-list-ol"></i> Estaciones elegidas</h4>
+            <div id="inter-estaciones-lista" class="intermitente-estaciones-lista"></div>
+
+            <div class="cooper-btn-row" style="margin-top:26px;">
+              <button type="button" id="inter-btn-iniciar-sesion" class="btn btn-primary">
+                <i class="fa-solid fa-play"></i> Iniciar sesión
+              </button>
+              <button type="button" id="inter-btn-reset-sesion" class="btn btn-secondary">
+                <i class="fa-solid fa-rotate-left"></i> Reiniciar todo
+              </button>
+            </div>
+          </div>
+
+          <!-- RELOJ -->
+          <div id="inter-reloj" class="intermitente-card" style="display:none;">
+            <div class="intermitente-fase" id="inter-fase-label">TRABAJO</div>
+            <div class="intermitente-tiempo" id="inter-tiempo-label">20</div>
+            <div class="intermitente-estacion" id="inter-estacion-label"></div>
+            <div class="intermitente-info-row">
+              <div class="intermitente-info-item">
+                <div class="val" id="inter-ronda-actual">1 / 8</div>
+                <div class="lbl">Ronda</div>
+              </div>
+              <div class="intermitente-info-item">
+                <div class="val" id="inter-bloque-actual">1 / 1</div>
+                <div class="lbl">Bloque</div>
+              </div>
+            </div>
+            <div class="cooper-btn-row">
+              <button type="button" id="inter-btn-pausar" class="btn btn-secondary">
+                <i class="fa-solid fa-pause"></i> Pausar
+              </button>
+              <button type="button" id="inter-btn-detener-sesion" class="btn btn-secondary">
+                <i class="fa-solid fa-stop"></i> Detener
+              </button>
+            </div>
+          </div>
+
+          <!-- RESUMEN -->
+          <div id="inter-resumen" class="intermitente-card" style="display:none;">
+            <h3 class="intermitente-subtitle" style="text-align:center;"><i class="fa-solid fa-flag-checkered"></i> Resumen de la sesión</h3>
+            <div class="cooper-results-grid">
+              <div class="cooper-result-item">
+                <div class="val" id="inter-res-total">0:00</div>
+                <div class="lbl">Tiempo total de entrenamiento</div>
+              </div>
+              <div class="cooper-result-item">
+                <div class="val" id="inter-res-trabajo">0:00</div>
+                <div class="lbl">Tiempo efectivo de trabajo</div>
+              </div>
+              <div class="cooper-result-item">
+                <div class="val" id="inter-res-descanso">0:00</div>
+                <div class="lbl">Tiempo total de descanso</div>
+              </div>
+            </div>
+            <div class="cooper-btn-row" style="margin-top:26px;">
+              <button type="button" id="inter-btn-nueva-sesion" class="btn btn-primary">
+                <i class="fa-solid fa-rotate-right"></i> Nueva sesión
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- FIN modo-intermitente -->
 
     </div>
   </section>
@@ -1883,6 +2130,418 @@
         btnPdf.addEventListener('click', generarPdfPropia);
 
         renderTodo();
+      })();
+
+      /* ============================================================
+         CREÁ TUS RUTINAS INTERMITENTES
+         Reloj de intervalos configurable (tipo Tabata) con biblioteca
+         propia de ejercicios/estaciones y señales sonoras. Es solo
+         para usar durante el entrenamiento: no guarda historial, no
+         genera PDF y no usa Service Worker / PWA. Totalmente
+         independiente de "Rutinas de Adaptación" y de "Diseñá tu
+         propia rutina".
+         ============================================================ */
+      (function () {
+        const elTrabajo = document.getElementById('inter-trabajo');
+        const elDescanso = document.getElementById('inter-descanso');
+        const elRondas = document.getElementById('inter-rondas');
+        const elResumenConfig = document.getElementById('inter-resumen-config');
+        const elBloquesLista = document.getElementById('inter-bloques-lista');
+        const btnAgregarBloque = document.getElementById('inter-btn-agregar-bloque');
+        const elCategoriasGrid = document.getElementById('inter-categorias-grid');
+        const elBibliotecaBody = document.getElementById('inter-biblioteca-body');
+        const elEstacionesLista = document.getElementById('inter-estaciones-lista');
+        const btnIniciarSesion = document.getElementById('inter-btn-iniciar-sesion');
+        const btnResetSesion = document.getElementById('inter-btn-reset-sesion');
+
+        const elConfig = document.getElementById('inter-config');
+        const elReloj = document.getElementById('inter-reloj');
+        const elResumen = document.getElementById('inter-resumen');
+
+        const elFaseLabel = document.getElementById('inter-fase-label');
+        const elTiempoLabel = document.getElementById('inter-tiempo-label');
+        const elEstacionLabel = document.getElementById('inter-estacion-label');
+        const elRondaActual = document.getElementById('inter-ronda-actual');
+        const elBloqueActual = document.getElementById('inter-bloque-actual');
+        const btnPausar = document.getElementById('inter-btn-pausar');
+        const btnDetenerSesion = document.getElementById('inter-btn-detener-sesion');
+
+        const elResTotal = document.getElementById('inter-res-total');
+        const elResTrabajo = document.getElementById('inter-res-trabajo');
+        const elResDescanso = document.getElementById('inter-res-descanso');
+        const btnNuevaSesion = document.getElementById('inter-btn-nueva-sesion');
+
+        if (!elTrabajo) return; // el widget no está presente en esta carga de página
+
+        // Biblioteca de ejercicios/estaciones, organizada por categoría.
+        // Formato solicitado: "Nombre en español (Nombre en inglés)".
+        const INTER_BIBLIOTECA = {
+          piernas: {
+            label: 'Piernas y Potencia',
+            ejercicios: [
+              'Sentadilla (Squat)', 'Sentadilla con salto (Jump Squat)', 'Sentadilla isométrica (Isometric Squat)',
+              'Zancadas (Lunges)', 'Zancadas alternadas (Alternating Lunges)', 'Zancadas con salto (Jumping Lunges)',
+              'Saltos al cajón (Box Jumps)', 'Saltos laterales (Lateral Jumps)', 'Saltos hacia adelante (Broad Jumps)',
+              'Saltos hacia atrás (Backward Jumps)', 'Saltos de rodillas al pecho (Tuck Jumps)',
+              'Desplazamiento lateral tipo patinador (Skater Jumps)', 'Subidas al cajón (Step-Ups)',
+              'Salto de longitud (Broad Jump)', 'Saltos con una pierna (Single-Leg Jumps)'
+            ]
+          },
+          cardio: {
+            label: 'Cardiovascular',
+            ejercicios: [
+              'Correr en el lugar (Running in Place)', 'Elevación de rodillas (High Knees)', 'Talones al glúteo (Butt Kicks)',
+              'Saltos de tijera (Jumping Jacks)', 'Saltos de tijera cruzados (Cross Jacks)', 'Cuerda para saltar (Jump Rope)',
+              'Sprint en el lugar (Sprint in Place)', 'Sprint (Sprint)', 'Bicicleta fija (Stationary Bike)',
+              'Bicicleta de aire (Air Bike)', 'Elíptico (Elliptical)', 'Remo ergómetro (Rowing Machine)',
+              'Escaladora (Stair Climber)'
+            ]
+          },
+          completo: {
+            label: 'Cuerpo Completo',
+            ejercicios: [
+              'Burpees (Burpees)', 'Burpees con salto (Jump Burpees)', 'Burpee sin flexión (No-Push-Up Burpee)',
+              'Escaladores (Mountain Climbers)', 'Escaladores cruzados (Cross-Body Mountain Climbers)',
+              'Gateo de oso (Bear Crawl)', 'Gateo de oso lateral (Lateral Bear Crawl)', 'Inchworm / Gusano (Inchworm)',
+              'Sprawl (Sprawl)', 'Empuje con sentadilla (Thruster)', 'Vitalizaciones (Kettlebell Swing)',
+              'Cargada con pesa rusa (Kettlebell Clean)', 'Arranque con pesa rusa (Kettlebell Snatch)',
+              'Caminata del granjero (Farmer’s Walk)'
+            ]
+          },
+          superior: {
+            label: 'Tren Superior',
+            ejercicios: [
+              'Flexiones de brazos (Push-Ups)', 'Flexiones con rodillas apoyadas (Knee Push-Ups)',
+              'Flexiones explosivas (Explosive Push-Ups)', 'Flexiones con toque de hombros (Shoulder Tap Push-Ups)',
+              'Fondos en banco (Bench Dips)', 'Remo con TRX (TRX Row)', 'Batida de cuerdas (Battle Rope)',
+              'Golpes al aire (Shadow Boxing)', 'Golpes al saco (Heavy Bag Punches)'
+            ]
+          },
+          core: {
+            label: 'Core',
+            ejercicios: [
+              'Plancha (Plank)', 'Plancha lateral (Side Plank)', 'Crunch (Crunch)', 'Crunch bicicleta (Bicycle Crunch)',
+              'Crunch inverso (Reverse Crunch)', 'Elevación de rodillas (Knee Raises)', 'Elevación de piernas (Leg Raises)',
+              'Giro ruso (Russian Twist)', 'Bicho muerto (Dead Bug)', 'Hollow Body (Hollow Body Hold)', 'V-Ups (V-Ups)'
+            ]
+          },
+          material: {
+            label: 'Material y Ejercicios Funcionales',
+            ejercicios: [
+              'Lanzamiento de balón medicinal (Medicine Ball Throw)', 'Golpe de balón medicinal al suelo (Medicine Ball Slam)',
+              'Pase de balón medicinal (Medicine Ball Pass)', 'Sentadilla con balón medicinal (Medicine Ball Squat)',
+              'Zancada con balón medicinal (Medicine Ball Lunge)', 'Empuje de trineo (Sled Push)', 'Arrastre de trineo (Sled Drag)',
+              'Batida de cuerdas (Battle Rope)', 'Vitalizaciones (Kettlebell Swing)',
+              'Sentadilla Goblet con pesa rusa (Kettlebell Goblet Squat)', 'Cargada con pesa rusa (Kettlebell Clean)',
+              'Arranque con pesa rusa (Kettlebell Snatch)'
+            ]
+          }
+        };
+
+        let bloques = []; // { trabajo, descanso, rondas }
+        let categoriaActiva = null;
+        let estaciones = []; // nombres de ejercicios elegidos como estaciones
+
+        function formatearTiempoInter(seg) {
+          const m = Math.floor(seg / 60);
+          const s = seg % 60;
+          return m + ':' + String(s).padStart(2, '0');
+        }
+
+        /* ---------- Configuración del bloque actual ---------- */
+        function actualizarResumenConfig() {
+          const t = parseInt(elTrabajo.value, 10) || 0;
+          const d = parseInt(elDescanso.value, 10) || 0;
+          const r = parseInt(elRondas.value, 10) || 0;
+          const duracion = (t * r) + (d * Math.max(r - 1, 0));
+          elResumenConfig.textContent = 'Bloque: ' + t + 's trabajo / ' + d + 's descanso × ' + r + ' rondas — Duración estimada: ' + formatearTiempoInter(duracion);
+        }
+        [elTrabajo, elDescanso, elRondas].forEach(inp => inp.addEventListener('input', actualizarResumenConfig));
+        actualizarResumenConfig();
+
+        /* ---------- Lista de bloques de la sesión (varios bloques consecutivos) ---------- */
+        function renderBloques() {
+          if (!bloques.length) {
+            elBloquesLista.innerHTML = '<p style="color:var(--color-text-muted); font-size:0.88rem; margin:0;">Todavía no agregaste bloques a la lista. Si iniciás la sesión sin agregar ninguno, se usará la configuración de arriba como único bloque.</p>';
+            return;
+          }
+          elBloquesLista.innerHTML = bloques.map((b, i) =>
+            '<div class="intermitente-bloque-item">' +
+              '<span>Bloque ' + (i + 1) + ': ' + b.trabajo + 's trabajo / ' + b.descanso + 's descanso × ' + b.rondas + ' rondas</span>' +
+              '<i class="fa-solid fa-xmark" data-idx="' + i + '" title="Eliminar bloque"></i>' +
+            '</div>'
+          ).join('');
+          elBloquesLista.querySelectorAll('i[data-idx]').forEach(icon => {
+            icon.addEventListener('click', () => {
+              bloques.splice(parseInt(icon.dataset.idx, 10), 1);
+              renderBloques();
+            });
+          });
+        }
+        renderBloques();
+
+        btnAgregarBloque.addEventListener('click', () => {
+          const t = parseInt(elTrabajo.value, 10) || 0;
+          const d = parseInt(elDescanso.value, 10) || 0;
+          const r = parseInt(elRondas.value, 10) || 0;
+          if (t <= 0 || r <= 0) return;
+          bloques.push({ trabajo: t, descanso: d, rondas: r });
+          renderBloques();
+        });
+
+        /* ---------- Selección de categorías y ejercicios (estaciones) ---------- */
+        function renderCategorias() {
+          elCategoriasGrid.innerHTML = '';
+          Object.keys(INTER_BIBLIOTECA).forEach(key => {
+            const chip = document.createElement('div');
+            chip.className = 'propia-grupo-chip' + (categoriaActiva === key ? ' selected' : '');
+            chip.textContent = INTER_BIBLIOTECA[key].label;
+            chip.addEventListener('click', () => {
+              categoriaActiva = (categoriaActiva === key) ? null : key;
+              renderCategorias();
+              renderBibliotecaEjercicios();
+            });
+            elCategoriasGrid.appendChild(chip);
+          });
+        }
+
+        function renderBibliotecaEjercicios() {
+          if (!categoriaActiva) {
+            elBibliotecaBody.innerHTML = '<p style="color:var(--color-text-muted); font-size:0.88rem; margin:0;">Elegí una categoría para ver sus ejercicios.</p>';
+            return;
+          }
+          const lista = document.createElement('div');
+          lista.className = 'propia-ejercicios-list';
+          INTER_BIBLIOTECA[categoriaActiva].ejercicios.forEach(nombre => {
+            const chip = document.createElement('div');
+            chip.className = 'propia-ejercicio-chip';
+            chip.innerHTML = '<i class="fa-solid fa-plus"></i>' + nombre;
+            chip.addEventListener('click', () => {
+              estaciones.push(nombre);
+              renderEstaciones();
+            });
+            lista.appendChild(chip);
+          });
+          elBibliotecaBody.innerHTML = '';
+          elBibliotecaBody.appendChild(lista);
+        }
+
+        function renderEstaciones() {
+          if (!estaciones.length) {
+            elEstacionesLista.innerHTML = '<p style="color:var(--color-text-muted); font-size:0.88rem; margin:0;">No elegiste estaciones. El reloj funciona igual: cada ronda simplemente va a mostrar "TRABAJO".</p>';
+            return;
+          }
+          elEstacionesLista.innerHTML = estaciones.map((nombre, i) =>
+            '<div class="intermitente-bloque-item">' +
+              '<span>' + (i + 1) + '. ' + nombre + '</span>' +
+              '<i class="fa-solid fa-xmark" data-idx="' + i + '" title="Quitar"></i>' +
+            '</div>'
+          ).join('');
+          elEstacionesLista.querySelectorAll('i[data-idx]').forEach(icon => {
+            icon.addEventListener('click', () => {
+              estaciones.splice(parseInt(icon.dataset.idx, 10), 1);
+              renderEstaciones();
+            });
+          });
+        }
+
+        renderCategorias();
+        renderBibliotecaEjercicios();
+        renderEstaciones();
+
+        btnResetSesion.addEventListener('click', () => {
+          if (!confirm('¿Reiniciar la configuración, los bloques agregados y las estaciones elegidas?')) return;
+          bloques = [];
+          estaciones = [];
+          categoriaActiva = null;
+          elTrabajo.value = 20;
+          elDescanso.value = 10;
+          elRondas.value = 8;
+          actualizarResumenConfig();
+          renderBloques();
+          renderCategorias();
+          renderBibliotecaEjercicios();
+          renderEstaciones();
+        });
+
+        /* ---------- Señales sonoras (Web Audio API, sin archivos externos) ---------- */
+        let audioCtxInter = null;
+        function getAudioCtxInter() {
+          if (!audioCtxInter) {
+            const AC = window.AudioContext || window.webkitAudioContext;
+            audioCtxInter = new AC();
+          }
+          if (audioCtxInter.state === 'suspended') audioCtxInter.resume();
+          return audioCtxInter;
+        }
+        function beepInter(frecuencia, duracionMs, retrasoMs) {
+          retrasoMs = retrasoMs || 0;
+          setTimeout(() => {
+            try {
+              const ctx = getAudioCtxInter();
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.value = frecuencia;
+              gain.gain.value = 0.28;
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start();
+              osc.stop(ctx.currentTime + duracionMs / 1000);
+            } catch (e) { /* el audio puede no estar disponible en algunos navegadores */ }
+          }, retrasoMs);
+        }
+
+        // Frecuencias distintas para diferenciar por oído el inicio de cada fase.
+        const FREC_TRABAJO = 880;
+        const FREC_DESCANSO = 440;
+
+        // Pip corto (cuenta regresiva 3, 2, 1 antes del cambio de fase).
+        function pipCorto() { beepInter(1000, 130); }
+        // Pip largo (suena justo en el instante del cambio de fase).
+        function pipLargo(frecuencia) { beepInter(frecuencia, 550); }
+        // Señal de fin de sesión (distinta a los pips de fase, para que no se confunda).
+        function sonidoFinSesion() { beepInter(660, 200); beepInter(660, 200, 250); beepInter(660, 450, 500); }
+
+        /* ---------- Motor del reloj de intervalos ---------- */
+        let timeline = [];
+        let timelineIdx = 0;
+        let segundosRestantes = 0;
+        let intervalId = null;
+        let pausado = false;
+        let segundosTrabajoAcum = 0;
+        let segundosDescansoAcum = 0;
+
+        function construirTimeline() {
+          const listaBloques = bloques.length ? bloques.slice() : [{
+            trabajo: parseInt(elTrabajo.value, 10) || 20,
+            descanso: parseInt(elDescanso.value, 10) || 10,
+            rondas: parseInt(elRondas.value, 10) || 8
+          }];
+
+          const tl = [];
+          let estacionIdx = 0;
+          listaBloques.forEach((b, bIdx) => {
+            for (let r = 1; r <= b.rondas; r++) {
+              const nombreEstacion = estaciones.length ? estaciones[estacionIdx % estaciones.length] : '';
+              estacionIdx++;
+              tl.push({
+                tipo: 'trabajo', duracion: b.trabajo, ronda: r, totalRondas: b.rondas,
+                bloque: bIdx + 1, totalBloques: listaBloques.length, estacion: nombreEstacion
+              });
+              const esUltimaRondaDelBloque = (r === b.rondas);
+              const esUltimoBloque = (bIdx === listaBloques.length - 1);
+              if (b.descanso > 0 && !(esUltimaRondaDelBloque && esUltimoBloque)) {
+                tl.push({
+                  tipo: 'descanso', duracion: b.descanso, ronda: r, totalRondas: b.rondas,
+                  bloque: bIdx + 1, totalBloques: listaBloques.length, estacion: nombreEstacion
+                });
+              }
+            }
+          });
+          return tl;
+        }
+
+        function mostrarPasoActual() {
+          const paso = timeline[timelineIdx];
+          if (!paso) return;
+          elFaseLabel.textContent = (paso.tipo === 'trabajo') ? 'TRABAJO' : 'DESCANSO';
+          elFaseLabel.style.color = (paso.tipo === 'trabajo') ? '#25d366' : '#d4af37';
+          elTiempoLabel.textContent = segundosRestantes;
+          elEstacionLabel.textContent = (paso.tipo === 'trabajo') ? paso.estacion : '';
+          elRondaActual.textContent = paso.ronda + ' / ' + paso.totalRondas;
+          elBloqueActual.textContent = paso.bloque + ' / ' + paso.totalBloques;
+        }
+
+        // Avanza al siguiente paso de la línea de tiempo (o finaliza la sesión si no queda ninguno)
+        // y hace sonar el pip largo justo en el instante del cambio de fase.
+        function avanzarPaso() {
+          // Contabiliza el último segundo de la fase que acaba de terminar.
+          const pasoAnterior = timeline[timelineIdx];
+          if (pasoAnterior.tipo === 'trabajo') segundosTrabajoAcum++; else segundosDescansoAcum++;
+
+          timelineIdx++;
+          if (timelineIdx >= timeline.length) {
+            finalizarSesion();
+            return;
+          }
+          const paso = timeline[timelineIdx];
+          segundosRestantes = paso.duracion;
+          pipLargo(paso.tipo === 'trabajo' ? FREC_TRABAJO : FREC_DESCANSO);
+          mostrarPasoActual();
+        }
+
+        function tick() {
+          if (pausado) return;
+          segundosRestantes--;
+
+          // Cuenta regresiva sonora: 3, 2 y 1 segundo antes del cambio de fase.
+          if (segundosRestantes === 3 || segundosRestantes === 2 || segundosRestantes === 1) {
+            pipCorto();
+          }
+
+          // Al llegar a 0 se produce el cambio de fase (pip largo incluido).
+          if (segundosRestantes <= 0) {
+            avanzarPaso();
+            return;
+          }
+
+          const paso = timeline[timelineIdx];
+          if (paso.tipo === 'trabajo') segundosTrabajoAcum++; else segundosDescansoAcum++;
+          elTiempoLabel.textContent = segundosRestantes;
+        }
+
+        function iniciarSesion() {
+          timeline = construirTimeline();
+          if (!timeline.length) return;
+
+          timelineIdx = 0;
+          segundosTrabajoAcum = 0;
+          segundosDescansoAcum = 0;
+          pausado = false;
+          btnPausar.innerHTML = '<i class="fa-solid fa-pause"></i> Pausar';
+
+          segundosRestantes = timeline[0].duracion;
+          pipLargo(timeline[0].tipo === 'trabajo' ? FREC_TRABAJO : FREC_DESCANSO);
+
+          elConfig.style.display = 'none';
+          elResumen.style.display = 'none';
+          elReloj.style.display = 'block';
+          mostrarPasoActual();
+
+          if (intervalId) clearInterval(intervalId);
+          intervalId = setInterval(tick, 1000);
+        }
+
+        function finalizarSesion() {
+          if (intervalId) { clearInterval(intervalId); intervalId = null; }
+          sonidoFinSesion();
+          const total = segundosTrabajoAcum + segundosDescansoAcum;
+          elResTotal.textContent = formatearTiempoInter(total);
+          elResTrabajo.textContent = formatearTiempoInter(segundosTrabajoAcum);
+          elResDescanso.textContent = formatearTiempoInter(segundosDescansoAcum);
+          elReloj.style.display = 'none';
+          elResumen.style.display = 'block';
+        }
+
+        btnIniciarSesion.addEventListener('click', iniciarSesion);
+
+        btnPausar.addEventListener('click', () => {
+          pausado = !pausado;
+          btnPausar.innerHTML = pausado
+            ? '<i class="fa-solid fa-play"></i> Reanudar'
+            : '<i class="fa-solid fa-pause"></i> Pausar';
+        });
+
+        btnDetenerSesion.addEventListener('click', () => {
+          if (!confirm('¿Detener la sesión ahora? Vas a ver el resumen con lo realizado hasta este momento.')) return;
+          finalizarSesion();
+        });
+
+        btnNuevaSesion.addEventListener('click', () => {
+          elResumen.style.display = 'none';
+          elConfig.style.display = 'block';
+        });
       })();
 
     });
