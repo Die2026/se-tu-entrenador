@@ -738,6 +738,404 @@
       .intermitente-tiempo { font-size: 3.4rem; }
       .intermitente-card { padding: 22px; }
     }
+
+    /* ==========================================
+       CREÁ TU RUTINA HYROX
+       ========================================== */
+    .hx-panel { max-width: 900px; margin: 0 auto; }
+    .hx-intro { text-align: center; margin-bottom: 24px; }
+    .hx-intro h2 { font-size: 1.9rem; margin-bottom: 10px; }
+    .hx-intro p {
+      color: var(--color-text-muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hx-progress-card {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 22px 26px;
+      margin-bottom: 22px;
+    }
+    .hx-progress-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px 20px;
+      margin-bottom: 14px;
+    }
+    .hx-progress-text {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .hx-progress-pend { font-size: 0.92rem; color: var(--color-text-muted); }
+    .hx-bar {
+      height: 16px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .hx-bar-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--color-brand-red), #d4af37);
+      transition: width 0.35s ease;
+    }
+    .hx-bar-fill.completa { background: #25d366; }
+    .hx-pct {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-align: right;
+    }
+    .hx-final {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 18px;
+      border-radius: var(--border-radius-md);
+      background-color: rgba(37, 211, 102, 0.12);
+      border: 1px solid #25d366;
+      color: #25d366;
+      font-weight: 700;
+      text-align: center;
+    }
+    .hx-final.show { display: block; }
+
+    .hx-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .hx-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 12px 16px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      color: var(--color-text-muted);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      touch-action: manipulation;
+    }
+    .hx-tab i { color: #d4af37; }
+    .hx-tab:hover { border-color: rgba(212, 175, 55, 0.4); color: var(--color-text-main); }
+    .hx-tab.active {
+      background-color: rgba(166, 58, 58, 0.12);
+      border-color: var(--color-brand-red);
+      color: var(--color-text-main);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+
+    .hx-view { display: none; }
+    .hx-view.active { display: block; }
+
+    /* ----- Modo Configurar ----- */
+    .hx-bloque {
+      background-color: rgba(27, 30, 37, 0.5);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+    .hx-bloque-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .hx-bloque-num {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--color-text-main);
+    }
+    .hx-bloque-tools { display: flex; gap: 8px; }
+    .hx-icon-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      touch-action: manipulation;
+    }
+    .hx-icon-btn:hover:not(:disabled) { border-color: #d4af37; color: #d4af37; }
+    .hx-icon-btn.peligro:hover:not(:disabled) { border-color: var(--color-brand-red); color: var(--color-brand-red); }
+    .hx-icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .hx-fila {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .hx-fila + .hx-fila { border-top: 1px dashed rgba(255, 255, 255, 0.08); }
+    .hx-tag {
+      flex: 0 0 100%;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 700;
+    }
+    .hx-fila-c .hx-tag { color: #d4af37; }
+    .hx-fila-e .hx-tag { color: var(--color-brand-red); }
+    .hx-campo { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .hx-campo label {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .hx-campo-ej { flex: 1 1 240px; }
+    .hx-campo-otro { flex: 1 1 220px; }
+    .hx-par { display: flex; gap: 6px; }
+    .hx-input, .hx-select {
+      min-height: 46px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--color-text-main);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+    }
+    .hx-input { width: 96px; text-align: center; }
+    .hx-input.hx-ancho { width: 100%; text-align: left; }
+    .hx-select { cursor: pointer; }
+    .hx-select.hx-ancho { width: 100%; }
+    .hx-input:focus, .hx-select:focus {
+      outline: none;
+      border-color: var(--color-brand-red);
+      box-shadow: 0 0 0 3px rgba(166, 58, 58, 0.15);
+    }
+    .hx-input.hx-invalid { border-color: #e0584f; box-shadow: 0 0 0 3px rgba(224, 88, 79, 0.18); }
+    .hx-unidad-fija {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 4px;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+    }
+    .hx-bloque-resumen { display: none; font-size: 0.95rem; color: var(--color-text-muted); margin: 0; overflow-wrap: anywhere; }
+    .hx-bloque-fin { margin-top: 14px; }
+    .hx-btn-fin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      color: var(--color-text-main);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      touch-action: manipulation;
+    }
+    .hx-btn-fin:hover { border-color: #25d366; color: #25d366; }
+    .hx-bloque.hx-actual { border-color: rgba(212, 175, 55, 0.6); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25); }
+    /* Bloque terminado: se funde con el fondo oscuro de la página y se achica */
+    .hx-bloque.hx-terminado {
+      background-color: transparent;
+      border-color: rgba(255, 255, 255, 0.05);
+      padding: 12px 18px;
+      opacity: 0.55;
+    }
+    .hx-bloque.hx-terminado .hx-fila,
+    .hx-bloque.hx-terminado .hx-bloque-tools { display: none; }
+    .hx-bloque.hx-terminado .hx-bloque-head { margin-bottom: 6px; padding-bottom: 0; border-bottom: none; }
+    .hx-bloque.hx-terminado .hx-bloque-num { color: #25d366; font-size: 1rem; }
+    .hx-bloque.hx-terminado .hx-bloque-resumen { display: block; }
+    .hx-bloque.hx-terminado .hx-bloque-fin { margin-top: 10px; }
+    .hx-bloque.hx-terminado .hx-btn-fin { min-height: 44px; font-size: 0.9rem; color: var(--color-text-muted); }
+    .hx-agregar-wrap { margin: 6px 0 4px 0; text-align: center; }
+    .hx-vacio {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      padding: 30px 20px;
+      border: 1px dashed var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      margin-bottom: 16px;
+    }
+    .hx-hint {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin: 0 0 16px 0;
+    }
+
+    /* ----- Modo Entrenar ----- */
+    .hx-siguiente {
+      background-color: rgba(212, 175, 55, 0.07);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: var(--border-radius-md);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      color: var(--color-text-main);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+    .hx-siguiente .hx-sig-lbl {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #d4af37;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .hx-siguiente.completa { border-color: #25d366; background-color: rgba(37, 211, 102, 0.1); color: #25d366; font-weight: 700; }
+    .hx-lista-entreno { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+    .hx-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      min-height: 76px;
+      padding: 14px 18px;
+      text-align: left;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-left-width: 5px;
+      border-radius: var(--border-radius-md);
+      color: var(--color-text-main);
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hx-item.hx-tipo-c { border-left-color: #d4af37; }
+    .hx-item.hx-tipo-e { border-left-color: var(--color-brand-red); }
+    .hx-item:hover { border-color: rgba(212, 175, 55, 0.5); }
+    .hx-item:focus-visible { outline: 3px solid rgba(212, 175, 55, 0.6); outline-offset: 2px; }
+    .hx-item.hx-next { box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.55); }
+    .hx-check {
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid var(--color-glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: transparent;
+      font-size: 1.1rem;
+      transition: var(--transition-smooth);
+    }
+    .hx-item-body { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .hx-item-lbl { font-size: 0.78rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+    .hx-item-main { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
+    .hx-item-detail { font-size: 0.9rem; color: var(--color-text-muted); }
+    .hx-item-state { flex-shrink: 0; font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); }
+    .hx-item.hx-next .hx-item-state { color: #d4af37; }
+    .hx-item.done {
+      background-color: rgba(37, 211, 102, 0.14);
+      border-color: #25d366;
+    }
+    .hx-item.done .hx-check { background-color: #25d366; border-color: #25d366; color: #ffffff; }
+    .hx-item.done .hx-item-state { color: #25d366; }
+    .hx-item.done .hx-item-lbl { color: #25d366; }
+
+    /* ----- Resumen ----- */
+    .hx-seccion-titulo {
+      font-size: 1rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 34px 0 16px 0;
+    }
+    .hx-resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    .hx-res-item {
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius-md);
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .hx-res-item .val { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--color-brand-cream); overflow-wrap: anywhere; }
+    .hx-res-item .lbl { font-size: 0.72rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+    .hx-volumen { margin-top: 14px; font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.8; }
+    .hx-volumen strong { color: var(--color-text-main); }
+
+    /* ----- Acciones y guardado ----- */
+    .hx-acciones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    .hx-acciones .btn { min-height: 48px; touch-action: manipulation; }
+    .hx-status {
+      min-height: 22px;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: #d4af37;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .hx-status.show { opacity: 1; }
+    .hx-guardadas {
+      background-color: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--border-radius-md);
+      padding: 22px 24px;
+      margin-top: 8px;
+    }
+    .hx-guardadas h4 {
+      font-size: 0.9rem;
+      color: var(--color-brand-cream);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+    .hx-guardar-fila { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .hx-guardar-fila .hx-input { flex: 1 1 200px; width: auto; text-align: left; }
+    .hx-guardar-fila .hx-select { flex: 1 1 200px; }
+    .hx-guardar-fila .btn { min-height: 46px; }
+
+    @media (max-width: 576px) {
+      .hx-bloque { padding: 16px; }
+      .hx-progress-card { padding: 18px; }
+      .hx-progress-text { font-size: 1.15rem; }
+      .hx-item { padding: 12px 14px; gap: 12px; }
+      .hx-item-main { font-size: 1.2rem; }
+      .hx-acciones .btn { flex: 1 1 100%; justify-content: center; }
+      .hx-intro h2 { font-size: 1.6rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hx-bar-fill { transition: none; }
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B1ZS9T8B29"></script>
@@ -797,6 +1195,9 @@
         </button>
         <button type="button" class="rutina-modo-btn" data-modo="intermitente">
           <i class="fa-solid fa-stopwatch"></i> Creá tus Rutinas Intermitentes
+        </button>
+        <button type="button" class="rutina-modo-btn" data-modo="hyrox">
+          <i class="fa-solid fa-person-running"></i> Creá tu rutina HYROX
         </button>
       </div>
 
@@ -1038,6 +1439,115 @@
         </div>
       </div>
       <!-- FIN modo-intermitente -->
+
+      <!-- ============================================================
+           CREÁ TU RUTINA HYROX
+           Herramienta independiente: no modifica ni depende de las
+           otras herramientas de esta página. Permite armar bloques
+           de carrera + estación, marcarlos como completados, ver el
+           progreso y guardar rutinas en este dispositivo
+           (localStorage).
+           ============================================================ -->
+      <div id="modo-hyrox" class="rutina-modo-view">
+
+        <div class="hx-panel">
+
+          <div class="hx-intro">
+            <h2 class="font-serif text-gradient-red">Creá tu rutina HYROX</h2>
+            <p>Diseñá tu propio entrenamiento combinando carrera y ejercicios funcionales. Elegí las distancias, personalizá las estaciones y adaptá cada sesión a tu nivel.</p>
+          </div>
+
+          <div class="rutina-note" style="margin: 0 0 24px 0;">
+            <h5><i class="fa-solid fa-circle-info"></i> Importante</h5>
+            <p>Esta herramienta es un creador de entrenamientos personalizados inspirado en HYROX. No es la competición oficial, y completar una rutina personalizada no equivale a participar en HYROX. Adaptá las distancias, los ejercicios y las cargas a tu nivel actual.</p>
+          </div>
+
+          <div class="hx-progress-card" aria-live="polite">
+            <div class="hx-progress-top">
+              <div class="hx-progress-text" id="hx-prog-texto">Progreso: 0 de 0 bloques completados</div>
+              <div class="hx-progress-pend" id="hx-prog-pend">Pendientes: 0 bloques</div>
+            </div>
+            <div class="hx-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="hx-bar">
+              <div class="hx-bar-fill" id="hx-bar-fill"></div>
+            </div>
+            <div class="hx-pct" id="hx-pct">0 %</div>
+            <div class="hx-final" id="hx-final"><i class="fa-solid fa-trophy"></i> ¡Terminaste la rutina! Completaste todos los bloques.</div>
+          </div>
+
+          <div class="hx-tabs" role="tablist">
+            <button type="button" class="hx-tab active" id="hx-tab-config" role="tab" aria-selected="true">
+              <i class="fa-solid fa-sliders"></i> Configurar
+            </button>
+            <button type="button" class="hx-tab" id="hx-tab-entreno" role="tab" aria-selected="false">
+              <i class="fa-solid fa-person-running"></i> Entrenar
+            </button>
+          </div>
+
+          <!-- MODO CONFIGURAR -->
+          <div class="hx-view active" id="hx-view-config">
+            <p class="hx-hint">Cada bloque tiene una carrera y, a continuación, una estación. Podés escribir cualquier distancia (por ejemplo 100, 400, 1.000 o 1,5 con la unidad que elijas) y cambiar el ejercicio, las repeticiones, la distancia, el tiempo o la carga de cada estación.</p>
+            <div id="hx-lista-config"></div>
+            <div class="hx-agregar-wrap">
+              <button type="button" class="btn btn-secondary" id="hx-btn-agregar">
+                <i class="fa-solid fa-plus"></i> Agregar estación
+              </button>
+            </div>
+          </div>
+
+          <!-- MODO ENTRENAR -->
+          <div class="hx-view" id="hx-view-entreno">
+            <div class="hx-siguiente" id="hx-siguiente"></div>
+            <div class="hx-lista-entreno" id="hx-lista-entreno"></div>
+            <p class="hx-hint">Tocá un bloque para marcarlo como realizado. Si te equivocás, volvé a tocarlo para desmarcarlo.</p>
+          </div>
+
+          <h3 class="hx-seccion-titulo"><i class="fa-solid fa-chart-simple"></i> &nbsp;Resumen del entrenamiento</h3>
+          <div class="hx-resumen-grid">
+            <div class="hx-res-item"><div class="val" id="hx-res-estaciones">0</div><div class="lbl">Estaciones</div></div>
+            <div class="hx-res-item"><div class="val" id="hx-res-completados">0</div><div class="lbl">Bloques completados</div></div>
+            <div class="hx-res-item"><div class="val" id="hx-res-pendientes">0</div><div class="lbl">Bloques pendientes</div></div>
+            <div class="hx-res-item"><div class="val" id="hx-res-carrera">0 m</div><div class="lbl">Distancia total de carrera</div></div>
+            <div class="hx-res-item"><div class="val" id="hx-res-pct">0 %</div><div class="lbl">Progreso</div></div>
+          </div>
+          <div class="hx-volumen" id="hx-res-volumen"></div>
+
+          <h3 class="hx-seccion-titulo"><i class="fa-solid fa-gear"></i> &nbsp;Controles</h3>
+          <div class="hx-acciones">
+            <button type="button" class="btn btn-secondary" id="hx-btn-todo">
+              <i class="fa-solid fa-circle-check"></i> Marcar como completado
+            </button>
+            <button type="button" class="btn btn-secondary" id="hx-btn-reset">
+              <i class="fa-solid fa-rotate-left"></i> Restablecer progreso
+            </button>
+            <button type="button" class="btn btn-secondary" id="hx-btn-nueva">
+              <i class="fa-solid fa-file-circle-plus"></i> Nueva rutina
+            </button>
+          </div>
+          <div class="hx-status" id="hx-status" role="status" aria-live="polite"></div>
+
+          <div class="hx-guardadas">
+            <h4><i class="fa-solid fa-floppy-disk"></i> &nbsp;Guardar y recuperar rutinas</h4>
+            <div class="hx-guardar-fila">
+              <input type="text" class="hx-input" id="hx-nombre" maxlength="60" placeholder="Nombre de la rutina" aria-label="Nombre de la rutina">
+              <button type="button" class="btn btn-primary" id="hx-btn-guardar">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar rutina
+              </button>
+            </div>
+            <div class="hx-guardar-fila">
+              <select class="hx-select" id="hx-select-guardadas" aria-label="Rutinas guardadas"></select>
+              <button type="button" class="btn btn-secondary" id="hx-btn-cargar">
+                <i class="fa-solid fa-folder-open"></i> Cargar
+              </button>
+              <button type="button" class="btn btn-secondary" id="hx-btn-borrar">
+                <i class="fa-solid fa-trash"></i> Eliminar
+              </button>
+            </div>
+            <p class="hx-hint" id="hx-guardadas-info" style="margin:0;"></p>
+          </div>
+
+        </div>
+      </div>
+      <!-- FIN modo-hyrox -->
 
     </div>
   </section>
@@ -2551,6 +3061,706 @@
           elResumen.style.display = 'none';
           elConfig.style.display = 'block';
         });
+      })();
+
+      /* ============================================================
+         CREÁ TU RUTINA HYROX
+         Cada "bloque" = una carrera + una estación. Cada carrera y
+         cada estación cuentan como un ítem marcable (por eso una
+         rutina de 5 estaciones tiene 10 bloques para completar).
+         Estado de trabajo: localStorage 'hyrox_rutina_actual_v1'.
+         Rutinas guardadas: localStorage 'hyrox_rutinas_guardadas_v1'.
+         Todo queda solo en este dispositivo/navegador.
+         ============================================================ */
+      (function () {
+        const root = document.getElementById('modo-hyrox');
+        if (!root) return;
+
+        const KEY_ACTUAL = 'hyrox_rutina_actual_v1';
+        const KEY_GUARDADAS = 'hyrox_rutinas_guardadas_v1';
+        const $ = (id) => document.getElementById(id);
+
+        const elProgTexto = $('hx-prog-texto');
+        const elProgPend = $('hx-prog-pend');
+        const elBar = $('hx-bar');
+        const elBarFill = $('hx-bar-fill');
+        const elPct = $('hx-pct');
+        const elFinal = $('hx-final');
+        const tabConfig = $('hx-tab-config');
+        const tabEntreno = $('hx-tab-entreno');
+        const viewConfig = $('hx-view-config');
+        const viewEntreno = $('hx-view-entreno');
+        const elListaConfig = $('hx-lista-config');
+        const btnAgregar = $('hx-btn-agregar');
+        const elSiguiente = $('hx-siguiente');
+        const elListaEntreno = $('hx-lista-entreno');
+        const elResEstaciones = $('hx-res-estaciones');
+        const elResCompletados = $('hx-res-completados');
+        const elResPendientes = $('hx-res-pendientes');
+        const elResCarrera = $('hx-res-carrera');
+        const elResPct = $('hx-res-pct');
+        const elResVolumen = $('hx-res-volumen');
+        const btnTodo = $('hx-btn-todo');
+        const btnReset = $('hx-btn-reset');
+        const btnNueva = $('hx-btn-nueva');
+        const elStatus = $('hx-status');
+        const elNombre = $('hx-nombre');
+        const btnGuardar = $('hx-btn-guardar');
+        const selGuardadas = $('hx-select-guardadas');
+        const btnCargar = $('hx-btn-cargar');
+        const btnBorrar = $('hx-btn-borrar');
+        const elGuardadasInfo = $('hx-guardadas-info');
+
+        /* ---------- Catálogo de ejercicios ---------- */
+        const CAMPOS_LABEL = { reps: 'Repeticiones', dist: 'Distancia', tiempo: 'Tiempo', peso: 'Carga' };
+        const EJERCICIOS = [
+          { grupo: 'Estaciones oficiales de HYROX', items: [
+            { id: 'skierg', n: 'SkiErg (esquí ergométrico)', campos: ['dist', 'tiempo'], def: { dist: '1000', distU: 'm' } },
+            { id: 'sledpush', n: 'Sled Push (empuje de trineo)', campos: ['dist', 'peso'], def: { dist: '50', distU: 'm' } },
+            { id: 'sledpull', n: 'Sled Pull (arrastre de trineo)', campos: ['dist', 'peso'], def: { dist: '50', distU: 'm' } },
+            { id: 'bbj', n: 'Burpee Broad Jumps', campos: ['dist', 'reps'], def: { dist: '80', distU: 'm' } },
+            { id: 'rowing', n: 'Rowing (remo ergométrico)', campos: ['dist', 'tiempo'], def: { dist: '1000', distU: 'm' } },
+            { id: 'farmers', n: 'Farmer\u2019s Carry', campos: ['dist', 'peso'], def: { dist: '200', distU: 'm' } },
+            { id: 'sandbag', n: 'Sandbag Lunges (zancadas con saco)', campos: ['dist', 'reps', 'peso'], def: { dist: '100', distU: 'm' } },
+            { id: 'wallballs', n: 'Wall Balls', campos: ['reps', 'peso'], def: { reps: '100' } }
+          ] },
+          { grupo: 'Otros ejercicios funcionales y de fuerza', items: [
+            { id: 'burpees', n: 'Burpees', campos: ['reps'], def: { reps: '15' } },
+            { id: 'sentadillas', n: 'Sentadillas', campos: ['reps', 'peso'], def: { reps: '20' } },
+            { id: 'flexiones', n: 'Flexiones de brazos', campos: ['reps'], def: { reps: '10' } },
+            { id: 'dominadas', n: 'Dominadas', campos: ['reps'], def: { reps: '5' } },
+            { id: 'cajon', n: 'Saltos al cajón', campos: ['reps'], def: { reps: '10' } },
+            { id: 'zancadas', n: 'Zancadas', campos: ['reps', 'peso'], def: { reps: '20' } },
+            { id: 'kbswings', n: 'Kettlebell swings', campos: ['reps', 'peso'], def: { reps: '15' } },
+            { id: 'pesomuerto', n: 'Peso muerto', campos: ['reps', 'peso'], def: { reps: '10' } },
+            { id: 'thrusters', n: 'Thrusters', campos: ['reps', 'peso'], def: { reps: '10' } },
+            { id: 'plancha', n: 'Plancha abdominal', campos: ['tiempo'], def: { tiempo: '45', tiempoU: 'seg' } },
+            { id: 'soga', n: 'Soga', campos: ['tiempo', 'reps'], def: { tiempo: '60', tiempoU: 'seg' } }
+          ] },
+          { grupo: 'Personalizado', items: [
+            { id: 'otro', n: 'Otro ejercicio\u2026', campos: ['reps', 'dist', 'tiempo', 'peso'], def: { reps: '10' } }
+          ] }
+        ];
+        const EJ = {};
+        EJERCICIOS.forEach(g => g.items.forEach(it => { EJ[it.id] = it; }));
+
+        /* ---------- Utilidades ---------- */
+        function esc(s) {
+          return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        // Admite coma o punto decimal. En metros, "1.000" se interpreta como mil.
+        function parseNum(s, unidad) {
+          s = String(s == null ? '' : s).trim().replace(/\s/g, '');
+          if (!s) return null;
+          if (unidad === 'm' && /^\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) {
+            s = s.replace(/\./g, '').replace(',', '.');
+          } else {
+            s = s.replace(',', '.');
+          }
+          if (!/^\d+(\.\d+)?$/.test(s)) return null;
+          const n = parseFloat(s);
+          return (isFinite(n) && n > 0) ? n : null;
+        }
+
+        function fmtNum(n, dec) {
+          dec = (dec == null) ? 2 : dec;
+          const f = Math.pow(10, dec);
+          const r = Math.round(n * f) / f;
+          const partes = r.toFixed(dec).split('.');
+          const ent = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+          const fr = (partes[1] || '').replace(/0+$/, '');
+          return fr ? ent + ',' + fr : ent;
+        }
+
+        function aMetros(valor, unidad) {
+          const n = parseNum(valor, unidad);
+          if (n === null) return null;
+          return unidad === 'km' ? n * 1000 : n;
+        }
+
+        function aSegundos(valor, unidad) {
+          const n = parseNum(valor, 'seg');
+          if (n === null) return null;
+          return unidad === 'min' ? n * 60 : n;
+        }
+
+        function fmtTiempo(seg) {
+          seg = Math.round(seg);
+          if (seg < 60) return seg + ' s';
+          const m = Math.floor(seg / 60);
+          const s = seg % 60;
+          return s ? (m + ' min ' + s + ' s') : (m + ' min');
+        }
+
+        function fmtDistancia(valor, unidad) {
+          const n = parseNum(valor, unidad);
+          if (n === null) return null;
+          return fmtNum(n, 3) + ' ' + (unidad === 'km' ? 'km' : 'm');
+        }
+
+        /* ---------- Estado ---------- */
+        function nuevaEstacion(id) {
+          const ej = EJ[id];
+          return Object.assign({
+            ejercicio: id, otro: '', reps: '', dist: '', distU: 'm', tiempo: '', tiempoU: 'seg', peso: ''
+          }, ej.def || {});
+        }
+        function nuevoBloque(idEj, dist) {
+          return { carrera: { valor: dist || '400', unidad: 'm' }, est: nuevaEstacion(idEj || 'burpees'), cOk: false, eOk: false };
+        }
+        function cfgString(bloques) {
+          return JSON.stringify((bloques || estado.bloques).map(b => ({ carrera: b.carrera, est: b.est })));
+        }
+        function estadoNuevo() {
+          const e = { bloques: [nuevoBloque('burpees', '400'), nuevoBloque('sentadillas', '400')], nombre: '', snapshot: '', modo: 'config' };
+          e.snapshot = cfgString(e.bloques);
+          return e;
+        }
+        function sanitizarBloque(b) {
+          if (!b || typeof b !== 'object') return null;
+          const c = b.carrera || {};
+          const e = b.est || {};
+          const id = EJ[e.ejercicio] ? e.ejercicio : 'burpees';
+          const base = { carrera: { valor: '', unidad: 'm' }, est: nuevaEstacion(id), cOk: !!b.cOk, eOk: !!b.eOk };
+          base.carrera.valor = String(c.valor == null ? '' : c.valor).slice(0, 14);
+          base.carrera.unidad = c.unidad === 'km' ? 'km' : 'm';
+          ['otro', 'reps', 'dist', 'tiempo', 'peso'].forEach(k => { base.est[k] = String(e[k] == null ? '' : e[k]).slice(0, 80); });
+          base.est.distU = e.distU === 'km' ? 'km' : 'm';
+          base.est.tiempoU = e.tiempoU === 'min' ? 'min' : 'seg';
+          return base;
+        }
+
+        let almacenamientoOK = true;
+        try {
+          localStorage.setItem('hyrox_test', '1');
+          localStorage.removeItem('hyrox_test');
+        } catch (e) { almacenamientoOK = false; }
+
+        function cargarActual() {
+          try {
+            const raw = localStorage.getItem(KEY_ACTUAL);
+            if (!raw) return null;
+            const p = JSON.parse(raw);
+            if (!p || !Array.isArray(p.bloques)) return null;
+            const bloques = p.bloques.map(sanitizarBloque).filter(Boolean);
+            const hechos = bloques.some(b => b.cOk || b.eOk);
+            return {
+              bloques: bloques,
+              nombre: String(p.nombre || '').slice(0, 60),
+              snapshot: typeof p.snapshot === 'string' ? p.snapshot : cfgString(bloques),
+              modo: (p.modo === 'entreno' || p.modo === 'config') ? p.modo : (hechos ? 'entreno' : 'config')
+            };
+          } catch (e) { return null; }
+        }
+
+        let estado = cargarActual() || estadoNuevo();
+
+        function guardarActual() {
+          try {
+            localStorage.setItem(KEY_ACTUAL, JSON.stringify({
+              bloques: estado.bloques, nombre: estado.nombre, snapshot: estado.snapshot, modo: estado.modo
+            }));
+            return true;
+          } catch (e) { return false; }
+        }
+
+        function hayCambiosSinGuardar() {
+          return cfgString() !== estado.snapshot;
+        }
+
+        let statusTimer = null;
+        function status(msg) {
+          elStatus.textContent = msg;
+          elStatus.classList.add('show');
+          clearTimeout(statusTimer);
+          statusTimer = setTimeout(() => elStatus.classList.remove('show'), 4500);
+        }
+
+        /* ---------- Textos de cada ítem ---------- */
+        function nombreEjercicio(est) {
+          if (est.ejercicio === 'otro') return est.otro.trim() || 'Ejercicio sin nombre';
+          return EJ[est.ejercicio].n;
+        }
+        function detalleEstacion(est) {
+          const campos = EJ[est.ejercicio].campos;
+          const partes = [];
+          if (campos.indexOf('reps') !== -1) {
+            const r = parseNum(est.reps);
+            if (r !== null) partes.push(fmtNum(r, 2) + ' rep');
+          }
+          if (campos.indexOf('dist') !== -1) {
+            const d = fmtDistancia(est.dist, est.distU);
+            if (d) partes.push(d);
+          }
+          if (campos.indexOf('tiempo') !== -1) {
+            const t = parseNum(est.tiempo, 'seg');
+            if (t !== null) partes.push(fmtNum(t, 2) + ' ' + (est.tiempoU === 'min' ? 'min' : 'seg'));
+          }
+          if (campos.indexOf('peso') !== -1) {
+            const p = parseNum(est.peso);
+            if (p !== null) partes.push(fmtNum(p, 2) + ' kg');
+          }
+          return partes.join(' \u00b7 ');
+        }
+        function textoCarrera(b) {
+          return fmtDistancia(b.carrera.valor, b.carrera.unidad) || 'Sin distancia';
+        }
+
+        /* ---------- Cálculos del progreso y el resumen ---------- */
+        function calcular() {
+          const n = estado.bloques.length;
+          const total = n * 2;
+          let hechos = 0;
+          let metrosCarrera = 0;
+          let reps = 0, metrosEst = 0, segs = 0, kgReps = 0;
+          estado.bloques.forEach(b => {
+            if (b.cOk) hechos++;
+            if (b.eOk) hechos++;
+            const m = aMetros(b.carrera.valor, b.carrera.unidad);
+            if (m !== null) metrosCarrera += m;
+            const campos = EJ[b.est.ejercicio].campos;
+            const r = campos.indexOf('reps') !== -1 ? parseNum(b.est.reps) : null;
+            const d = campos.indexOf('dist') !== -1 ? aMetros(b.est.dist, b.est.distU) : null;
+            const t = campos.indexOf('tiempo') !== -1 ? aSegundos(b.est.tiempo, b.est.tiempoU) : null;
+            const p = campos.indexOf('peso') !== -1 ? parseNum(b.est.peso) : null;
+            if (r !== null) reps += r;
+            if (d !== null) metrosEst += d;
+            if (t !== null) segs += t;
+            if (r !== null && p !== null) kgReps += r * p;
+          });
+          return {
+            n: n, total: total, hechos: hechos, pend: total - hechos,
+            pct: total ? Math.round((hechos / total) * 100) : 0,
+            metrosCarrera: metrosCarrera, reps: reps, metrosEst: metrosEst, segs: segs, kgReps: kgReps
+          };
+        }
+
+        function renderProgreso() {
+          const r = calcular();
+          elProgTexto.textContent = 'Progreso: ' + r.hechos + ' de ' + r.total + ' bloques completados';
+          elProgPend.textContent = 'Pendientes: ' + r.pend + (r.pend === 1 ? ' bloque' : ' bloques');
+          elBarFill.style.width = r.pct + '%';
+          elBarFill.classList.toggle('completa', r.total > 0 && r.hechos === r.total);
+          elBar.setAttribute('aria-valuenow', String(r.pct));
+          elPct.textContent = r.pct + ' %';
+          elFinal.classList.toggle('show', r.total > 0 && r.hechos === r.total);
+
+          elResEstaciones.textContent = String(r.n);
+          elResCompletados.textContent = String(r.hechos);
+          elResPendientes.textContent = String(r.pend);
+          elResCarrera.textContent = r.metrosCarrera > 0
+            ? fmtNum(r.metrosCarrera, 2) + ' m (' + fmtNum(r.metrosCarrera / 1000, 3) + ' km)'
+            : '0 m';
+          elResPct.textContent = r.pct + ' %';
+
+          const lineas = [];
+          if (r.reps > 0) lineas.push('Repeticiones: <strong>' + fmtNum(r.reps, 2) + '</strong>');
+          if (r.metrosEst > 0) lineas.push('Distancia en estaciones: <strong>' + fmtNum(r.metrosEst, 2) + ' m (' + fmtNum(r.metrosEst / 1000, 3) + ' km)</strong>');
+          if (r.segs > 0) lineas.push('Tiempo de trabajo en estaciones: <strong>' + fmtTiempo(r.segs) + '</strong>');
+          if (r.kgReps > 0) lineas.push('Carga movida (repeticiones \u00d7 kg): <strong>' + fmtNum(r.kgReps, 2) + ' kg</strong>');
+          elResVolumen.innerHTML = lineas.length
+            ? '<strong>Volumen de las estaciones</strong> (cada unidad por separado):<br>' + lineas.join('<br>')
+            : '';
+        }
+
+        /* ---------- Modo Configurar ---------- */
+        function opcionesEjercicios(sel) {
+          return EJERCICIOS.map(g =>
+            '<optgroup label="' + esc(g.grupo) + '">' +
+            g.items.map(it => '<option value="' + it.id + '"' + (it.id === sel ? ' selected' : '') + '>' + esc(it.n) + '</option>').join('') +
+            '</optgroup>'
+          ).join('');
+        }
+
+        function campoHTML(i, key, est) {
+          const id = 'hx-' + i + '-' + key;
+          if (key === 'reps') {
+            return '<div class="hx-campo"><label for="' + id + '">Repeticiones</label>' +
+              '<input type="text" inputmode="numeric" class="hx-input" id="' + id + '" data-f="reps" value="' + esc(est.reps) + '"></div>';
+          }
+          if (key === 'dist') {
+            return '<div class="hx-campo"><label for="' + id + '">Distancia</label><div class="hx-par">' +
+              '<input type="text" inputmode="decimal" class="hx-input" id="' + id + '" data-f="dist" value="' + esc(est.dist) + '">' +
+              '<select class="hx-select" data-f="distU" aria-label="Unidad de distancia">' +
+              '<option value="m"' + (est.distU === 'm' ? ' selected' : '') + '>m</option>' +
+              '<option value="km"' + (est.distU === 'km' ? ' selected' : '') + '>km</option></select></div></div>';
+          }
+          if (key === 'tiempo') {
+            return '<div class="hx-campo"><label for="' + id + '">Tiempo</label><div class="hx-par">' +
+              '<input type="text" inputmode="decimal" class="hx-input" id="' + id + '" data-f="tiempo" value="' + esc(est.tiempo) + '">' +
+              '<select class="hx-select" data-f="tiempoU" aria-label="Unidad de tiempo">' +
+              '<option value="seg"' + (est.tiempoU === 'seg' ? ' selected' : '') + '>seg</option>' +
+              '<option value="min"' + (est.tiempoU === 'min' ? ' selected' : '') + '>min</option></select></div></div>';
+          }
+          return '<div class="hx-campo"><label for="' + id + '">Carga</label><div class="hx-par">' +
+            '<input type="text" inputmode="decimal" class="hx-input" id="' + id + '" data-f="peso" value="' + esc(est.peso) + '">' +
+            '<span class="hx-unidad-fija">kg</span></div></div>';
+        }
+
+        function bloqueConfigHTML(b, i) {
+          const n = estado.bloques.length;
+          const ej = EJ[b.est.ejercicio];
+          const otro = b.est.ejercicio === 'otro'
+            ? '<div class="hx-campo hx-campo-otro"><label for="hx-' + i + '-otro">Nombre del ejercicio</label>' +
+              '<input type="text" class="hx-input hx-ancho" id="hx-' + i + '-otro" data-f="otro" maxlength="60" placeholder="Escribí el ejercicio" value="' + esc(b.est.otro) + '"></div>'
+            : '';
+          const terminado = b.cOk && b.eOk;
+          const actual = !terminado && estado.bloques.findIndex(x => !(x.cOk && x.eOk)) === i;
+          const resumen = textoCarrera(b) + ' \u00b7 ' + nombreEjercicio(b.est) + (detalleEstacion(b.est) ? ' ' + detalleEstacion(b.est) : '');
+          return '<div class="hx-bloque' + (terminado ? ' hx-terminado' : '') + (actual ? ' hx-actual' : '') + '" data-i="' + i + '">' +
+            '<div class="hx-bloque-head"><span class="hx-bloque-num">' + (terminado ? '\u2713 ' : '') + 'Bloque ' + (i + 1) + '</span>' +
+              '<div class="hx-bloque-tools">' +
+                '<button type="button" class="hx-icon-btn" data-act="up" aria-label="Subir bloque ' + (i + 1) + '"' + (i === 0 ? ' disabled' : '') + '><i class="fa-solid fa-chevron-up"></i></button>' +
+                '<button type="button" class="hx-icon-btn" data-act="down" aria-label="Bajar bloque ' + (i + 1) + '"' + (i === n - 1 ? ' disabled' : '') + '><i class="fa-solid fa-chevron-down"></i></button>' +
+                '<button type="button" class="hx-icon-btn peligro" data-act="del" aria-label="Eliminar estación ' + (i + 1) + '"><i class="fa-solid fa-trash"></i></button>' +
+              '</div></div>' +
+            '<div class="hx-fila hx-fila-c"><div class="hx-tag">Carrera ' + (i + 1) + '</div>' +
+              '<div class="hx-campo"><label for="hx-' + i + '-cvalor">Distancia</label><div class="hx-par">' +
+                '<input type="text" inputmode="decimal" class="hx-input" id="hx-' + i + '-cvalor" data-f="cvalor" value="' + esc(b.carrera.valor) + '">' +
+                '<select class="hx-select" data-f="cunidad" aria-label="Unidad de la carrera">' +
+                  '<option value="m"' + (b.carrera.unidad === 'm' ? ' selected' : '') + '>m</option>' +
+                  '<option value="km"' + (b.carrera.unidad === 'km' ? ' selected' : '') + '>km</option></select>' +
+              '</div></div></div>' +
+            '<div class="hx-fila hx-fila-e"><div class="hx-tag">Estación ' + (i + 1) + '</div>' +
+              '<div class="hx-campo hx-campo-ej"><label for="hx-' + i + '-ejercicio">Ejercicio</label>' +
+                '<select class="hx-select hx-ancho" id="hx-' + i + '-ejercicio" data-f="ejercicio">' + opcionesEjercicios(b.est.ejercicio) + '</select></div>' +
+              otro +
+              ej.campos.map(k => campoHTML(i, k, b.est)).join('') +
+            '</div>' +
+            '<p class="hx-bloque-resumen">' + esc(resumen) + '</p>' +
+            '<div class="hx-bloque-fin"><button type="button" class="hx-btn-fin" data-act="fin" aria-pressed="' + (terminado ? 'true' : 'false') + '">' +
+              (terminado
+                ? '<i class="fa-solid fa-rotate-left"></i> Deshacer: volver a abrir el bloque ' + (i + 1)
+                : '<i class="fa-solid fa-check"></i> Terminé el bloque ' + (i + 1)) +
+            '</button></div></div>';
+        }
+
+        function validarBloqueDOM(el, b) {
+          el.querySelectorAll('.hx-input[data-f]').forEach(inp => {
+            const f = inp.dataset.f;
+            const v = inp.value;
+            let ok = true;
+            if (f === 'cvalor') ok = parseNum(v, b.carrera.unidad) !== null;
+            else if (f === 'dist') ok = !v.trim() || parseNum(v, b.est.distU) !== null;
+            else if (f === 'reps' || f === 'tiempo' || f === 'peso') ok = !v.trim() || parseNum(v) !== null;
+            inp.classList.toggle('hx-invalid', !ok);
+          });
+        }
+
+        function renderConfig() {
+          if (!estado.bloques.length) {
+            elListaConfig.innerHTML = '<p class="hx-vacio">Todavía no hay estaciones. Pulsá «Agregar estación» para armar tu primer bloque de carrera y ejercicio.</p>';
+            return;
+          }
+          elListaConfig.innerHTML = estado.bloques.map(bloqueConfigHTML).join('');
+          elListaConfig.querySelectorAll('.hx-bloque').forEach(el => validarBloqueDOM(el, estado.bloques[+el.dataset.i]));
+        }
+
+        function aplicarCampo(b, f, v) {
+          switch (f) {
+            case 'cvalor': b.carrera.valor = v; break;
+            case 'cunidad': b.carrera.unidad = (v === 'km') ? 'km' : 'm'; break;
+            case 'distU': b.est.distU = (v === 'km') ? 'km' : 'm'; break;
+            case 'tiempoU': b.est.tiempoU = (v === 'min') ? 'min' : 'seg'; break;
+            case 'otro': case 'reps': case 'dist': case 'tiempo': case 'peso': b.est[f] = v; break;
+          }
+        }
+
+        function alEditar(e) {
+          const t = e.target;
+          const f = t.dataset && t.dataset.f;
+          if (!f) return;
+          const bloqueEl = t.closest('.hx-bloque');
+          if (!bloqueEl) return;
+          const i = +bloqueEl.dataset.i;
+          const b = estado.bloques[i];
+          if (!b) return;
+
+          if (f === 'ejercicio') {
+            if (e.type !== 'change') return;
+            const otroTexto = b.est.otro;
+            b.est = nuevaEstacion(EJ[t.value] ? t.value : 'burpees');
+            if (b.est.ejercicio === 'otro') b.est.otro = otroTexto;
+            guardarActual();
+            renderConfig();
+            renderProgreso();
+            const nuevoSel = elListaConfig.querySelector('.hx-bloque[data-i="' + i + '"] [data-f="ejercicio"]');
+            if (nuevoSel) nuevoSel.focus();
+            return;
+          }
+          aplicarCampo(b, f, t.value);
+          validarBloqueDOM(bloqueEl, b);
+          guardarActual();
+          renderProgreso();
+        }
+        elListaConfig.addEventListener('input', alEditar);
+        elListaConfig.addEventListener('change', alEditar);
+
+        elListaConfig.addEventListener('click', (e) => {
+          const btn = e.target.closest('button[data-act]');
+          if (!btn) return;
+          const bloqueEl = btn.closest('.hx-bloque');
+          const i = +bloqueEl.dataset.i;
+          const act = btn.dataset.act;
+          if (act === 'fin') {
+            const bl = estado.bloques[i];
+            const nuevo = !(bl.cOk && bl.eOk);
+            bl.cOk = nuevo;
+            bl.eOk = nuevo;
+            guardarActual();
+            renderConfig();
+            renderEntreno();
+            renderProgreso();
+            const objetivo = nuevo
+              ? elListaConfig.querySelector('.hx-bloque.hx-actual') || elListaConfig.querySelector('.hx-bloque[data-i="' + i + '"]')
+              : elListaConfig.querySelector('.hx-bloque[data-i="' + i + '"]');
+            if (objetivo) objetivo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+          if (act === 'del') {
+            if (!confirm('¿Eliminar la estación ' + (i + 1) + ' junto con su carrera?')) return;
+            estado.bloques.splice(i, 1);
+            guardarActual();
+            renderConfig();
+            renderEntreno();
+            renderProgreso();
+            return;
+          }
+          const j = (act === 'up') ? i - 1 : i + 1;
+          if (j < 0 || j >= estado.bloques.length) return;
+          const tmp = estado.bloques[i];
+          estado.bloques[i] = estado.bloques[j];
+          estado.bloques[j] = tmp;
+          guardarActual();
+          renderConfig();
+          renderEntreno();
+          renderProgreso();
+          let nb = elListaConfig.querySelector('.hx-bloque[data-i="' + j + '"] [data-act="' + act + '"]');
+          if (!nb || nb.disabled) nb = elListaConfig.querySelector('.hx-bloque[data-i="' + j + '"] [data-act="' + (act === 'up' ? 'down' : 'up') + '"]');
+          if (nb && !nb.disabled) nb.focus();
+        });
+
+        btnAgregar.addEventListener('click', () => {
+          estado.bloques.push(nuevoBloque('burpees', '400'));
+          guardarActual();
+          renderConfig();
+          renderEntreno();
+          renderProgreso();
+          const ultimo = elListaConfig.querySelector('.hx-bloque:last-child');
+          if (ultimo) {
+            ultimo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const inp = ultimo.querySelector('[data-f="cvalor"]');
+            if (inp) inp.focus({ preventScroll: true });
+          }
+        });
+
+        /* ---------- Modo Entrenar ---------- */
+        function itemsEntreno() {
+          const items = [];
+          estado.bloques.forEach((b, i) => {
+            items.push({ i: i, t: 'c', label: 'Carrera ' + (i + 1), main: textoCarrera(b), detail: '', done: b.cOk });
+            items.push({ i: i, t: 'e', label: 'Estación ' + (i + 1), main: nombreEjercicio(b.est), detail: detalleEstacion(b.est), done: b.eOk });
+          });
+          return items;
+        }
+
+        function renderEntreno() {
+          const items = itemsEntreno();
+          const sig = items.find(x => !x.done);
+
+          if (!items.length) {
+            elSiguiente.className = 'hx-siguiente';
+            elSiguiente.innerHTML = 'Todavía no configuraste bloques. Pasá a «Configurar» para agregar estaciones.';
+          } else if (!sig) {
+            elSiguiente.className = 'hx-siguiente completa';
+            elSiguiente.innerHTML = '<i class="fa-solid fa-trophy"></i> ¡Rutina completada!';
+          } else {
+            elSiguiente.className = 'hx-siguiente';
+            elSiguiente.innerHTML = '<span class="hx-sig-lbl">Siguiente</span><strong>' + esc(sig.label) + '</strong> \u2014 ' + esc(sig.main) +
+              (sig.detail ? ' \u00b7 ' + esc(sig.detail) : '');
+          }
+
+          elListaEntreno.innerHTML = items.map(x => {
+            const esSig = sig && sig.i === x.i && sig.t === x.t;
+            const estadoTxt = x.done ? 'Hecho' : (esSig ? 'Siguiente' : 'Pendiente');
+            return '<button type="button" class="hx-item ' + (x.t === 'c' ? 'hx-tipo-c' : 'hx-tipo-e') +
+              (x.done ? ' done' : '') + (esSig ? ' hx-next' : '') + '" data-i="' + x.i + '" data-t="' + x.t +
+              '" aria-pressed="' + (x.done ? 'true' : 'false') + '" aria-label="' + esc(x.label + ': ' + x.main + (x.detail ? ', ' + x.detail : '') + (x.done ? ' (completado)' : ' (pendiente)')) + '">' +
+              '<span class="hx-check"><i class="fa-solid fa-check"></i></span>' +
+              '<span class="hx-item-body"><span class="hx-item-lbl">' + esc(x.label) + '</span>' +
+                '<span class="hx-item-main">' + esc(x.main) + '</span>' +
+                (x.detail ? '<span class="hx-item-detail">' + esc(x.detail) + '</span>' : '') + '</span>' +
+              '<span class="hx-item-state">' + estadoTxt + '</span></button>';
+          }).join('');
+        }
+
+        elListaEntreno.addEventListener('click', (e) => {
+          const btn = e.target.closest('.hx-item');
+          if (!btn) return;
+          const i = +btn.dataset.i;
+          const t = btn.dataset.t;
+          const b = estado.bloques[i];
+          if (!b) return;
+          if (t === 'c') b.cOk = !b.cOk; else b.eOk = !b.eOk;
+          guardarActual();
+          renderEntreno();
+          renderProgreso();
+          const nb = elListaEntreno.querySelector('.hx-item[data-i="' + i + '"][data-t="' + t + '"]');
+          if (nb) nb.focus({ preventScroll: true });
+        });
+
+        /* ---------- Pestañas ---------- */
+        function setModo(m) {
+          estado.modo = (m === 'entreno') ? 'entreno' : 'config';
+          const enEntreno = estado.modo === 'entreno';
+          tabConfig.classList.toggle('active', !enEntreno);
+          tabEntreno.classList.toggle('active', enEntreno);
+          tabConfig.setAttribute('aria-selected', enEntreno ? 'false' : 'true');
+          tabEntreno.setAttribute('aria-selected', enEntreno ? 'true' : 'false');
+          viewConfig.classList.toggle('active', !enEntreno);
+          viewEntreno.classList.toggle('active', enEntreno);
+          if (enEntreno) renderEntreno(); else renderConfig();
+          guardarActual();
+        }
+        tabConfig.addEventListener('click', () => setModo('config'));
+        tabEntreno.addEventListener('click', () => setModo('entreno'));
+
+        /* ---------- Controles generales ---------- */
+        btnReset.addEventListener('click', () => {
+          const r = calcular();
+          if (r.hechos === 0) { status('No hay bloques marcados para restablecer.'); return; }
+          if (!confirm('¿Restablecer el progreso? Se quitarán todas las marcas de bloques completados. La configuración de la rutina no se modifica.')) return;
+          estado.bloques.forEach(b => { b.cOk = false; b.eOk = false; });
+          guardarActual();
+          renderEntreno();
+          renderProgreso();
+          status('Progreso restablecido. La configuración de la rutina se conservó.');
+        });
+
+        btnTodo.addEventListener('click', () => {
+          const r = calcular();
+          if (r.total === 0) { status('Agregá al menos una estación para poder marcar la rutina.'); return; }
+          if (r.hechos === r.total) { status('Todos los bloques ya están completados.'); return; }
+          if (!confirm('¿Marcar todos los bloques de la rutina como completados?')) return;
+          estado.bloques.forEach(b => { b.cOk = true; b.eOk = true; });
+          guardarActual();
+          renderEntreno();
+          renderProgreso();
+          status('Todos los bloques quedaron marcados como completados.');
+        });
+
+        btnNueva.addEventListener('click', () => {
+          const r = calcular();
+          let aviso = '';
+          if (hayCambiosSinGuardar()) {
+            aviso = 'Tenés una rutina con cambios sin guardar. Si empezás una nueva, se descartará. ¿Continuar?';
+          } else if (r.hechos > 0) {
+            aviso = 'Se perderá el progreso marcado en la rutina actual. ¿Empezar una nueva rutina?';
+          }
+          if (aviso && !confirm(aviso)) return;
+          estado = estadoNuevo();
+          elNombre.value = '';
+          guardarActual();
+          setModo('config');
+          renderProgreso();
+          status('Nueva rutina lista para configurar.');
+        });
+
+        /* ---------- Guardar y recuperar rutinas ---------- */
+        function leerGuardadas() {
+          try {
+            const raw = localStorage.getItem(KEY_GUARDADAS);
+            if (!raw) return [];
+            const arr = JSON.parse(raw);
+            return Array.isArray(arr) ? arr.filter(x => x && typeof x.nombre === 'string' && Array.isArray(x.bloques)) : [];
+          } catch (e) { return []; }
+        }
+        function escribirGuardadas(arr) {
+          try { localStorage.setItem(KEY_GUARDADAS, JSON.stringify(arr)); return true; } catch (e) { return false; }
+        }
+
+        function renderGuardadas(seleccionar) {
+          const lista = leerGuardadas();
+          if (!lista.length) {
+            selGuardadas.innerHTML = '<option value="">Todavía no guardaste rutinas</option>';
+            selGuardadas.disabled = true;
+            btnCargar.disabled = true;
+            btnBorrar.disabled = true;
+          } else {
+            selGuardadas.innerHTML = lista.map((x, i) => '<option value="' + i + '">' + esc(x.nombre) + '</option>').join('');
+            selGuardadas.disabled = false;
+            btnCargar.disabled = false;
+            btnBorrar.disabled = false;
+            if (seleccionar) {
+              const idx = lista.findIndex(x => x.nombre.toLowerCase() === seleccionar.toLowerCase());
+              if (idx >= 0) selGuardadas.value = String(idx);
+            }
+          }
+          elGuardadasInfo.textContent = almacenamientoOK
+            ? 'Las rutinas se guardan solo en este navegador y dispositivo (almacenamiento local). No se sincronizan con otros dispositivos y se pierden si borrás los datos del navegador. Al guardar se conserva la configuración; el progreso marcado no se guarda en la rutina.'
+            : 'Este navegador no permite guardar datos localmente (modo privado o almacenamiento bloqueado). Podés usar la herramienta, pero la rutina no se conservará al cerrar la página.';
+        }
+
+        elNombre.addEventListener('input', () => { estado.nombre = elNombre.value.slice(0, 60); guardarActual(); });
+
+        btnGuardar.addEventListener('click', () => {
+          const nombre = elNombre.value.trim().slice(0, 60);
+          if (!nombre) { status('Escribí un nombre para la rutina antes de guardarla.'); elNombre.focus(); return; }
+          if (!estado.bloques.length) { status('Agregá al menos una estación antes de guardar.'); return; }
+          const lista = leerGuardadas();
+          const idx = lista.findIndex(x => x.nombre.toLowerCase() === nombre.toLowerCase());
+          if (idx >= 0 && !confirm('Ya existe una rutina llamada "' + lista[idx].nombre + '". ¿Querés reemplazarla?')) return;
+          const obj = {
+            nombre: nombre,
+            fecha: new Date().toISOString(),
+            bloques: estado.bloques.map(b => ({ carrera: JSON.parse(JSON.stringify(b.carrera)), est: JSON.parse(JSON.stringify(b.est)) }))
+          };
+          if (idx >= 0) lista[idx] = obj; else lista.push(obj);
+          if (!escribirGuardadas(lista)) {
+            status('No se pudo guardar: el almacenamiento del navegador no está disponible.');
+            return;
+          }
+          estado.nombre = nombre;
+          estado.snapshot = cfgString();
+          guardarActual();
+          renderGuardadas(nombre);
+          status('Rutina "' + nombre + '" guardada en este dispositivo.');
+        });
+
+        btnCargar.addEventListener('click', () => {
+          const lista = leerGuardadas();
+          const item = lista[parseInt(selGuardadas.value, 10)];
+          if (!item) return;
+          if (hayCambiosSinGuardar() && !confirm('Tenés cambios sin guardar en la rutina actual. ¿Descartarlos y cargar "' + item.nombre + '"?')) return;
+          const bloques = item.bloques.map(b => sanitizarBloque({ carrera: b.carrera, est: b.est })).filter(Boolean);
+          bloques.forEach(b => { b.cOk = false; b.eOk = false; });
+          estado = { bloques: bloques, nombre: item.nombre, snapshot: cfgString(bloques), modo: 'entreno' };
+          elNombre.value = item.nombre;
+          guardarActual();
+          setModo('entreno');
+          renderProgreso();
+          status('Rutina "' + item.nombre + '" cargada.');
+        });
+
+        btnBorrar.addEventListener('click', () => {
+          const lista = leerGuardadas();
+          const idx = parseInt(selGuardadas.value, 10);
+          const item = lista[idx];
+          if (!item) return;
+          if (!confirm('¿Eliminar la rutina guardada "' + item.nombre + '"? Esta acción no se puede deshacer.')) return;
+          lista.splice(idx, 1);
+          if (!escribirGuardadas(lista)) { status('No se pudo eliminar: el almacenamiento del navegador no está disponible.'); return; }
+          renderGuardadas();
+          status('Rutina "' + item.nombre + '" eliminada.');
+        });
+
+        /* ---------- Inicio ---------- */
+        elNombre.value = estado.nombre || '';
+        renderGuardadas();
+        renderConfig();
+        setModo(estado.modo);
+        renderProgreso();
       })();
 
     });
